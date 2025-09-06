@@ -78,7 +78,7 @@ export function DashboardLayout({
     <SidebarProvider>
       <Sidebar variant="inset" collapsible="icon">
         <SidebarHeader className="items-center justify-center p-4">
-          <Logo className="size-10 text-primary group-data-[collapsible=icon]:size-10" />
+          <Logo className="size-16 text-primary group-data-[collapsible=icon]:size-12" />
           <span className="text-lg font-headline font-semibold text-primary transition-all group-data-[collapsible=icon]:-translate-x-8 group-data-[collapsible=icon]:opacity-0">
             KalpanaAI
           </span>
