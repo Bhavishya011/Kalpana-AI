@@ -41,6 +41,10 @@
         "generationFailedTitle": "उत्पादन विफल",
         "generationFailedDescription": "डिज़ाइन उत्पन्न नहीं किए जा सके। कृपया कंसोल की जाँच करें।"
       },
+      "salesAnalytics": {
+        "title": "बिक्री विश्लेषिकी",
+        "description": "समय के साथ अपने बिक्री प्रदर्शन को ट्रैक करें।"
+      },
       "languageSwitcher": {
         "placeholder": "भाषा"
       },
@@ -58,6 +62,7 @@
         "marketPulse": "मार्केट पल्स",
         "theMuse": "द म्यूज",
         "artisanCircle": "कारीगर सर्कल",
+        "salesAnalytics": "बिक्री विश्लेषिकी",
         "settings": "सेटिंग्स",
         "support": "सहायता"
       }

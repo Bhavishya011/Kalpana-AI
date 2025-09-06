@@ -1,4 +1,4 @@
-import {Dashboard} from '@/components/dashboard/dashboard';
+import {HomePage} from '@/components/dashboard/home-page';
 import {getDictionary} from '@/lib/i18n/dictionaries';
 import {i18n} from '@/lib/i18n/i18n-config';
 
@@ -14,5 +14,5 @@ export default async function Home({
   const locale = i18n.locales.find(l => l === lang) ?? i18n.defaultLocale;
   const dictionary = await getDictionary(locale);
 
-  return <Dashboard dictionary={dictionary.dashboard} />;
+  return <HomePage dictionary={dictionary.dashboard} />;
 }

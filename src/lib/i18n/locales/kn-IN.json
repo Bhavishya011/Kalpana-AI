@@ -41,6 +41,10 @@
             "generationFailedTitle": "ರಚಿಸಲು ವಿಫಲವಾಗಿದೆ",
             "generationFailedDescription": "ವಿನ್ಯಾಸಗಳನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಕನ್ಸೋಲ್ ಅನ್ನು ಪರಿಶೀಲಿಸಿ."
         },
+        "salesAnalytics": {
+            "title": "ಮಾರಾಟ ವಿಶ್ಲೇಷಣೆ",
+            "description": "ಕಾಲಾನಂತರದಲ್ಲಿ ನಿಮ್ಮ ಮಾರಾಟ ಕಾರ್ಯಕ್ಷಮತೆಯನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ."
+        },
         "languageSwitcher": {
             "placeholder": "ಭಾಷೆ"
         },
@@ -58,6 +62,7 @@
             "marketPulse": "ಮಾರುಕಟ್ಟೆ ಪಲ್ಸ್",
             "theMuse": "ದಿ ಮ್ಯೂಸ್",
             "artisanCircle": "ಕುಶಲಕರ್ಮಿಗಳ ವಲಯ",
+            "salesAnalytics": "ಮಾರಾಟ ವಿಶ್ಲೇಷಣೆ",
             "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
             "support": "ಬೆಂಬಲ"
         }

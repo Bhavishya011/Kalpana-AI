@@ -41,6 +41,10 @@
             "generationFailedTitle": "Generation Failed",
             "generationFailedDescription": "Could not generate designs. Please check the console."
         },
+        "salesAnalytics": {
+            "title": "Sales Analytics",
+            "description": "Track your sales performance over time."
+        },
         "languageSwitcher": {
             "placeholder": "Language"
         },
@@ -58,6 +62,7 @@
             "marketPulse": "Market Pulse",
             "theMuse": "The Muse",
             "artisanCircle": "Artisan Circle",
+            "salesAnalytics": "Sales Analytics",
             "settings": "Settings",
             "support": "Support"
         }

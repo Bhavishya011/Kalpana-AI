@@ -41,6 +41,10 @@
             "generationFailedTitle": "రూపొందించడంలో విఫలమైంది",
             "generationFailedDescription": "డిజైన్‌లను రూపొందించలేకపోయాము. దయచేసి కన్సోల్‌ను తనిఖీ చేయండి."
         },
+        "salesAnalytics": {
+            "title": "అమ్మకాల విశ్లేషణలు",
+            "description": "కాలక్రమేణా మీ అమ్మకాల పనితీరును ట్రాక్ చేయండి."
+        },
         "languageSwitcher": {
             "placeholder": "భాష"
         },
@@ -58,6 +62,7 @@
             "marketPulse": "మార్కెట్ పల్స్",
             "theMuse": "ది మ్యూజ్",
             "artisanCircle": "ఆర్టిసాన్ సర్కిల్",
+            "salesAnalytics": "అమ్మకాల విశ్లేషణలు",
             "settings": "సెట్టింగ్‌లు",
             "support": "మద్దతు"
         }

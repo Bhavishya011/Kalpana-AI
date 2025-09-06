@@ -41,6 +41,10 @@
             "generationFailedTitle": "உருவாக்குவதில் தோல்வி",
             "generationFailedDescription": "வடிவமைப்புகளை உருவாக்க முடியவில்லை. தயவுசெய்து கன்சோலைச் சரிபார்க்கவும்."
         },
+        "salesAnalytics": {
+            "title": "விற்பனை பகுப்பாய்வு",
+            "description": "காலப்போக்கில் உங்கள் விற்பனை செயல்திறனைக் கண்காணிக்கவும்."
+        },
         "languageSwitcher": {
             "placeholder": "மொழி"
         },
@@ -54,10 +58,11 @@
         },
         "sidebar": {
             "dashboard": "டாஷ்போர்டு",
-            "storyStudio": "கதை ஸ்டுடியோ",
+            "storyStudio": "கதை ஸ்டுഡിയോ",
             "marketPulse": "சந்தை நாடித்துடிப்பு",
             "theMuse": "தி மியூஸ்",
             "artisanCircle": "கைவினைஞர் வட்டம்",
+            "salesAnalytics": "விற்பனை பகுப்பாய்வு",
             "settings": "அமைப்புகள்",
             "support": "ஆதரவு"
         }

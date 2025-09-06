@@ -18,10 +18,12 @@ import {
   Users,
   Settings,
   LifeBuoy,
+  LineChart,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import type { getDictionary } from "@/lib/i18n/dictionaries";
+import { usePathname } from "next/navigation";
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>["dashboard"];
 
@@ -32,36 +34,44 @@ export function DashboardLayout({
   children: ReactNode;
   dictionary: Dictionary;
 }) {
+  const pathname = usePathname();
+  const lang = pathname.split('/')[1] || 'en-US';
+
   const menuItems = [
     {
-      href: "#",
+      href: `/${lang}`,
       icon: Home,
       label: dictionary.sidebar.dashboard,
       tooltip: dictionary.sidebar.dashboard,
+      path: `/${lang}`,
     },
     {
-      href: "#",
+      href: `/${lang}/story-studio`,
       icon: Sparkles,
       label: dictionary.sidebar.storyStudio,
       tooltip: dictionary.sidebar.storyStudio,
+      path: `/${lang}/story-studio`,
     },
     {
-      href: "#",
-      icon: TrendingUp,
-      label: dictionary.sidebar.marketPulse,
-      tooltip: dictionary.sidebar.marketPulse,
+        href: `/${lang}/sales-analytics`,
+        icon: LineChart,
+        label: dictionary.sidebar.salesAnalytics,
+        tooltip: dictionary.sidebar.salesAnalytics,
+        path: `/${lang}/sales-analytics`,
     },
     {
-      href: "#",
+      href: `/${lang}/the-muse`,
       icon: Palette,
       label: dictionary.sidebar.theMuse,
       tooltip: dictionary.sidebar.theMuse,
+      path: `/${lang}/the-muse`,
     },
     {
-      href: "#",
+      href: `/${lang}/artisan-circle`,
       icon: Users,
       label: dictionary.sidebar.artisanCircle,
       tooltip: dictionary.sidebar.artisanCircle,
+      path: `/${lang}/artisan-circle`,
     },
   ];
   return (
@@ -83,7 +93,7 @@ export function DashboardLayout({
                     children: item.tooltip,
                     className: "bg-primary text-primary-foreground",
                   }}
-                  isActive={item.label === dictionary.sidebar.dashboard}
+                  isActive={pathname === item.path}
                 >
                   <Link href={item.href}>
                     <item.icon />

@@ -41,6 +41,10 @@
             "generationFailedTitle": "બનાવવામાં નિષ્ફળ",
             "generationFailedDescription": "ડિઝાઇન બનાવી શકાઈ નથી. કૃપા કરીને કન્સોલ તપાસો."
         },
+        "salesAnalytics": {
+            "title": "વેચાણ વિશ્લેષણ",
+            "description": "સમય જતાં તમારા વેચાણ પ્રદર્શનને ટ્રૅક કરો."
+        },
         "languageSwitcher": {
             "placeholder": "ભાષા"
         },
@@ -58,6 +62,7 @@
             "marketPulse": "માર્કેટ પલ્સ",
             "theMuse": "ધ મ્યુઝ",
             "artisanCircle": "કારીગર સર્કલ",
+            "salesAnalytics": "વેચાણ વિશ્લેષણ",
             "settings": "સેટિંગ્સ",
             "support": "સપોર્ટ"
         }

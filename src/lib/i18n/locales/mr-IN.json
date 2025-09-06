@@ -41,6 +41,10 @@
             "generationFailedTitle": "तयार करण्यात अयशस्वी",
             "generationFailedDescription": "डिझाइन तयार करता आले नाहीत. कृपया कन्सोल तपासा."
         },
+        "salesAnalytics": {
+            "title": "विक्री विश्लेषण",
+            "description": "तुमच्या विक्री कामगिरीचा मागोवा घ्या."
+        },
         "languageSwitcher": {
             "placeholder": "भाषा"
         },
@@ -58,6 +62,7 @@
             "marketPulse": "मार्केट पल्स",
             "theMuse": "द म्युज",
             "artisanCircle": "कारागीर मंडळ",
+            "salesAnalytics": "विक्री विश्लेषण",
             "settings": "सेटिंग्ज",
             "support": "समर्थन"
         }

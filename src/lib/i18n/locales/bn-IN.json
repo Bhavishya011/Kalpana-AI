@@ -41,6 +41,10 @@
             "generationFailedTitle": "তৈরি করতে ব্যর্থ",
             "generationFailedDescription": "ডিজাইন তৈরি করা যায়নি। অনুগ্রহ করে কনসোল পরীক্ষা করুন।"
         },
+        "salesAnalytics": {
+            "title": "বিক্রয় বিশ্লেষণ",
+            "description": "সময়ের সাথে সাথে আপনার বিক্রয় কর্মক্ষমতা ট্র্যাক করুন।"
+        },
         "languageSwitcher": {
             "placeholder": "ভাষা"
         },
@@ -58,6 +62,7 @@
             "marketPulse": "মার্কেট পালস",
             "theMuse": "দ্য মিউজ",
             "artisanCircle": "শিল্পী সার্কেল",
+            "salesAnalytics": "বিক্রয় বিশ্লেষণ",
             "settings": "সেটিংস",
             "support": "সাপোর্ট"
         }
