@@ -1,0 +1,65 @@
+{
+    "dashboard": {
+        "title": "KalpanaAI Dashboard",
+        "greeting": "Welcome, Artisan",
+        "description": "AI-powered tools to enhance your creativity and expand your reach.",
+        "marketPulse": {
+            "title": "Market Pulse",
+            "demand": "Demand",
+            "update": "Updated just now",
+            "interval": "Updates every 6 hours"
+        },
+        "artisanCircle": {
+            "title": "Artisan Circle",
+            "description": "Connect with AI-matched mentors for guidance.",
+            "call": "Call"
+        },
+        "storyStudio": {
+            "title": "Story Studio",
+            "description": "Turn your product into a story that sells. Upload a photo and tell us about yourself.",
+            "productPhoto": "Product Photo",
+            "yourBackground": "Your background or story",
+            "backgroundPlaceholder": "e.g., I'm a third-generation potter from Khurja...",
+            "generateStory": "Generate Story",
+            "generating": "Crafting your story...",
+            "generatedStory": "Generated Story",
+            "aiEnhancedImage": "AI Enhanced Image",
+            "createAnother": "Create Another",
+            "publish": "1-Click Publish",
+            "missingInfoTitle": "Missing Information",
+            "missingInfoDescription": "Please upload a photo and describe your background.",
+            "generationFailedTitle": "Generation Failed",
+            "generationFailedDescription": "Could not generate story. Please check the console for errors."
+        },
+        "theMuse": {
+            "title": "The Muse",
+            "description": "Your design co-pilot. Upload a photo to explore new creative directions.",
+            "generateVariations": "Generate Variations",
+            "generating": "Summoning inspiration...",
+            "uploadPrompt": "Upload a photo to see design variations.",
+            "startOver": "Start Over",
+            "generationFailedTitle": "Generation Failed",
+            "generationFailedDescription": "Could not generate designs. Please check the console."
+        },
+        "languageSwitcher": {
+            "placeholder": "Language"
+        },
+        "userMenu": {
+            "artisanName": "Artisan Name",
+            "artisanEmail": "artisan@example.com",
+            "profile": "Profile",
+            "settings": "Settings",
+            "support": "Support",
+            "logout": "Log out"
+        },
+        "sidebar": {
+            "dashboard": "Dashboard",
+            "storyStudio": "Story Studio",
+            "marketPulse": "Market Pulse",
+            "theMuse": "The Muse",
+            "artisanCircle": "Artisan Circle",
+            "settings": "Settings",
+            "support": "Support"
+        }
+    }
+}

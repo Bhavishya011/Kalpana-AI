@@ -8,33 +8,28 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Languages } from "lucide-react";
+import { supportedLanguages } from "@/lib/i18n/i18n-config";
+import type { getDictionary } from "@/lib/i18n/dictionaries";
 
-const supportedLanguages = [
-  { value: "en-US", label: "English" },
-  { value: "hi-IN", label: "हिन्दी" },
-  { value: "bn-IN", label: "বাংলা" },
-  { value: "ta-IN", label: "தமிழ்" },
-  { value: "te-IN", label: "తెలుగు" },
-  { value: "mr-IN", label: "मराठी" },
-  { value: "gu-IN", label: "ગુજરાતી" },
-  { value: "kn-IN", label: "ಕನ್ನಡ" },
-];
+type Dictionary = Awaited<ReturnType<typeof getDictionary>>["dashboard"];
 
 type LanguageSwitcherProps = {
   language: string;
   setLanguage: (lang: string) => void;
+  dictionary: Dictionary;
 };
 
 export function LanguageSwitcher({
   language,
   setLanguage,
+  dictionary,
 }: LanguageSwitcherProps) {
   return (
     <div className="flex items-center gap-2">
       <Languages className="h-5 w-5 text-muted-foreground" />
       <Select value={language} onValueChange={setLanguage}>
         <SelectTrigger className="w-[120px] border-0 bg-transparent text-sm shadow-none focus:ring-0">
-          <SelectValue placeholder="Language" />
+          <SelectValue placeholder={dictionary.languageSwitcher.placeholder} />
         </SelectTrigger>
         <SelectContent>
           {supportedLanguages.map((lang) => (

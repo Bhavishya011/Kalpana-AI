@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Users, Video } from "lucide-react";
+import type {getDictionary} from '@/lib/i18n/dictionaries';
 
 const mentors = [
   {
@@ -35,16 +36,18 @@ const mentors = [
   },
 ];
 
-export function ArtisanCircle() {
+type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
+
+export function ArtisanCircle({dictionary}: {dictionary: Dictionary}) {
   return (
     <Card className="bg-card/60 backdrop-blur-lg border-border/50">
       <CardHeader>
         <CardTitle className="flex items-center gap-3">
           <Users className="text-primary" />
-          <span className="font-headline">Artisan Circle</span>
+          <span className="font-headline">{dictionary.artisanCircle.title}</span>
         </CardTitle>
         <CardDescription>
-          Connect with AI-matched mentors for guidance.
+          {dictionary.artisanCircle.description}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -68,7 +71,7 @@ export function ArtisanCircle() {
               </div>
               <Button variant="outline" size="sm">
                 <Video className="mr-2 h-4 w-4" />
-                Call
+                {dictionary.artisanCircle.call}
               </Button>
             </div>
           ))}

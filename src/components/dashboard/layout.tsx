@@ -21,41 +21,49 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import Link from "next/link";
+import type { getDictionary } from "@/lib/i18n/dictionaries";
 
-const menuItems = [
-  {
-    href: "#",
-    icon: Home,
-    label: "Dashboard",
-    tooltip: "Dashboard",
-  },
-  {
-    href: "#",
-    icon: Sparkles,
-    label: "Story Studio",
-    tooltip: "Story Studio",
-  },
-  {
-    href: "#",
-    icon: TrendingUp,
-    label: "Market Pulse",
-    tooltip: "Market Pulse",
-  },
-  {
-    href: "#",
-    icon: Palette,
-    label: "The Muse",
-    tooltip: "The Muse",
-  },
-  {
-    href: "#",
-    icon: Users,
-    label: "Artisan Circle",
-    tooltip: "Artisan Circle",
-  },
-];
+type Dictionary = Awaited<ReturnType<typeof getDictionary>>["dashboard"];
 
-export function DashboardLayout({ children }: { children: ReactNode }) {
+export function DashboardLayout({
+  children,
+  dictionary,
+}: {
+  children: ReactNode;
+  dictionary: Dictionary;
+}) {
+  const menuItems = [
+    {
+      href: "#",
+      icon: Home,
+      label: dictionary.sidebar.dashboard,
+      tooltip: dictionary.sidebar.dashboard,
+    },
+    {
+      href: "#",
+      icon: Sparkles,
+      label: dictionary.sidebar.storyStudio,
+      tooltip: dictionary.sidebar.storyStudio,
+    },
+    {
+      href: "#",
+      icon: TrendingUp,
+      label: dictionary.sidebar.marketPulse,
+      tooltip: dictionary.sidebar.marketPulse,
+    },
+    {
+      href: "#",
+      icon: Palette,
+      label: dictionary.sidebar.theMuse,
+      tooltip: dictionary.sidebar.theMuse,
+    },
+    {
+      href: "#",
+      icon: Users,
+      label: dictionary.sidebar.artisanCircle,
+      tooltip: dictionary.sidebar.artisanCircle,
+    },
+  ];
   return (
     <SidebarProvider>
       <Sidebar variant="inset" collapsible="icon">
@@ -75,7 +83,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
                     children: item.tooltip,
                     className: "bg-primary text-primary-foreground",
                   }}
-                  isActive={item.label === "Dashboard"}
+                  isActive={item.label === dictionary.sidebar.dashboard}
                 >
                   <Link href={item.href}>
                     <item.icon />
@@ -89,18 +97,18 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip="Settings">
+              <SidebarMenuButton asChild tooltip={dictionary.sidebar.settings}>
                 <Link href="#">
                   <Settings />
-                  <span>Settings</span>
+                  <span>{dictionary.sidebar.settings}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip="Support">
+              <SidebarMenuButton asChild tooltip={dictionary.sidebar.support}>
                 <Link href="#">
                   <LifeBuoy />
-                  <span>Support</span>
+                  <span>{dictionary.sidebar.support}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

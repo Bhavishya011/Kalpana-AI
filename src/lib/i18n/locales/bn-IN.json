@@ -1,0 +1,65 @@
+{
+    "dashboard": {
+        "title": "কল্পনাএআই ড্যাশবোর্ড",
+        "greeting": "স্বাগতম, শিল্পী",
+        "description": "আপনার সৃজনশীলতা বাড়াতে এবং আপনার নাগাল প্রসারিত করার জন্য এআই-চালিত সরঞ্জাম।",
+        "marketPulse": {
+            "title": "মার্কেট পালস",
+            "demand": "চাহিদা",
+            "update": "এখনই আপডেট হয়েছে",
+            "interval": "প্রতি ৬ ঘন্টায় আপডেট হয়"
+        },
+        "artisanCircle": {
+            "title": "শিল্পী সার্কেল",
+            "description": "নির্দেশনার জন্য এআই-ম্যাচ করা পরামর্শদাতাদের সাথে সংযোগ করুন।",
+            "call": "কল"
+        },
+        "storyStudio": {
+            "title": "স্টোরি স্টুডিও",
+            "description": "আপনার পণ্যকে বিক্রির গল্পে পরিণত করুন। একটি ছবি আপলোড করুন এবং আমাদের আপনার সম্পর্কে বলুন।",
+            "productPhoto": "পণ্যের ছবি",
+            "yourBackground": "আপনার পটভূমি বা গল্প",
+            "backgroundPlaceholder": "যেমন, আমি খুরজার একজন তৃতীয় প্রজন্মের কুমোর...",
+            "generateStory": "গল্প তৈরি করুন",
+            "generating": "আপনার গল্প তৈরি করা হচ্ছে...",
+            "generatedStory": "তৈরি গল্প",
+            "aiEnhancedImage": "এআই উন্নত ছবি",
+            "createAnother": "অন্য একটি তৈরি করুন",
+            "publish": "১-ক্লিকে প্রকাশ করুন",
+            "missingInfoTitle": "তথ্য অনুপস্থিত",
+            "missingInfoDescription": "অনুগ্রহ করে একটি ছবি আপলোড করুন এবং আপনার পটভূমি বর্ণনা করুন।",
+            "generationFailedTitle": "তৈরি করতে ব্যর্থ",
+            "generationFailedDescription": "গল্প তৈরি করা যায়নি। অনুগ্রহ করে কনসোলে ত্রুটিগুলি পরীক্ষা করুন।"
+        },
+        "theMuse": {
+            "title": "দ্য মিউজ",
+            "description": "আপনার ডিজাইন সহ-পাইলট। নতুন সৃজনশীল দিকনির্দেশনা অন্বেষণ করতে একটি ছবি আপলোড করুন।",
+            "generateVariations": "ভ্যারিয়েশন তৈরি করুন",
+            "generating": "অনুপ্রেরণা তলব করা হচ্ছে...",
+            "uploadPrompt": "ডিজাইন ভ্যারিয়েশন দেখতে একটি ছবি আপলোড করুন।",
+            "startOver": "আবার শুরু করুন",
+            "generationFailedTitle": "তৈরি করতে ব্যর্থ",
+            "generationFailedDescription": "ডিজাইন তৈরি করা যায়নি। অনুগ্রহ করে কনসোল পরীক্ষা করুন।"
+        },
+        "languageSwitcher": {
+            "placeholder": "ভাষা"
+        },
+        "userMenu": {
+            "artisanName": "শিল্পী নাম",
+            "artisanEmail": "artisan@example.com",
+            "profile": "প্রোফাইল",
+            "settings": "সেটিংস",
+            "support": "সাপোর্ট",
+            "logout": "লগ আউট"
+        },
+        "sidebar": {
+            "dashboard": "ড্যাশবোর্ড",
+            "storyStudio": "স্টোরি স্টুডিও",
+            "marketPulse": "মার্কেট পালস",
+            "theMuse": "দ্য মিউজ",
+            "artisanCircle": "শিল্পী সার্কেল",
+            "settings": "সেটিংস",
+            "support": "সাপোর্ট"
+        }
+    }
+}

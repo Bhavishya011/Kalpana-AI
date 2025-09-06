@@ -11,8 +11,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import type {getDictionary} from '@/lib/i18n/dictionaries';
 
-export function MarketPulse() {
+type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
+
+
+export function MarketPulse({dictionary}: {dictionary: Dictionary}) {
   const [data, setData] =
     useState<DisplayHyperlocalDemandAlertsOutput | null>(null);
   const [loading, setLoading] = useState(true);
@@ -39,14 +43,14 @@ export function MarketPulse() {
     getDemand();
   }, []);
 
-  const chartData = [{ name: "Demand", value: data?.demandMultiplier ?? 0 }];
+  const chartData = [{ name: dictionary.marketPulse.demand, value: data?.demandMultiplier ?? 0 }];
 
   return (
     <Card className="bg-card/60 backdrop-blur-lg border-border/50">
       <CardHeader>
         <CardTitle className="flex items-center gap-3">
           <TrendingUp className="text-primary" />
-          <span className="font-headline">Market Pulse</span>
+          <span className="font-headline">{dictionary.marketPulse.title}</span>
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -63,7 +67,7 @@ export function MarketPulse() {
               </p>
               <p className="text-lg text-foreground">{data?.alert}</p>
               <p className="text-xs text-muted-foreground">
-                Updated just now &bull; Updates every 6 hours
+                {dictionary.marketPulse.update} &bull; {dictionary.marketPulse.interval}
               </p>
             </div>
             <div className="h-24 w-full sm:w-1/3">

@@ -1,0 +1,65 @@
+{
+    "dashboard": {
+        "title": "કલ્પનાએઆઈ ડેશબોર્ડ",
+        "greeting": "આવો, કારીગર",
+        "description": "તમારી સર્જનાત્મકતાને વધારવા અને તમારી પહોંચને વિસ્તારવા માટે એઆઈ-સંચાલિત સાધનો.",
+        "marketPulse": {
+            "title": "માર્કેટ પલ્સ",
+            "demand": "માંગ",
+            "update": "હમણાં જ અપડેટ થયું",
+            "interval": "દર ૬ કલાકે અપડેટ થાય છે"
+        },
+        "artisanCircle": {
+            "title": "કારીગર સર્કલ",
+            "description": "માર્ગદર્શન માટે એઆઈ-મેચ્ડ માર્ગદર્શકો સાથે જોડાઓ.",
+            "call": "કૉલ કરો"
+        },
+        "storyStudio": {
+            "title": "સ્ટોરી સ્ટુડિયો",
+            "description": "તમારા ઉત્પાદનને વેચાણની વાર્તામાં ફેરવો. ફોટો અપલોડ કરો અને અમને તમારા વિશે કહો.",
+            "productPhoto": "ઉત્પાદનનો ફોટો",
+            "yourBackground": "તમારી પૃષ્ઠભૂમિ અથવા વાર્તા",
+            "backgroundPlaceholder": "દા.ત., હું ખુરજાનો ત્રીજી પેઢીનો કુંભાર છું...",
+            "generateStory": "વાર્તા બનાવો",
+            "generating": "તમારી વાર્તા બનાવી રહ્યા છીએ...",
+            "generatedStory": "બનાવેલી વાર્તા",
+            "aiEnhancedImage": "એઆઈ ઉન્નત છબી",
+            "createAnother": "બીજું બનાવો",
+            "publish": "૧-ક્લિકમાં પ્રકાશિત કરો",
+            "missingInfoTitle": "માહિતી ખૂટે છે",
+            "missingInfoDescription": "કૃપા કરીને ફોટો અપલોડ કરો અને તમારી પૃષ્ઠભૂમિનું વર્ણન કરો.",
+            "generationFailedTitle": "બનાવવામાં નિષ્ફળ",
+            "generationFailedDescription": "વાર્તા બનાવી શકાઈ નથી. કૃપા કરીને કન્સોલમાં ભૂલો તપાસો."
+        },
+        "theMuse": {
+            "title": "ધ મ્યુઝ",
+            "description": "તમારો ડિઝાઇન સહ-પાઇલટ. નવી સર્જનાત્મક દિશાઓ શોધવા માટે ફોટો અપલોડ કરો.",
+            "generateVariations": "વિવિધતાઓ બનાવો",
+            "generating": "પ્રેરણા બોલાવી રહ્યા છીએ...",
+            "uploadPrompt": "ડિઝાઇન વિવિધતાઓ જોવા માટે ફોટો અપલોડ કરો.",
+            "startOver": "ફરીથી શરૂ કરો",
+            "generationFailedTitle": "બનાવવામાં નિષ્ફળ",
+            "generationFailedDescription": "ડિઝાઇન બનાવી શકાઈ નથી. કૃપા કરીને કન્સોલ તપાસો."
+        },
+        "languageSwitcher": {
+            "placeholder": "ભાષા"
+        },
+        "userMenu": {
+            "artisanName": "કારીગરનું નામ",
+            "artisanEmail": "artisan@example.com",
+            "profile": "પ્રોફાઇલ",
+            "settings": "સેટિંગ્સ",
+            "support": "સપોર્ટ",
+            "logout": "લોગ આઉટ"
+        },
+        "sidebar": {
+            "dashboard": "ડેશબોર્ડ",
+            "storyStudio": "સ્ટોરી સ્ટુડિયો",
+            "marketPulse": "માર્કેટ પલ્સ",
+            "theMuse": "ધ મ્યુઝ",
+            "artisanCircle": "કારીગર સર્કલ",
+            "settings": "સેટિંગ્સ",
+            "support": "સપોર્ટ"
+        }
+    }
+}

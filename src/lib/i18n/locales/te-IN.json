@@ -1,0 +1,65 @@
+{
+    "dashboard": {
+        "title": "కల్పనాఏఐ డాష్‌బోర్డ్",
+        "greeting": "స్వాగతం, కళాకారుడా",
+        "description": "మీ సృజనాత్మకతను పెంచడానికి మరియు మీ పరిధిని విస్తరించడానికి AI-ఆధారిత సాధనాలు.",
+        "marketPulse": {
+            "title": "మార్కెట్ పల్స్",
+            "demand": "డిమాండ్",
+            "update": "ఇప్పుడే నవీకరించబడింది",
+            "interval": "ప్రతి 6 గంటలకు నవీకరించబడుతుంది"
+        },
+        "artisanCircle": {
+            "title": "ఆర్టిసాన్ సర్కిల్",
+            "description": "మార్గదర్శకత్వం కోసం AI- సరిపోలిన గురువులతో కనెక్ట్ అవ్వండి.",
+            "call": "కాల్"
+        },
+        "storyStudio": {
+            "title": "స్టోరీ స్టూడియో",
+            "description": "మీ ఉత్పత్తిని అమ్మే కథగా మార్చండి. ఫోటోను అప్‌లోడ్ చేసి, మీ గురించి మాకు చెప్పండి.",
+            "productPhoto": "ఉత్పత్తి ఫోటో",
+            "yourBackground": "మీ నేపథ్యం లేదా కథ",
+            "backgroundPlaceholder": "ఉదా., నేను ఖుర్జాకు చెందిన మూడవ తరం కుమ్మరిని...",
+            "generateStory": "కథను రూపొందించండి",
+            "generating": "మీ కథను రూపొందిస్తున్నాము...",
+            "generatedStory": "రూపొందించిన కథ",
+            "aiEnhancedImage": "AI మెరుగుపరిచిన చిత్రం",
+            "createAnother": "మరొకటి సృష్టించండి",
+            "publish": "1-క్లిక్‌లో ప్రచురించండి",
+            "missingInfoTitle": "సమాచారం లేదు",
+            "missingInfoDescription": "దయచేసి ఫోటోను అప్‌లోడ్ చేసి, మీ నేపథ్యాన్ని వివరించండి.",
+            "generationFailedTitle": "రూపొందించడంలో విఫలమైంది",
+            "generationFailedDescription": "కథను రూపొందించలేకపోయాము. దయచేసి కన్సోల్‌లోని లోపాలను తనిఖీ చేయండి."
+        },
+        "theMuse": {
+            "title": "ది మ్యూజ్",
+            "description": "మీ డిజైన్ సహ-పైలట్. కొత్త సృజనాత్మక దిశలను అన్వేషించడానికి ఫోటోను అప్‌లోడ్ చేయండి.",
+            "generateVariations": "వైవిధ్యాలను రూపొందించండి",
+            "generating": "స్ఫూర్తిని పిలుస్తున్నాము...",
+            "uploadPrompt": "డిజైన్ వైవిధ్యాలను చూడటానికి ఫోటోను అప్‌లోడ్ చేయండి.",
+            "startOver": "మళ్ళీ ప్రారంభించండి",
+            "generationFailedTitle": "రూపొందించడంలో విఫలమైంది",
+            "generationFailedDescription": "డిజైన్‌లను రూపొందించలేకపోయాము. దయచేసి కన్సోల్‌ను తనిఖీ చేయండి."
+        },
+        "languageSwitcher": {
+            "placeholder": "భాష"
+        },
+        "userMenu": {
+            "artisanName": "కళాకారుడి పేరు",
+            "artisanEmail": "artisan@example.com",
+            "profile": "ప్రొఫైల్",
+            "settings": "సెట్టింగ్‌లు",
+            "support": "మద్దతు",
+            "logout": "లాగ్ అవుట్"
+        },
+        "sidebar": {
+            "dashboard": "డాష్‌బోర్డ్",
+            "storyStudio": "స్టోరీ స్టూడియో",
+            "marketPulse": "మార్కెట్ పల్స్",
+            "theMuse": "ది మ్యూజ్",
+            "artisanCircle": "ఆర్టిసాన్ సర్కిల్",
+            "settings": "సెట్టింగ్‌లు",
+            "support": "మద్దతు"
+        }
+    }
+}

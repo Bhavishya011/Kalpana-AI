@@ -18,6 +18,7 @@ import { Sparkles, Upload } from "lucide-react";
 import Image from "next/image";
 import { useState, useTransition } from "react";
 import { LoadingKolam } from "../loading-kolam";
+import type { getDictionary } from "@/lib/i18n/dictionaries";
 
 const fileToDataUri = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -28,7 +29,15 @@ const fileToDataUri = (file: File): Promise<string> => {
   });
 };
 
-export function StoryStudio({ language }: { language: string }) {
+type Dictionary = Awaited<ReturnType<typeof getDictionary>>["dashboard"];
+
+export function StoryStudio({
+  language,
+  dictionary,
+}: {
+  language: string;
+  dictionary: Dictionary;
+}) {
   const [file, setFile] = useState<File | null>(null);
   const [artisanBackground, setArtisanBackground] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
@@ -52,8 +61,8 @@ export function StoryStudio({ language }: { language: string }) {
   const handleSubmit = () => {
     if (!file || !artisanBackground) {
       toast({
-        title: "Missing Information",
-        description: "Please upload a photo and describe your background.",
+        title: dictionary.storyStudio.missingInfoTitle,
+        description: dictionary.storyStudio.missingInfoDescription,
         variant: "destructive",
       });
       return;
@@ -70,9 +79,8 @@ export function StoryStudio({ language }: { language: string }) {
       } catch (error) {
         console.error("Error generating story:", error);
         toast({
-          title: "Generation Failed",
-          description:
-            "Could not generate story. Please check the console for errors.",
+          title: dictionary.storyStudio.generationFailedTitle,
+          description: dictionary.storyStudio.generationFailedDescription,
           variant: "destructive",
         });
       }
@@ -84,18 +92,15 @@ export function StoryStudio({ language }: { language: string }) {
       <CardHeader>
         <CardTitle className="flex items-center gap-3">
           <Sparkles className="text-primary" />
-          <span className="font-headline">Story Studio</span>
+          <span className="font-headline">{dictionary.storyStudio.title}</span>
         </CardTitle>
-        <CardDescription>
-          Turn your product into a story that sells. Upload a photo and tell us
-          about yourself.
-        </CardDescription>
+        <CardDescription>{dictionary.storyStudio.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {!result && !isPending && (
           <>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="product-photo">Product Photo</Label>
+              <Label htmlFor="product-photo">{dictionary.storyStudio.productPhoto}</Label>
               <Input
                 id="product-photo"
                 type="file"
@@ -109,17 +114,15 @@ export function StoryStudio({ language }: { language: string }) {
                   src={preview}
                   alt="Product preview"
                   fill
-                  style={{ objectFit: 'cover' }}
+                  style={{ objectFit: "cover" }}
                   data-ai-hint="product photo"
                 />
               </div>
             )}
             <div className="grid w-full gap-1.5">
-              <Label htmlFor="artisan-background">
-                Your background or story
-              </Label>
+              <Label htmlFor="artisan-background">{dictionary.storyStudio.yourBackground}</Label>
               <Textarea
-                placeholder="e.g., I'm a third-generation potter from Khurja..."
+                placeholder={dictionary.storyStudio.backgroundPlaceholder}
                 id="artisan-background"
                 value={artisanBackground}
                 onChange={(e) => setArtisanBackground(e.target.value)}
@@ -130,23 +133,25 @@ export function StoryStudio({ language }: { language: string }) {
         {isPending && (
           <div className="flex flex-col items-center justify-center gap-4 py-8">
             <LoadingKolam />
-            <p className="text-muted-foreground">Crafting your story...</p>
+            <p className="text-muted-foreground">{dictionary.storyStudio.generating}</p>
           </div>
         )}
         {result && (
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-4">
-              <h3 className="font-headline text-lg">Generated Story</h3>
-              <p className="text-sm text-muted-foreground whitespace-pre-wrap">{result.emotionalStory}</p>
+              <h3 className="font-headline text-lg">{dictionary.storyStudio.generatedStory}</h3>
+              <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                {result.emotionalStory}
+              </p>
             </div>
             <div className="space-y-4">
-               <h3 className="font-headline text-lg">AI Enhanced Image</h3>
+              <h3 className="font-headline text-lg">{dictionary.storyStudio.aiEnhancedImage}</h3>
               <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
                 <Image
                   src={result.aiEnhancedImage}
                   alt="AI enhanced product"
                   fill
-                  style={{ objectFit: 'cover' }}
+                  style={{ objectFit: "cover" }}
                   data-ai-hint="product photo"
                 />
               </div>
@@ -157,17 +162,25 @@ export function StoryStudio({ language }: { language: string }) {
       <CardFooter className="flex justify-end gap-2">
         {result ? (
           <>
-            <Button variant="outline" onClick={() => {setResult(null); setPreview(null); setFile(null);}}>
-              Create Another
+            <Button
+              variant="outline"
+              onClick={() => {
+                setResult(null);
+                setPreview(null);
+                setFile(null);
+              }}
+            >
+              {dictionary.storyStudio.createAnother}
             </Button>
             <Button>
-              <Upload className="mr-2 h-4 w-4" />1-Click Publish
+              <Upload className="mr-2 h-4 w-4" />
+              {dictionary.storyStudio.publish}
             </Button>
           </>
         ) : (
           <Button onClick={handleSubmit} disabled={isPending}>
             <Sparkles className="mr-2 h-4 w-4" />
-            Generate Story
+            {dictionary.storyStudio.generateStory}
           </Button>
         )}
       </CardFooter>

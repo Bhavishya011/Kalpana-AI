@@ -1,0 +1,66 @@
+{
+    "dashboard": {
+      "title": "कल्पनाएआई डैशबोर्ड",
+      "greeting": "नमस्ते, कारीगर",
+      "description": "आपकी रचनात्मकता को बढ़ाने और आपकी पहुंच का विस्तार करने के लिए AI-संचालित उपकरण।",
+      "marketPulse": {
+        "title": "मार्केट पल्स",
+        "demand": "मांग",
+        "update": "अभी अपडेट किया गया",
+        "interval": "हर 6 घंटे में अपडेट होता है"
+      },
+      "artisanCircle": {
+        "title": "कारीगर सर्कल",
+        "description": "मार्गदर्शन के लिए AI-मिलान वाले आकाओं से जुड़ें।",
+        "call": "कॉल"
+      },
+      "storyStudio": {
+        "title": "स्टोरी स्टूडियो",
+        "description": "अपने उत्पाद को एक ऐसी कहानी में बदलें जो बिकती है। एक तस्वीर अपलोड करें और हमें अपने बारे में बताएं।",
+        "productPhoto": "उत्पाद फोटो",
+        "yourBackground": "आपकी पृष्ठभूमि या कहानी",
+        "backgroundPlaceholder": "जैसे, मैं खुर्जा का तीसरी पीढ़ी का कुम्हार हूं...",
+        "generateStory": "कहानी उत्पन्न करें",
+        "generating": "आपकी कहानी तैयार की जा रही है...",
+        "generatedStory": "उत्पन्न कहानी",
+        "aiEnhancedImage": "एआई वर्धित छवि",
+        "createAnother": "दूसरा बनाएं",
+        "publish": "1-क्लिक प्रकाशित करें",
+        "missingInfoTitle": "जानकारी गुम है",
+        "missingInfoDescription": "कृपया एक फोटो अपलोड करें और अपनी पृष्ठभूमि का वर्णन करें।",
+        "generationFailedTitle": "उत्पादन विफल",
+        "generationFailedDescription": "कहानी उत्पन्न नहीं की जा सकी। कृपया कंसोल में त्रुटियों की जांच करें।"
+      },
+      "theMuse": {
+        "title": "द म्यूज",
+        "description": "आपका डिज़ाइन सह-पायलट। नई रचनात्मक दिशाओं का पता लगाने के लिए एक फोटो अपलोड करें।",
+        "generateVariations": "विविधताएं उत्पन्न करें",
+        "generating": "प्रेरणा का आह्वान...",
+        "uploadPrompt": "डिज़ाइन विविधताएं देखने के लिए एक फोटो अपलोड करें।",
+        "startOver": "पुनः आरंभ करें",
+        "generationFailedTitle": "उत्पादन विफल",
+        "generationFailedDescription": "डिज़ाइन उत्पन्न नहीं किए जा सके। कृपया कंसोल की जाँच करें।"
+      },
+      "languageSwitcher": {
+        "placeholder": "भाषा"
+      },
+      "userMenu": {
+        "artisanName": "कारीगर का नाम",
+        "artisanEmail": "artisan@example.com",
+        "profile": "प्रोफ़ाइल",
+        "settings": "सेटिंग्स",
+        "support": "सहायता",
+        "logout": "लॉग आउट"
+      },
+      "sidebar": {
+        "dashboard": "डैशबोर्ड",
+        "storyStudio": "स्टोरी स्टूडियो",
+        "marketPulse": "मार्केट पल्स",
+        "theMuse": "द म्यूज",
+        "artisanCircle": "कारीगर सर्कल",
+        "settings": "सेटिंग्स",
+        "support": "सहायता"
+      }
+    }
+  }
+  

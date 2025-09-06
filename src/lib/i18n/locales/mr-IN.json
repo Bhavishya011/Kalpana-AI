@@ -1,0 +1,65 @@
+{
+    "dashboard": {
+        "title": "कल्पनाएआय डॅशबोर्ड",
+        "greeting": "स्वागत आहे, कारागीर",
+        "description": "तुमची सर्जनशीलता वाढवण्यासाठी आणि तुमची पोहोच वाढवण्यासाठी एआय-चालित साधने.",
+        "marketPulse": {
+            "title": "मार्केट पल्स",
+            "demand": "मागणी",
+            "update": "आत्ताच अपडेट केले",
+            "interval": "दर ६ तासांनी अपडेट होते"
+        },
+        "artisanCircle": {
+            "title": "कारागीर मंडळ",
+            "description": "मार्गदर्शनासाठी एआय-जुळलेल्या मार्गदर्शकांशी संपर्क साधा.",
+            "call": "कॉल"
+        },
+        "storyStudio": {
+            "title": "स्टोरी स्टुडिओ",
+            "description": "तुमचे उत्पादन विकल्या जाणाऱ्या कथेत रूपांतरित करा. फोटो अपलोड करा आणि आम्हाला तुमच्याबद्दल सांगा.",
+            "productPhoto": "उत्पादनाचा फोटो",
+            "yourBackground": "तुमची पार्श्वभूमी किंवा कथा",
+            "backgroundPlaceholder": "उदा. मी खुर्जाचा तिसऱ्या पिढीतील कुंभार आहे...",
+            "generateStory": "कथा तयार करा",
+            "generating": "तुमची कथा तयार करत आहे...",
+            "generatedStory": "तयार केलेली कथा",
+            "aiEnhancedImage": "एआय वर्धित प्रतिमा",
+            "createAnother": "दुसरे तयार करा",
+            "publish": "१-क्लिकमध्ये प्रकाशित करा",
+            "missingInfoTitle": "माहिती गहाळ आहे",
+            "missingInfoDescription": "कृपया फोटो अपलोड करा आणि तुमच्या पार्श्वभूमीचे वर्णन करा.",
+            "generationFailedTitle": "तयार करण्यात अयशस्वी",
+            "generationFailedDescription": "कथा तयार करता आली नाही. कृपया कन्सोलमधील त्रुटी तपासा."
+        },
+        "theMuse": {
+            "title": "द म्युज",
+            "description": "तुमचा डिझाइन सह-पायलट. नवीन सर्जनशील दिशा शोधण्यासाठी फोटो अपलोड करा.",
+            "generateVariations": "विविधता तयार करा",
+            "generating": "प्रेरणा बोलावित आहे...",
+            "uploadPrompt": "डिझाइन विविधता पाहण्यासाठी फोटो अपलोड करा.",
+            "startOver": "पुन्हा सुरू करा",
+            "generationFailedTitle": "तयार करण्यात अयशस्वी",
+            "generationFailedDescription": "डिझाइन तयार करता आले नाहीत. कृपया कन्सोल तपासा."
+        },
+        "languageSwitcher": {
+            "placeholder": "भाषा"
+        },
+        "userMenu": {
+            "artisanName": "कारागिराचे नाव",
+            "artisanEmail": "artisan@example.com",
+            "profile": "प्रोफाइल",
+            "settings": "सेटिंग्ज",
+            "support": "समर्थन",
+            "logout": "लॉग आउट"
+        },
+        "sidebar": {
+            "dashboard": "डॅशबोर्ड",
+            "storyStudio": "स्टोरी स्टुडिओ",
+            "marketPulse": "मार्केट पल्स",
+            "theMuse": "द म्युज",
+            "artisanCircle": "कारागीर मंडळ",
+            "settings": "सेटिंग्ज",
+            "support": "समर्थन"
+        }
+    }
+}

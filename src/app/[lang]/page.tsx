@@ -2,6 +2,10 @@ import {Dashboard} from '@/components/dashboard/dashboard';
 import {getDictionary} from '@/lib/i18n/dictionaries';
 import {i18n} from '@/lib/i18n/i18n-config';
 
+export async function generateStaticParams() {
+  return i18n.locales.map(locale => ({lang: locale}));
+}
+
 export default async function Home({
   params: {lang},
 }: {
