@@ -5,9 +5,11 @@
         "description": "AI-powered tools to enhance your creativity and expand your reach.",
         "marketPulse": {
             "title": "Market Pulse",
+            "description": "Hyperlocal demand and top trends for your craft.",
             "demand": "Demand",
             "update": "Updated just now",
-            "interval": "Updates every 6 hours"
+            "interval": "Updates every 6 hours",
+            "topTrends": "Top Trends"
         },
         "artisanCircle": {
             "title": "Artisan Circle",

@@ -20,6 +20,7 @@ export type DisplayHyperlocalDemandAlertsInput = z.infer<typeof DisplayHyperloca
 const DisplayHyperlocalDemandAlertsOutputSchema = z.object({
   alert: z.string().describe('The hyperlocal demand alert message.'),
   demandMultiplier: z.number().describe('The demand multiplier for the craft in the area.'),
+  trends: z.array(z.string()).describe('A list of top 2-3 market trends for the craft type.')
 });
 export type DisplayHyperlocalDemandAlertsOutput = z.infer<typeof DisplayHyperlocalDemandAlertsOutputSchema>;
 
@@ -35,9 +36,10 @@ const prompt = ai.definePrompt({
   output: {schema: DisplayHyperlocalDemandAlertsOutputSchema},
   prompt: `You are an AI assistant that provides hyperlocal demand alerts for artisans.
 
-  Based on the artisan's location ({{{location}}}) and craft type ({{{craftType}}}), you will generate a demand alert message and a demand multiplier.
+  Based on the artisan's location ({{{location}}}) and craft type ({{{craftType}}}), you will generate a demand alert message, a demand multiplier, and a list of 2-3 top market trends.
   The demand multiplier should be a number indicating how much higher the demand is compared to the average.
   The demand alert message should be short and attention-grabbing, highlighting the increased demand.
+  The trends should be a short list of popular styles, colors, or themes for the given craft.
   `,
 });
 
