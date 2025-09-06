@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Sparkles, Upload } from "lucide-react";
+import { Sparkles, Upload, Mic } from "lucide-react";
 import Image from "next/image";
 import { useState, useTransition } from "react";
 import { LoadingKolam } from "../loading-kolam";
@@ -86,6 +86,13 @@ export function StoryStudio({
       }
     });
   };
+  
+  const handleReset = () => {
+    setResult(null);
+    setPreview(null);
+    setFile(null);
+    setArtisanBackground("");
+  }
 
   return (
     <Card className="bg-card/60 backdrop-blur-lg border-border/50">
@@ -96,39 +103,48 @@ export function StoryStudio({
         </CardTitle>
         <CardDescription>{dictionary.storyStudio.description}</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-6">
         {!result && !isPending && (
-          <>
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="product-photo">{dictionary.storyStudio.productPhoto}</Label>
-              <Input
-                id="product-photo"
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-              />
-            </div>
-            {preview && (
-              <div className="relative h-48 w-48 overflow-hidden rounded-lg border">
-                <Image
-                  src={preview}
-                  alt="Product preview"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  data-ai-hint="product photo"
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="space-y-4">
+               <div className="grid w-full items-center gap-1.5">
+                <Label htmlFor="product-photo">{dictionary.storyStudio.productPhoto}</Label>
+                <Input
+                  id="product-photo"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
                 />
               </div>
-            )}
-            <div className="grid w-full gap-1.5">
-              <Label htmlFor="artisan-background">{dictionary.storyStudio.yourBackground}</Label>
-              <Textarea
-                placeholder={dictionary.storyStudio.backgroundPlaceholder}
-                id="artisan-background"
-                value={artisanBackground}
-                onChange={(e) => setArtisanBackground(e.target.value)}
-              />
+              {preview && (
+                <div className="relative aspect-square w-full max-w-sm overflow-hidden rounded-lg border">
+                  <Image
+                    src={preview}
+                    alt="Product preview"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    data-ai-hint="product photo"
+                  />
+                </div>
+              )}
             </div>
-          </>
+            <div className="space-y-4">
+              <div className="grid w-full gap-1.5">
+                <Label htmlFor="artisan-background">{dictionary.storyStudio.yourBackground}</Label>
+                <Textarea
+                  placeholder={dictionary.storyStudio.backgroundPlaceholder}
+                  id="artisan-background"
+                  value={artisanBackground}
+                  onChange={(e) => setArtisanBackground(e.target.value)}
+                  className="min-h-[200px]"
+                />
+              </div>
+              <Button variant="outline" className="w-full">
+                <Mic className="mr-2 h-4 w-4" />
+                {dictionary.storyStudio.recordStory || "Record Story (Coming Soon)"}
+              </Button>
+            </div>
+          </div>
         )}
         {isPending && (
           <div className="flex flex-col items-center justify-center gap-4 py-8">
@@ -137,38 +153,57 @@ export function StoryStudio({
           </div>
         )}
         {result && (
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className="space-y-4">
-              <h3 className="font-headline text-lg">{dictionary.storyStudio.generatedStory}</h3>
-              <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                {result.emotionalStory}
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h3 className="font-headline text-lg">{dictionary.storyStudio.aiEnhancedImage}</h3>
-              <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
-                <Image
-                  src={result.aiEnhancedImage}
-                  alt="AI enhanced product"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  data-ai-hint="product photo"
-                />
+          <div className="space-y-8">
+            <section>
+              <h3 className="font-headline text-2xl mb-4">{dictionary.storyStudio.productPosts || "Product Posts"}</h3>
+              <div className="grid gap-6 md:grid-cols-2">
+                {result.productPosts.map((post, index) => (
+                  <div key={`product-${index}`} className="space-y-4">
+                    <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
+                      <Image
+                        src={post.image}
+                        alt={`AI enhanced product ${index + 1}`}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        data-ai-hint="product photo"
+                      />
+                    </div>
+                    <p className="text-sm text-muted-foreground whitespace-pre-wrap">{post.description}</p>
+                  </div>
+                ))}
               </div>
-            </div>
+            </section>
+            <section>
+              <h3 className="font-headline text-2xl mb-4">{dictionary.storyStudio.storyPosts || "Story Posts"}</h3>
+                <div className="grid gap-8">
+                    {result.storyPosts.map((post, index) => (
+                      <div key={`story-${index}`} className="grid md:grid-cols-2 gap-6 items-start">
+                        <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
+                          <Image
+                            src={post.image}
+                            alt={`AI story image ${index + 1}`}
+                            fill
+                            style={{ objectFit: "cover" }}
+                            data-ai-hint="artistic craft"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                            <p className="text-sm text-muted-foreground font-semibold italic">"{post.caption}"</p>
+                            <p className="text-sm text-muted-foreground whitespace-pre-wrap">{post.story}</p>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+            </section>
           </div>
         )}
       </CardContent>
-      <CardFooter className="flex justify-end gap-2">
+      <CardFooter className="flex justify-end gap-2 mt-4">
         {result ? (
           <>
             <Button
               variant="outline"
-              onClick={() => {
-                setResult(null);
-                setPreview(null);
-                setFile(null);
-              }}
+              onClick={handleReset}
             >
               {dictionary.storyStudio.createAnother}
             </Button>
@@ -180,7 +215,7 @@ export function StoryStudio({
         ) : (
           <Button onClick={handleSubmit} disabled={isPending}>
             <Sparkles className="mr-2 h-4 w-4" />
-            {dictionary.storyStudio.generateStory}
+            {dictionary.storyStudio.generateStory || "Process"}
           </Button>
         )}
       </CardFooter>
