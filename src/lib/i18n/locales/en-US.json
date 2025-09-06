@@ -14,6 +14,10 @@
             "description": "Connect with AI-matched mentors for guidance.",
             "call": "Call"
         },
+        "recentCreations": {
+            "title": "Recent Creations",
+            "description": "A gallery of your recent work."
+        },
         "storyStudio": {
             "title": "Story Studio",
             "description": "Turn your product into a story that sells. Upload a photo and tell us about yourself.",
