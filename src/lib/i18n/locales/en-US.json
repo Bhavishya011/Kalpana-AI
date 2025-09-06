@@ -20,8 +20,8 @@
             "title": "Recent Creations",
             "description": "A gallery of your recent work."
         },
-        "storyStudio": {
-            "title": "Story Studio",
+        "addProduct": {
+            "title": "Add Product",
             "description": "Add your product and story, and we'll generate marketing assets for you.",
             "productPhoto": "Product Photo",
             "yourBackground": "Your Story",
@@ -65,7 +65,7 @@
         },
         "sidebar": {
             "dashboard": "Dashboard",
-            "storyStudio": "Story Studio",
+            "addProduct": "Add Product",
             "marketPulse": "Market Pulse",
             "theMuse": "The Muse",
             "artisanCircle": "Artisan Circle",

@@ -20,8 +20,8 @@
             "title": "તાજેતરની રચનાઓ",
             "description": "તમારા તાજેતરના કાર્યોની ગેલેરી."
         },
-        "storyStudio": {
-            "title": "સ્ટોરી સ્ટુડિયો",
+        "addProduct": {
+            "title": "ઉત્પાદન ઉમેરો",
             "description": "તમારું ઉત્પાદન અને વાર્તા ઉમેરો, અને અમે તમારા માટે માર્કેટિંગ અસ્કયામતો બનાવીશું.",
             "productPhoto": "ઉત્પાદનનો ફોટો",
             "yourBackground": "તમારી વાર્તા",
@@ -65,7 +65,7 @@
         },
         "sidebar": {
             "dashboard": "ડેશબોર્ડ",
-            "storyStudio": "સ્ટોરી સ્ટુડિયો",
+            "addProduct": "ઉત્પાદન ઉમેરો",
             "marketPulse": "માર્કેટ પલ્સ",
             "theMuse": "ધ મ્યુઝ",
             "artisanCircle": "કારીગર સર્કલ",

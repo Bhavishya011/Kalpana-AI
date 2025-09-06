@@ -31,7 +31,7 @@ const fileToDataUri = (file: File): Promise<string> => {
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>["dashboard"];
 
-export function StoryStudio({
+export function AddProduct({
   language,
   dictionary,
 }: {
@@ -61,8 +61,8 @@ export function StoryStudio({
   const handleSubmit = () => {
     if (!file || !artisanBackground) {
       toast({
-        title: dictionary.storyStudio.missingInfoTitle,
-        description: dictionary.storyStudio.missingInfoDescription,
+        title: dictionary.addProduct.missingInfoTitle,
+        description: dictionary.addProduct.missingInfoDescription,
         variant: "destructive",
       });
       return;
@@ -79,8 +79,8 @@ export function StoryStudio({
       } catch (error) {
         console.error("Error generating story:", error);
         toast({
-          title: dictionary.storyStudio.generationFailedTitle,
-          description: dictionary.storyStudio.generationFailedDescription,
+          title: dictionary.addProduct.generationFailedTitle,
+          description: dictionary.addProduct.generationFailedDescription,
           variant: "destructive",
         });
       }
@@ -99,16 +99,16 @@ export function StoryStudio({
       <CardHeader>
         <CardTitle className="flex items-center gap-3">
           <Sparkles className="text-primary" />
-          <span className="font-headline">{dictionary.storyStudio.title}</span>
+          <span className="font-headline">{dictionary.addProduct.title}</span>
         </CardTitle>
-        <CardDescription>{dictionary.storyStudio.description}</CardDescription>
+        <CardDescription>{dictionary.addProduct.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {!result && !isPending && (
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-4">
                <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="product-photo">{dictionary.storyStudio.productPhoto}</Label>
+                <Label htmlFor="product-photo">{dictionary.addProduct.productPhoto}</Label>
                 <Input
                   id="product-photo"
                   type="file"
@@ -130,9 +130,9 @@ export function StoryStudio({
             </div>
             <div className="space-y-4">
               <div className="grid w-full gap-1.5">
-                <Label htmlFor="artisan-background">{dictionary.storyStudio.yourBackground}</Label>
+                <Label htmlFor="artisan-background">{dictionary.addProduct.yourBackground}</Label>
                 <Textarea
-                  placeholder={dictionary.storyStudio.backgroundPlaceholder}
+                  placeholder={dictionary.addProduct.backgroundPlaceholder}
                   id="artisan-background"
                   value={artisanBackground}
                   onChange={(e) => setArtisanBackground(e.target.value)}
@@ -141,7 +141,7 @@ export function StoryStudio({
               </div>
               <Button variant="outline" className="w-full">
                 <Mic className="mr-2 h-4 w-4" />
-                {dictionary.storyStudio.recordStory || "Record Story (Coming Soon)"}
+                {dictionary.addProduct.recordStory || "Record Story (Coming Soon)"}
               </Button>
             </div>
           </div>
@@ -149,13 +149,13 @@ export function StoryStudio({
         {isPending && (
           <div className="flex flex-col items-center justify-center gap-4 py-8">
             <LoadingKolam />
-            <p className="text-muted-foreground">{dictionary.storyStudio.generating}</p>
+            <p className="text-muted-foreground">{dictionary.addProduct.generating}</p>
           </div>
         )}
         {result && (
           <div className="space-y-8">
             <section>
-              <h3 className="font-headline text-2xl mb-4">{dictionary.storyStudio.productPosts || "Product Posts"}</h3>
+              <h3 className="font-headline text-2xl mb-4">{dictionary.addProduct.productPosts || "Product Posts"}</h3>
               <div className="grid gap-6 md:grid-cols-2">
                 {result.productPosts.map((post, index) => (
                   <div key={`product-${index}`} className="space-y-4">
@@ -174,7 +174,7 @@ export function StoryStudio({
               </div>
             </section>
             <section>
-              <h3 className="font-headline text-2xl mb-4">{dictionary.storyStudio.storyPosts || "Story Posts"}</h3>
+              <h3 className="font-headline text-2xl mb-4">{dictionary.addProduct.storyPosts || "Story Posts"}</h3>
                 <div className="grid gap-8">
                     {result.storyPosts.map((post, index) => (
                       <div key={`story-${index}`} className="grid md:grid-cols-2 gap-6 items-start">
@@ -205,17 +205,17 @@ export function StoryStudio({
               variant="outline"
               onClick={handleReset}
             >
-              {dictionary.storyStudio.createAnother}
+              {dictionary.addProduct.createAnother}
             </Button>
             <Button>
               <Upload className="mr-2 h-4 w-4" />
-              {dictionary.storyStudio.publish}
+              {dictionary.addProduct.publish}
             </Button>
           </>
         ) : (
           <Button onClick={handleSubmit} disabled={isPending}>
             <Sparkles className="mr-2 h-4 w-4" />
-            {dictionary.storyStudio.generateStory || "Process"}
+            {dictionary.addProduct.generateStory || "Process"}
           </Button>
         )}
       </CardFooter>

@@ -20,8 +20,8 @@
             "title": "সাম্প্রতিক সৃষ্টি",
             "description": "আপনার সাম্প্রতিক কাজের একটি গ্যালারী।"
         },
-        "storyStudio": {
-            "title": "স্টোরি স্টুডিও",
+        "addProduct": {
+            "title": "পণ্য যোগ করুন",
             "description": "আপনার পণ্য এবং গল্প যোগ করুন, এবং আমরা আপনার জন্য মার্কেটিং সম্পদ তৈরি করব।",
             "productPhoto": "পণ্যের ছবি",
             "yourBackground": "আপনার গল্প",
@@ -65,7 +65,7 @@
         },
         "sidebar": {
             "dashboard": "ড্যাشبোর্ড",
-            "storyStudio": "স্টোরি স্টুডিও",
+            "addProduct": "পণ্য যোগ করুন",
             "marketPulse": "মার্কেট পালস",
             "theMuse": "দ্য মিউজ",
             "artisanCircle": "শিল্পী সার্কেল",

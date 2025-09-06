@@ -20,8 +20,8 @@
             "title": "अलीकडील निर्मिती",
             "description": "तुमच्या अलीकडील कामांची गॅलरी."
         },
-        "storyStudio": {
-            "title": "स्टोरी स्टुडिओ",
+        "addProduct": {
+            "title": "उत्पादन जोडा",
             "description": "तुमचे उत्पादन आणि कथा जोडा, आणि आम्ही तुमच्यासाठी विपणन मालमत्ता तयार करू.",
             "productPhoto": "उत्पादनाचा फोटो",
             "yourBackground": "तुमची कथा",
@@ -65,7 +65,7 @@
         },
         "sidebar": {
             "dashboard": "डॅशबोर्ड",
-            "storyStudio": "स्टोरी स्टुडिओ",
+            "addProduct": "उत्पादन जोडा",
             "marketPulse": "मार्केट पल्स",
             "theMuse": "द म्युज",
             "artisanCircle": "कारागीर मंडळ",

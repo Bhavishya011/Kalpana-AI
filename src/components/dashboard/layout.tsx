@@ -46,11 +46,11 @@ export function DashboardLayout({
       path: `/${lang}`,
     },
     {
-      href: `/${lang}/story-studio`,
+      href: `/${lang}/add-product`,
       icon: Sparkles,
-      label: dictionary.sidebar.storyStudio,
-      tooltip: dictionary.sidebar.storyStudio,
-      path: `/${lang}/story-studio`,
+      label: dictionary.sidebar.addProduct,
+      tooltip: dictionary.sidebar.addProduct,
+      path: `/${lang}/add-product`,
     },
     {
         href: `/${lang}/sales-analytics`,
