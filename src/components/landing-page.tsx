@@ -93,39 +93,6 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   </Link>
                 </div>
               </div>
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl border-4 border-white">
-                <div className="flex">
-                  <div className="w-1/2 relative">
-                    <Image
-                      src="https://picsum.photos/600/600?random=10"
-                      width={600}
-                      height={600}
-                      alt="Before AI Enhancement"
-                      className="w-full h-full object-cover"
-                      data-ai-hint="raw craft photo"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white text-center py-2 font-bold">
-                      BEFORE
-                    </div>
-                  </div>
-                  <div className="w-1/2 relative">
-                    <Image
-                      src="https://picsum.photos/600/600?random=11"
-                      width={600}
-                      height={600}
-                      alt="After AI Enhancement"
-                      className="w-full h-full object-cover border-l-4 border-accent"
-                      data-ai-hint="enhanced craft photo"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-accent text-accent-foreground text-center py-2 font-bold">
-                      AFTER AI
-                    </div>
-                  </div>
-                </div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg">
-                  <i data-feather="arrow-right" className="text-primary w-6 h-6"></i>
-                </div>
-              </div>
             </div>
           </div>
         </div>
