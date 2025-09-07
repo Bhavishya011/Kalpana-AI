@@ -243,28 +243,28 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
-              <Logo className="h-8 mr-3 text-white" />
-              <span className="text-lg font-headline text-white">KalpanaAI</span>
+              <Logo className="h-8 mr-3 text-primary-foreground" />
+              <span className="text-lg font-headline text-primary-foreground">KalpanaAI</span>
             </div>
             <p className="max-w-md">
               Your humble sevak in the digital marketplace. Empowering Indian artisans with AI since 2023.
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-white mb-4">Community</h3>
+            <h3 className="font-semibold text-primary-foreground mb-4">Community</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-white transition-colors">Facebook</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">YouTube</a></li>
+              <li><a href="#" className="hover:text-primary-foreground transition-colors">Facebook</a></li>
+              <li><a href="#" className="hover:text-primary-foreground transition-colors">Instagram</a></li>
+              <li><a href="#" className="hover:text-primary-foreground transition-colors">YouTube</a></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold text-white mb-4">Follow Us</h3>
+            <h3 className="font-semibold text-primary-foreground mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <a href="#" className="text-primary-foreground/80 hover:text-white transition-colors"><Facebook /></a>
-              <a href="#" className="text-primary-foreground/80 hover:text-white transition-colors"><Instagram /></a>
-              <a href="#" className="text-primary-foreground/80 hover:text-white transition-colors"><Twitter /></a>
-              <a href="#" className="text-primary-foreground/80 hover:text-white transition-colors"><Youtube /></a>
+              <a href="#" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"><Facebook /></a>
+              <a href="#" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"><Instagram /></a>
+              <a href="#" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"><Twitter /></a>
+              <a href="#" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"><Youtube /></a>
             </div>
           </div>
         </div>
@@ -275,5 +275,3 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
     </div>
   );
 }
-
-    
