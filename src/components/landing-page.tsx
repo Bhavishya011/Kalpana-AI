@@ -7,6 +7,7 @@ import {Button} from '@/components/ui/button';
 import {Logo} from '@/components/icons';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
@@ -239,10 +240,40 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
 
       {/* Footer */}
       <footer className="bg-primary/90 text-primary-foreground/80 py-12 px-8">
-          <div className="max-w-6xl mx-auto text-center">
-              <p>© 2023 KalpanaAI. All rights reserved. Powered by Google Cloud AI.</p>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+          <div className="md:col-span-2">
+            <div className="flex items-center mb-4">
+              <Logo className="h-8 mr-3 text-white" />
+              <span className="text-lg font-headline text-white">KalpanaAI</span>
+            </div>
+            <p className="max-w-md">
+              Your humble sevak in the digital marketplace. Empowering Indian artisans with AI since 2023.
+            </p>
           </div>
+          <div>
+            <h3 className="font-semibold text-white mb-4">Community</h3>
+            <ul className="space-y-2">
+              <li><a href="#" className="hover:text-white transition-colors">Facebook</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">YouTube</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold text-white mb-4">Follow Us</h3>
+            <div className="flex space-x-4">
+              <a href="#" className="text-primary-foreground/80 hover:text-white transition-colors"><Facebook /></a>
+              <a href="#" className="text-primary-foreground/80 hover:text-white transition-colors"><Instagram /></a>
+              <a href="#" className="text-primary-foreground/80 hover:text-white transition-colors"><Twitter /></a>
+              <a href="#" className="text-primary-foreground/80 hover:text-white transition-colors"><Youtube /></a>
+            </div>
+          </div>
+        </div>
+        <div className="max-w-6xl mx-auto mt-8 pt-8 border-t border-primary-foreground/20 text-center text-xs">
+          <p>© 2024 KalpanaAI. All rights reserved. Powered by Google Cloud AI.</p>
+        </div>
       </footer>
     </div>
   );
 }
+
+    
