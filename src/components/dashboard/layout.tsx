@@ -39,11 +39,11 @@ export function DashboardLayout({
 
   const menuItems = [
     {
-      href: `/${lang}`,
+      href: `/${lang}/dashboard`,
       icon: Home,
       label: dictionary.sidebar.dashboard,
       tooltip: dictionary.sidebar.dashboard,
-      path: `/${lang}`,
+      path: `/${lang}/dashboard`,
     },
     {
       href: `/${lang}/add-product`,

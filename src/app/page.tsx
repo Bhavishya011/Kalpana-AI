@@ -1,14 +1,5 @@
-import {Dashboard} from '@/components/dashboard/dashboard';
-import {getDictionary} from '@/lib/i18n/dictionaries';
-import {i18n} from '@/lib/i18n/i18n-config';
+import {redirect} from 'next/navigation';
 
-export default async function Home({
-  params: {lang},
-}: {
-  params: {lang: string};
-}) {
-  const locale = i18n.locales.find(l => l === lang) ?? i18n.defaultLocale;
-  const dictionary = await getDictionary(locale);
-
-  return <Dashboard dictionary={dictionary.dashboard} />;
+export default function Home() {
+  redirect('/en-US');
 }

@@ -46,7 +46,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
             </a>
           </div>
           <div className="flex items-center space-x-4">
-            <Link href="/en-US">
+            <Link href="/en-US/dashboard">
               <Button className="hidden md:block bg-primary text-primary-foreground hover:bg-primary/90 transition">
                 Artisan Login
               </Button>
@@ -82,7 +82,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   needed.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-start gap-4">
-                  <Link href="/en-US">
+                  <Link href="/en-US/dashboard">
                     <Button
                       size="lg"
                       className="silk-gradient hover:bg-gradient-to-r hover:from-[#E6BE8A] hover:to-[#F5F5DC] text-[#5D4037] font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 diya-glow"
