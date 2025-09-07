@@ -56,8 +56,8 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center craft-pattern pt-24 pb-12">
-        <div className="absolute inset-0 bg-black/20 z-0"></div>
+      <section className="relative min-h-screen flex items-center justify-center pt-24 pb-12">
+        <div className="absolute inset-0 bg-black/40 z-10"></div>
         <video
           autoPlay
           loop
@@ -67,7 +67,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
           <source src="http://static.photos/artisan/1200x630/1" type="video/mp4" />
         </video>
 
-        <div className="relative z-10 w-full">
+        <div className="relative z-20 w-full">
           <div className="max-w-6xl mx-auto px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
@@ -101,6 +101,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                       height={600}
                       alt="Before AI Enhancement"
                       className="w-full h-full object-cover"
+                      data-ai-hint="raw craft photo"
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white text-center py-2 font-bold">
                       BEFORE
@@ -113,6 +114,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                       height={600}
                       alt="After AI Enhancement"
                       className="w-full h-full object-cover border-l-4 border-accent"
+                      data-ai-hint="enhanced craft photo"
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-accent text-accent-foreground text-center py-2 font-bold">
                       AFTER AI
@@ -171,7 +173,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div>
                       <div className="relative">
-                          <Image src="https://picsum.photos/1200/630?random=12" alt="India Demand Map" width={1200} height={630} className="w-full rounded-xl shadow-2xl" />
+                          <Image src="https://picsum.photos/1200/630?random=12" alt="India Demand Map" width={1200} height={630} className="w-full rounded-xl shadow-2xl" data-ai-hint="map india" />
                       </div>
                   </div>
                   <div>
@@ -213,7 +215,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="relative">
-                      <Image src="https://picsum.photos/1200/630?random=13" alt="Original Craft" width={1200} height={630} className="w-full rounded-xl shadow-lg border-4 border-[#8B4513]"/>
+                      <Image src="https://picsum.photos/1200/630?random=13" alt="Original Craft" width={1200} height={630} className="w-full rounded-xl shadow-lg border-4 border-[#8B4513]" data-ai-hint="original craft" />
                       <div className="absolute -bottom-4 -right-4 bg-accent text-accent-foreground font-bold py-2 px-4 rounded-full shadow-md">
                           Your Original
                       </div>
@@ -222,10 +224,10 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                       <h3 className="text-2xl font-bold mb-4">Stuck for ideas? The Muse finds stylistically similar designs from 10,000+ Indian crafts.</h3>
                       <div className="grid grid-cols-2 gap-4 mb-8">
                           <div className="relative group">
-                            <Image src="https://picsum.photos/600/600?random=14" alt="Variant 1" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all"/>
+                            <Image src="https://picsum.photos/600/600?random=14" alt="Variant 1" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft design" />
                           </div>
                           <div className="relative group">
-                            <Image src="https://picsum.photos/600/600?random=15" alt="Variant 2" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all"/>
+                            <Image src="https://picsum.photos/600/600?random=15" alt="Variant 2" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft detail" />
                           </div>
                       </div>
                   </div>
