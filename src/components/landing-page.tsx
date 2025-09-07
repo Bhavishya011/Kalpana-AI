@@ -21,9 +21,9 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
   }, []);
 
   return (
-    <div className="bg-[#F9F5F0] text-[#5D4037]">
+    <div className="bg-background text-foreground">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-sm shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-sm shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
           <div className="flex items-center">
             <Logo className="h-10 mr-4 text-primary" />
@@ -32,16 +32,16 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
             </span>
           </div>
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-[#5D4037] hover:text-[#8B4513] transition">
+            <a href="#features" className="text-foreground hover:text-primary transition">
               Features
             </a>
-            <a href="#demand" className="text-[#5D4037] hover:text-[#8B4513] transition">
+            <a href="#demand" className="text-foreground hover:text-primary transition">
               Demand
             </a>
-            <a href="#muse" className="text-[#5D4037] hover:text-[#8B4513] transition">
+            <a href="#muse" className="text-foreground hover:text-primary transition">
               The Muse
             </a>
-            <a href="#community" className="text-[#5D4037] hover:text-[#8B4513] transition">
+            <a href="#community" className="text-foreground hover:text-primary transition">
               Community
             </a>
           </div>
@@ -85,7 +85,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   <Link href="/en-US/dashboard">
                     <Button
                       size="lg"
-                      className="silk-gradient hover:bg-gradient-to-r hover:from-[#E6BE8A] hover:to-[#F5F5DC] text-[#5D4037] font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 diya-glow"
+                      className="silk-gradient hover:bg-gradient-to-r hover:from-[#E6BE8A] hover:to-[#F5F5DC] text-foreground font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 diya-glow"
                     >
                       <span className="mr-2">✨</span> Start Free (15 sec signup)
                     </Button>
@@ -131,40 +131,40 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
       </section>
 
       {/* 1-Click Magic Section */}
-      <section id="features" className="py-20 px-8 bg-gradient-to-b from-[#F9F5F0] to-[#F0E6D8]">
+      <section id="features" className="py-20 px-8 bg-secondary/50">
           <div className="max-w-6xl mx-auto">
-              <h2 className="text-4xl font-headline text-center text-[#8B4513] mb-16 ink-text">
+              <h2 className="text-4xl font-headline text-center text-primary mb-16 ink-text">
                   The 1-Click Magic
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
-                      <div className="w-16 h-16 bg-[#4DB6AC]/20 rounded-full flex items-center justify-center mb-4">
-                          <i data-feather="upload" className="text-[#4DB6AC] w-8 h-8"></i>
+                  <div className="bg-background rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
+                      <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-4">
+                          <i data-feather="upload" className="text-accent w-8 h-8"></i>
                       </div>
                       <h3 className="text-xl font-bold mb-2">Upload Photo</h3>
-                      <p className="text-[#5D4037]/80">Simply take a picture of your craft with your phone</p>
+                      <p className="text-muted-foreground">Simply take a picture of your craft with your phone</p>
                   </div>
-                  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
+                  <div className="bg-background rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
                       <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-4">
                           <i data-feather="zap" className="text-accent w-8 h-8"></i>
                       </div>
                       <h3 className="text-xl font-bold mb-2">AI Enhances + Generates Story</h3>
-                      <p className="text-[#5D4037]/80">Our AI writes the perfect story about your craft's heritage</p>
+                      <p className="text-muted-foreground">Our AI writes the perfect story about your craft's heritage</p>
                   </div>
-                  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
+                  <div className="bg-background rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
                       <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4">
                           <i data-feather="share-2" className="text-primary w-8 h-8"></i>
                       </div>
                       <h3 className="text-xl font-bold mb-2">Auto-Lists on Marketplaces</h3>
-                      <p className="text-[#5D4037]/80">Instantly appears on Amazon, Myntra, Instagram and more</p>
+                      <p className="text-muted-foreground">Instantly appears on Amazon, Myntra, Instagram and more</p>
                   </div>
               </div>
           </div>
       </section>
 
       {/* Hyperlocal Demand Section */}
-      <section id="demand" className="py-20 px-8 bg-primary/90 text-white">
+      <section id="demand" className="py-20 px-8 bg-primary/90 text-primary-foreground">
           <div className="max-w-6xl mx-auto">
               <h2 className="text-4xl font-headline text-center mb-16 ink-text">
                   Hyperlocal Demand Spikes
@@ -197,7 +197,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                                   <span>Start making NOW → KalpanaAI will list by Oct 25</span>
                               </li>
                           </ul>
-                          <Button className="silk-gradient hover:bg-gradient-to-r hover:from-[#E6BE8A] hover:to-[#F5F5DC] text-[#5D4037] font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
+                          <Button className="silk-gradient hover:bg-gradient-to-r hover:from-[#E6BE8A] hover:to-[#F5F5DC] text-foreground font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
                               Start Crafting
                           </Button>
                       </div>
@@ -207,15 +207,15 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
       </section>
 
       {/* The Muse Section */}
-      <section id="muse" className="py-20 px-8 bg-gradient-to-b from-[#F0E6D8] to-[#F9F5F0]">
+      <section id="muse" className="py-20 px-8 bg-secondary/50">
           <div className="max-w-6xl mx-auto">
-              <h2 className="text-4xl font-headline text-center text-[#8B4513] mb-16 ink-text">
+              <h2 className="text-4xl font-headline text-center text-primary mb-16 ink-text">
                   The Muse - Your Generative Craft Co-Pilot
               </h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="relative">
-                      <Image src="https://picsum.photos/1200/630?random=13" alt="Original Craft" width={1200} height={630} className="w-full rounded-xl shadow-lg border-4 border-[#8B4513]" data-ai-hint="original craft" />
+                      <Image src="https://picsum.photos/1200/630?random=13" alt="Original Craft" width={1200} height={630} className="w-full rounded-xl shadow-lg border-4 border-primary" data-ai-hint="original craft" />
                       <div className="absolute -bottom-4 -right-4 bg-accent text-accent-foreground font-bold py-2 px-4 rounded-full shadow-md">
                           Your Original
                       </div>
@@ -236,7 +236,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary/90 text-white/80 py-12 px-8">
+      <footer className="bg-primary/90 text-primary-foreground/80 py-12 px-8">
           <div className="max-w-6xl mx-auto text-center">
               <p>© 2023 KalpanaAI. All rights reserved. Powered by Google Cloud AI.</p>
           </div>
