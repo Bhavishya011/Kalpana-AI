@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['PT Sans', 'sans-serif'],
+        body: ['Poppins', 'sans-serif'],
         headline: ['Playfair Display', 'serif'],
         code: ['monospace'],
       },
@@ -88,12 +88,15 @@ export default {
             height: '0',
           },
         },
-        spin: {
-          from: {
-            transform: 'rotate(0deg)',
+        'pulse-glow': {
+          '0%': {
+            boxShadow: '0 0 0 0 rgba(255, 213, 79, 0.7)',
           },
-          to: {
-            transform: 'rotate(360deg)',
+          '70%': {
+            boxShadow: '0 0 0 15px rgba(255, 213, 79, 0)',
+          },
+          '100%': {
+            boxShadow: '0 0 0 0 rgba(255, 213, 79, 0)',
           },
         },
       },
@@ -102,6 +105,7 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'spin-slow': 'spin 5s linear infinite',
         'spin-slow-reverse': 'spin 5s linear infinite reverse',
+        'pulse-glow': 'pulse-glow 1.5s infinite',
       },
     },
   },

@@ -3,29 +3,29 @@
 @tailwind utilities;
 
 body {
-  font-family: 'PT Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 @layer base {
   :root {
-    --background: 275 60% 98%;
-    --foreground: 275 10% 10%;
-    --card: 275 60% 99%;
-    --card-foreground: 275 10% 10%;
-    --popover: 275 60% 99%;
-    --popover-foreground: 275 10% 10%;
+    --background: 30 50% 98%;
+    --foreground: 24 10% 10%;
+    --card: 30 60% 99%;
+    --card-foreground: 24 10% 10%;
+    --popover: 30 60% 99%;
+    --popover-foreground: 24 10% 10%;
     --primary: 275 100% 25%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 275 60% 93%;
-    --secondary-foreground: 275 10% 10%;
-    --muted: 275 60% 93%;
-    --muted-foreground: 275 10% 45%;
+    --secondary: 30 60% 93%;
+    --secondary-foreground: 24 10% 10%;
+    --muted: 30 60% 93%;
+    --muted-foreground: 24 10% 45%;
     --accent: 11 72% 68%;
     --accent-foreground: 0 0% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 275 20% 88%;
-    --input: 275 20% 94%;
+    --border: 30 20% 88%;
+    --input: 30 20% 94%;
     --ring: 275 100% 35%;
     --chart-1: 275 76% 61%;
     --chart-2: 11 72% 68%;
@@ -43,24 +43,24 @@ body {
     --sidebar-ring: 275 100% 35%;
   }
   .dark {
-    --background: 275 15% 5%;
-    --foreground: 0 0% 98%;
-    --card: 275 15% 10%;
-    --card-foreground: 0 0% 98%;
-    --popover: 275 15% 5%;
-    --popover-foreground: 0 0% 98%;
+    --background: 20 15% 12%;
+    --foreground: 30 10% 80%;
+    --card: 24 15% 15%;
+    --card-foreground: 30 10% 90%;
+    --popover: 20 15% 10%;
+    --popover-foreground: 30 10% 90%;
     --primary: 275 80% 80%;
     --primary-foreground: 275 100% 10%;
-    --secondary: 275 15% 15%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 275 15% 15%;
-    --muted-foreground: 0 0% 63.9%;
+    --secondary: 24 15% 20%;
+    --secondary-foreground: 30 10% 90%;
+    --muted: 24 15% 20%;
+    --muted-foreground: 30 10% 60%;
     --accent: 11 70% 60%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 275 15% 25%;
-    --input: 275 15% 20%;
+    --border: 24 15% 30%;
+    --input: 24 15% 25%;
     --ring: 275 80% 70%;
     --chart-1: 275 70% 50%;
     --chart-2: 11 70% 60%;
@@ -86,3 +86,32 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.silk-gradient {
+  background: linear-gradient(135deg, #F5F5DC 0%, #E6BE8A 100%);
+}
+
+.ink-text {
+  position: relative;
+}
+.ink-text::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('http://static.photos/textures/1200x630/5');
+  opacity: 0.1;
+  pointer-events: none;
+}
+.craft-pattern {
+  background-image: url('http://static.photos/craft/1200x630/1');
+  background-size: 300px;
+  background-repeat: repeat;
+  opacity: 0.05;
+}
+.diya-glow:hover {
+  animation: pulse-glow 1.5s infinite;
+}
+
