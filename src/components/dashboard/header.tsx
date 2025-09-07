@@ -14,6 +14,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { LanguageSwitcher } from "./language-switcher";
 import { LifeBuoy, LogOut, Settings, User } from "lucide-react";
 import type {getDictionary} from '@/lib/i18n/dictionaries';
+import Link from "next/link";
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
@@ -69,10 +70,12 @@ export function DashboardHeader({
               <span>{dictionary.userMenu.support}</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>{dictionary.userMenu.logout}</span>
-            </DropdownMenuItem>
+            <Link href="/">
+              <DropdownMenuItem>
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>{dictionary.userMenu.logout}</span>
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
