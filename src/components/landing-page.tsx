@@ -56,7 +56,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden craft-pattern pt-16">
+      <section className="relative min-h-screen flex items-center justify-center craft-pattern pt-24 pb-12">
         <div className="absolute inset-0 bg-black/20 z-0"></div>
         <video
           autoPlay
@@ -67,16 +67,16 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
           <source src="http://static.photos/artisan/1200x630/1" type="video/mp4" />
         </video>
 
-        <div className="relative z-10 h-full flex flex-col justify-center px-8 pt-8">
-          <div className="max-w-6xl mx-auto">
+        <div className="relative z-10 w-full">
+          <div className="max-w-6xl mx-auto px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h1 className="text-5xl md:text-7xl font-headline font-bold text-primary mb-6 ink-text">
+                <h1 className="text-5xl md:text-7xl font-headline font-bold text-white mb-6 ink-text">
                   Your Hands Create Magic.
                   <br />
                   KalpanaAI Helps the World See It.
                 </h1>
-                <p className="text-xl md:text-2xl text-foreground mb-10 max-w-2xl">
+                <p className="text-xl md:text-2xl text-white/90 mb-10 max-w-2xl">
                   One click: Upload your craft photo → AI writes its story,
                   finds buyers, and lists it everywhere. Zero tech skills
                   needed.
@@ -127,6 +127,118 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
           </div>
         </div>
       </section>
+
+      {/* 1-Click Magic Section */}
+      <section id="features" className="py-20 px-8 bg-gradient-to-b from-[#F9F5F0] to-[#F0E6D8]">
+          <div className="max-w-6xl mx-auto">
+              <h2 className="text-4xl font-headline text-center text-[#8B4513] mb-16 ink-text">
+                  The 1-Click Magic
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
+                      <div className="w-16 h-16 bg-[#4DB6AC]/20 rounded-full flex items-center justify-center mb-4">
+                          <i data-feather="upload" className="text-[#4DB6AC] w-8 h-8"></i>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">Upload Photo</h3>
+                      <p className="text-[#5D4037]/80">Simply take a picture of your craft with your phone</p>
+                  </div>
+                  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
+                      <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-4">
+                          <i data-feather="zap" className="text-accent w-8 h-8"></i>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">AI Enhances + Generates Story</h3>
+                      <p className="text-[#5D4037]/80">Our AI writes the perfect story about your craft's heritage</p>
+                  </div>
+                  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
+                      <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4">
+                          <i data-feather="share-2" className="text-primary w-8 h-8"></i>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">Auto-Lists on Marketplaces</h3>
+                      <p className="text-[#5D4037]/80">Instantly appears on Amazon, Myntra, Instagram and more</p>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      {/* Hyperlocal Demand Section */}
+      <section id="demand" className="py-20 px-8 bg-primary/90 text-white">
+          <div className="max-w-6xl mx-auto">
+              <h2 className="text-4xl font-headline text-center mb-16 ink-text">
+                  Hyperlocal Demand Spikes
+              </h2>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                  <div>
+                      <div className="relative">
+                          <Image src="https://picsum.photos/1200/630?random=12" alt="India Demand Map" width={1200} height={630} className="w-full rounded-xl shadow-2xl" />
+                      </div>
+                  </div>
+                  <div>
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                          <div className="flex items-center gap-2 mb-4">
+                              <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
+                              <span className="font-bold uppercase tracking-wider">Urgent Opportunity</span>
+                          </div>
+                          <h3 className="text-2xl font-bold mb-4">Diwali in Jaipur (Oct 31)</h3>
+                          <ul className="space-y-3 mb-6">
+                              <li className="flex items-start gap-2">
+                                  <i data-feather="trending-up" className="text-accent"></i>
+                                  <span>3.2x demand for brass diyas</span>
+                              </li>
+                              <li className="flex items-start gap-2">
+                                  <i data-feather="map-pin" className="text-accent"></i>
+                                  <span>Top buyers: Delhi, Mumbai, USA</span>
+                              </li>
+                              <li className="flex items-start gap-2">
+                                  <i data-feather="clock" className="text-accent"></i>
+                                  <span>Start making NOW → KalpanaAI will list by Oct 25</span>
+                              </li>
+                          </ul>
+                          <Button className="silk-gradient hover:bg-gradient-to-r hover:from-[#E6BE8A] hover:to-[#F5F5DC] text-[#5D4037] font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
+                              Start Crafting
+                          </Button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      {/* The Muse Section */}
+      <section id="muse" className="py-20 px-8 bg-gradient-to-b from-[#F0E6D8] to-[#F9F5F0]">
+          <div className="max-w-6xl mx-auto">
+              <h2 className="text-4xl font-headline text-center text-[#8B4513] mb-16 ink-text">
+                  The Muse - Your Generative Craft Co-Pilot
+              </h2>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                  <div className="relative">
+                      <Image src="https://picsum.photos/1200/630?random=13" alt="Original Craft" width={1200} height={630} className="w-full rounded-xl shadow-lg border-4 border-[#8B4513]"/>
+                      <div className="absolute -bottom-4 -right-4 bg-accent text-accent-foreground font-bold py-2 px-4 rounded-full shadow-md">
+                          Your Original
+                      </div>
+                  </div>
+                  <div>
+                      <h3 className="text-2xl font-bold mb-4">Stuck for ideas? The Muse finds stylistically similar designs from 10,000+ Indian crafts.</h3>
+                      <div className="grid grid-cols-2 gap-4 mb-8">
+                          <div className="relative group">
+                            <Image src="https://picsum.photos/600/600?random=14" alt="Variant 1" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all"/>
+                          </div>
+                          <div className="relative group">
+                            <Image src="https://picsum.photos/600/600?random=15" alt="Variant 2" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all"/>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-primary/90 text-white/80 py-12 px-8">
+          <div className="max-w-6xl mx-auto text-center">
+              <p>© 2023 KalpanaAI. All rights reserved. Powered by Google Cloud AI.</p>
+          </div>
+      </footer>
     </div>
   );
 }
