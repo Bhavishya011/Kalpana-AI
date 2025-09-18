@@ -1,3 +1,4 @@
+
 "use client";
 
 import { generateEmotionalProductStory, type GenerateEmotionalProductStoryOutput } from "@/ai/flows/generate-emotional-product-story";
@@ -70,11 +71,26 @@ export function AddProduct({
     startTransition(async () => {
       try {
         const productPhotoDataUri = await fileToDataUri(file);
-        const response = await generateEmotionalProductStory({
-          productPhotoDataUri,
-          artisanBackground,
-          language,
+        
+        const serviceUrl = 'https://kalpana-ai-api-418149026163.us-central1.run.app';
+        
+        const apiResponse = await fetch(serviceUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            productPhotoDataUri,
+            artisanBackground,
+            language,
+          }),
         });
+
+        if (!apiResponse.ok) {
+          throw new Error(`HTTP error! status: ${apiResponse.status}`);
+        }
+
+        const response: GenerateEmotionalProductStoryOutput = await apiResponse.json();
         setResult(response);
       } catch (error) {
         console.error("Error generating story:", error);
@@ -222,3 +238,5 @@ export function AddProduct({
     </Card>
   );
 }
+
+  
