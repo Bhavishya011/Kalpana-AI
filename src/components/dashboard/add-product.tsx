@@ -71,7 +71,7 @@ export function AddProduct({
   };
 
   const handleSubmit = () => {
-    if (!file || !artisanBackground) {
+    if (!file && !artisanBackground) {
       toast({
         title: dictionary.addProduct.missingInfoTitle,
         description: dictionary.addProduct.missingInfoDescription,
@@ -180,7 +180,7 @@ export function AddProduct({
             <section>
               <h3 className="font-headline text-2xl mb-4">{dictionary.addProduct.productPosts || "Product Posts"}</h3>
               <div className="grid gap-6 md:grid-cols-2">
-                {result.marketing_kit.productPosts.map((post, index) => (
+                {result.marketing_kit?.productPosts?.map((post, index) => (
                   <div key={`product-${index}`} className="space-y-4">
                     <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
                       <Image
@@ -199,7 +199,7 @@ export function AddProduct({
             <section>
               <h3 className="font-headline text-2xl mb-4">{dictionary.addProduct.storyPosts || "Story Posts"}</h3>
                 <div className="grid gap-8">
-                    {result.marketing_kit.storyPosts.map((post, index) => (
+                    {result.marketing_kit?.storyPosts?.map((post, index) => (
                       <div key={`story-${index}`} className="grid md:grid-cols-2 gap-6 items-start">
                         <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
                           <Image
@@ -245,5 +245,3 @@ export function AddProduct({
     </Card>
   );
 }
-
-    
