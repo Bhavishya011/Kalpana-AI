@@ -23,12 +23,12 @@ import type { getDictionary } from "@/lib/i18n/dictionaries";
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>["dashboard"];
 
 interface ProductPost {
-  image_url: string;
+  image_url: string | null;
   description: string;
 }
 
 interface StoryPost {
-  image_url: string;
+  image_url: string | null;
   story: string;
   caption: string;
 }
@@ -86,6 +86,7 @@ export function AddProduct({
             formData.append('photo', file);
         }
         formData.append('description', artisanBackground);
+        formData.append('enable_generation', "true");
         
         const apiResponse = await fetch('/api/proxy', {
           method: 'POST',
@@ -184,7 +185,7 @@ export function AddProduct({
                   <div key={`product-${index}`} className="space-y-4">
                     <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
                       <Image
-                        src={post.image_url}
+                        src={post.image_url || preview || "https://picsum.photos/600/600"}
                         alt={`AI enhanced product ${index + 1}`}
                         fill
                         style={{ objectFit: "cover" }}
@@ -203,7 +204,7 @@ export function AddProduct({
                       <div key={`story-${index}`} className="grid md:grid-cols-2 gap-6 items-start">
                         <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
                           <Image
-                            src={post.image_url}
+                            src={post.image_url || preview || "https://picsum.photos/600/600"}
                             alt={`AI story image ${index + 1}`}
                             fill
                             style={{ objectFit: "cover" }}
