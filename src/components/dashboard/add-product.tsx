@@ -185,7 +185,7 @@ export function AddProduct({
                   <div key={`product-${index}`} className="space-y-4">
                     <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
                       <Image
-                        src={post.image_url || preview || "https://picsum.photos/600/600"}
+                        src={post.image_url || "https://picsum.photos/600/600"}
                         alt={`AI enhanced product ${index + 1}`}
                         fill
                         style={{ objectFit: "cover" }}
@@ -204,7 +204,7 @@ export function AddProduct({
                       <div key={`story-${index}`} className="grid md:grid-cols-2 gap-6 items-start">
                         <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
                           <Image
-                            src={post.image_url || preview || "https://picsum.photos/600/600"}
+                            src={post.image_url || "https://picsum.photos/600/600"}
                             alt={`AI story image ${index + 1}`}
                             fill
                             style={{ objectFit: "cover" }}
