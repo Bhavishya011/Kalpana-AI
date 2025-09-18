@@ -101,7 +101,8 @@ export function AddProduct({
         });
 
         if (!apiResponse.ok) {
-          throw new Error(`HTTP error! status: ${apiResponse.status}`);
+          const errorText = await apiResponse.text();
+          throw new Error(`HTTP error! status: ${apiResponse.status} - ${errorText}`);
         }
 
         const response: GenerateEmotionalProductStoryOutput = await apiResponse.json();
@@ -110,7 +111,7 @@ export function AddProduct({
         console.error("Error generating story:", error);
         toast({
           title: dictionary.addProduct.generationFailedTitle,
-          description: dictionary.addProduct.generationFailedDescription,
+          description: error instanceof Error ? error.message : dictionary.addProduct.generationFailedDescription,
           variant: "destructive",
         });
       }
