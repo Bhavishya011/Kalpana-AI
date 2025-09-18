@@ -20,15 +20,6 @@ import { useState, useTransition } from "react";
 import { LoadingKolam } from "../loading-kolam";
 import type { getDictionary } from "@/lib/i18n/dictionaries";
 
-const fileToDataUri = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-};
-
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>["dashboard"];
 
 interface ProductPost {
@@ -86,18 +77,16 @@ export function AddProduct({
     }
     startTransition(async () => {
       try {
-        const productPhotoDataUri = await fileToDataUri(file);
+        const formData = new FormData();
+        formData.append('photo', file);
+        formData.append('description', artisanBackground);
+        // The language parameter is not explicitly in the new API spec,
+        // but can be added to FormData if the backend supports it.
+        // formData.append('language', language);
         
         const apiResponse = await fetch('/api/proxy', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            productPhotoDataUri,
-            artisanBackground,
-            language,
-          }),
+          body: formData,
         });
 
         if (!apiResponse.ok) {
@@ -253,3 +242,5 @@ export function AddProduct({
     </Card>
   );
 }
+
+    

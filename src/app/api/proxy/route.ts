@@ -2,17 +2,14 @@
 import {NextRequest, NextResponse} from 'next/server';
 
 export async function POST(request: NextRequest) {
-  const serviceUrl = 'https://kalpanaai-storytelling-418149026163.us-central1.run.app';
+  const serviceUrl = 'https://kalpanaai-storytelling-418149026163.us-central1.run.app/api/storytelling/generate';
   
   try {
-    const body = await request.json();
+    const formData = await request.formData();
 
     const apiResponse = await fetch(serviceUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
+      body: formData,
     });
 
     if (!apiResponse.ok) {
@@ -31,3 +28,5 @@ export async function POST(request: NextRequest) {
     return new NextResponse(JSON.stringify({ error: 'Failed to proxy request', details: errorMessage }), { status: 500 });
   }
 }
+
+    
