@@ -23,19 +23,23 @@ import type { getDictionary } from "@/lib/i18n/dictionaries";
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>["dashboard"];
 
 interface ProductPost {
-  image: string;
+  image_url: string;
   description: string;
 }
 
 interface StoryPost {
-  image: string;
+  image_url: string;
   story: string;
   caption: string;
 }
 
+interface MarketingKit {
+    productPosts: ProductPost[];
+    storyPosts: StoryPost[];
+}
+
 interface GenerateEmotionalProductStoryOutput {
-  productPosts: ProductPost[];
-  storyPosts: StoryPost[];
+  marketing_kit: MarketingKit;
 }
 
 
@@ -78,11 +82,10 @@ export function AddProduct({
     startTransition(async () => {
       try {
         const formData = new FormData();
-        formData.append('photo', file);
+        if(file) {
+            formData.append('photo', file);
+        }
         formData.append('description', artisanBackground);
-        // The language parameter is not explicitly in the new API spec,
-        // but can be added to FormData if the backend supports it.
-        // formData.append('language', language);
         
         const apiResponse = await fetch('/api/proxy', {
           method: 'POST',
@@ -177,11 +180,11 @@ export function AddProduct({
             <section>
               <h3 className="font-headline text-2xl mb-4">{dictionary.addProduct.productPosts || "Product Posts"}</h3>
               <div className="grid gap-6 md:grid-cols-2">
-                {result.productPosts.map((post, index) => (
+                {result.marketing_kit.productPosts.map((post, index) => (
                   <div key={`product-${index}`} className="space-y-4">
                     <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
                       <Image
-                        src={post.image}
+                        src={post.image_url}
                         alt={`AI enhanced product ${index + 1}`}
                         fill
                         style={{ objectFit: "cover" }}
@@ -196,11 +199,11 @@ export function AddProduct({
             <section>
               <h3 className="font-headline text-2xl mb-4">{dictionary.addProduct.storyPosts || "Story Posts"}</h3>
                 <div className="grid gap-8">
-                    {result.storyPosts.map((post, index) => (
+                    {result.marketing_kit.storyPosts.map((post, index) => (
                       <div key={`story-${index}`} className="grid md:grid-cols-2 gap-6 items-start">
                         <div className="relative aspect-square w-full overflow-hidden rounded-lg border">
                           <Image
-                            src={post.image}
+                            src={post.image_url}
                             alt={`AI story image ${index + 1}`}
                             fill
                             style={{ objectFit: "cover" }}
