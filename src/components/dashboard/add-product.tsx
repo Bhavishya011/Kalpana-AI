@@ -88,9 +88,7 @@ export function AddProduct({
       try {
         const productPhotoDataUri = await fileToDataUri(file);
         
-        const serviceUrl = 'https://kalpana-ai-api-418149026163.us-central1.run.app';
-        
-        const apiResponse = await fetch(serviceUrl, {
+        const apiResponse = await fetch('/api/proxy', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
