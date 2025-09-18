@@ -2,7 +2,7 @@
 import {NextRequest, NextResponse} from 'next/server';
 
 export async function POST(request: NextRequest) {
-  const serviceUrl = 'https://kalpana-ai-api-418149026163.us-central1.run.app';
+  const serviceUrl = 'https://kalpanaai-storytelling-418149026163.us-central1.run.app';
   
   try {
     const body = await request.json();
