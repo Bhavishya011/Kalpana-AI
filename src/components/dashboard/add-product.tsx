@@ -1,7 +1,6 @@
 
 "use client";
 
-import { generateEmotionalProductStory, type GenerateEmotionalProductStoryOutput } from "@/ai/flows/generate-emotional-product-story";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -31,6 +30,23 @@ const fileToDataUri = (file: File): Promise<string> => {
 };
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>["dashboard"];
+
+interface ProductPost {
+  image: string;
+  description: string;
+}
+
+interface StoryPost {
+  image: string;
+  story: string;
+  caption: string;
+}
+
+interface GenerateEmotionalProductStoryOutput {
+  productPosts: ProductPost[];
+  storyPosts: StoryPost[];
+}
+
 
 export function AddProduct({
   language,
@@ -238,5 +254,3 @@ export function AddProduct({
     </Card>
   );
 }
-
-  
