@@ -1,3 +1,4 @@
+
 import {
   SidebarProvider,
   Sidebar,
@@ -19,6 +20,7 @@ import {
   Settings,
   LifeBuoy,
   LineChart,
+  BookOpen,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import Link from "next/link";
@@ -72,6 +74,13 @@ export function DashboardLayout({
       label: dictionary.sidebar.artisanCircle,
       tooltip: dictionary.sidebar.artisanCircle,
       path: `/${lang}/artisan-circle`,
+    },
+    {
+      href: `/${lang}/artisan-mentor`,
+      icon: BookOpen,
+      label: dictionary.sidebar.artisanMentor,
+      tooltip: dictionary.sidebar.artisanMentor,
+      path: `/${lang}/artisan-mentor`,
     },
   ];
   return (

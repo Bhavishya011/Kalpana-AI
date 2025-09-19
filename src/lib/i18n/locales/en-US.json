@@ -1,3 +1,4 @@
+
 {
     "dashboard": {
         "title": "KalpanaAI Dashboard",
@@ -15,6 +16,10 @@
             "title": "Artisan Circle",
             "description": "Connect with AI-matched mentors for guidance.",
             "call": "Call"
+        },
+        "artisanMentor": {
+            "title": "Artisan Mentor",
+            "description": "Learn and grow your digital skills to succeed."
         },
         "recentCreations": {
             "title": "Recent Creations",
@@ -69,6 +74,7 @@
             "marketPulse": "Market Pulse",
             "theMuse": "The Muse",
             "artisanCircle": "Artisan Circle",
+            "artisanMentor": "Artisan Mentor",
             "salesAnalytics": "Sales Analytics",
             "settings": "Settings",
             "support": "Support"
