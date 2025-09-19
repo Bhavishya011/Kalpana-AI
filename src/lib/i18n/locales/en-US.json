@@ -19,7 +19,35 @@
         },
         "artisanMentor": {
             "title": "Artisan Mentor",
-            "description": "Learn and grow your digital skills to succeed."
+            "description": "Learn and grow your digital skills to succeed.",
+            "skillOfTheDay": {
+                "title": "Skill of the Day",
+                "skills": {
+                    "hashtags": "Use hashtags on Instagram to reach more customers. Try #handicraft #indianartisan #madeinindia.",
+                    "packaging": "How to package your crafts safely for international shipping. Use bubble wrap and sturdy boxes.",
+                    "reviews": "Responding to customer reviews, even the negative ones, shows you care. Always be polite and helpful.",
+                    "videos": "Create a short video (15-30 seconds) of your crafting process. It's great content for social media!",
+                    "seo": "Use descriptive keywords in your product titles. Instead of 'Vase', try 'Hand-painted Terracotta Flower Vase'."
+                }
+            },
+            "coreSkills": {
+                "unlockingTheMuse": {
+                    "title": "Unlocking 'The Muse'",
+                    "content": "Learn how to use 'The Muse' to generate endless design variations. Upload a photo of your craft, and let the AI co-pilot inspire you with new patterns, color combinations, and stylistic ideas based on a vast library of Indian art forms."
+                },
+                "readingMarketPulse": {
+                    "title": "Reading the 'Market Pulse'",
+                    "content": "Discover what's trending in your area. 'Market Pulse' shows you which crafts are in high demand, helping you decide what to create next. It provides a demand multiplier and key trends to guide your production."
+                },
+                "takingPhotos": {
+                    "title": "Taking Stunning Product Photos",
+                    "content": "A great photo is the first step to a sale. Learn the basics of lighting, composition, and background to make your product stand out. Use a simple, clean background and natural light for the best results."
+                },
+                "tellingYourStory": {
+                    "title": "Telling Your Story",
+                    "content": "Your story sells your craft. When adding a product, describe your inspiration, the tradition behind your work, and what makes it unique. A personal story connects you with buyers on an emotional level."
+                }
+            }
         },
         "recentCreations": {
             "title": "Recent Creations",
