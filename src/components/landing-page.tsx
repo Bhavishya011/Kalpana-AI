@@ -7,9 +7,6 @@ import {Button} from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
-import rawImage from '../../../public/raw.png';
-import geminiImage from '../../../public/Gemini_Generated_Image_dosr7ddosr7ddosr.png';
-
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
@@ -135,7 +132,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                 <div className="flex">
                   <div className="w-1/2 relative">
                     <Image
-                      src={rawImage}
+                      src="/raw.png"
                       width={600}
                       height={600}
                       alt="Before AI Enhancement"
@@ -148,7 +145,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   </div>
                   <div className="w-1/2 relative">
                     <Image
-                      src={geminiImage}
+                      src="/Gemini_Generated_Image_dosr7ddosr7ddosr.png"
                       width={600}
                       height={600}
                       alt="After AI Enhancement"
@@ -275,5 +272,3 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
     </div>
   );
 }
-
-    
