@@ -46,6 +46,9 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
             <a href="#community" className="text-foreground hover:text-primary transition">
               Community
             </a>
+             <a href="#mentor" className="text-foreground hover:text-primary transition">
+              Mentor
+            </a>
           </div>
           <div className="flex items-center space-x-4">
             <Link href="/en-US/dashboard">
@@ -171,12 +174,12 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               </h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-                  <div className="lg:col-span-2">
+                  <div className="lg:col-span-3">
                       <div className="relative rounded-2xl shadow-2xl border-4 border-primary-foreground/20 overflow-hidden">
                           <Image src="/demand-map.png" alt="India Demand Map" width={800} height={450} className="w-full" data-ai-hint="map india" />
                       </div>
                   </div>
-                  <div className="lg:col-span-3 flex h-full">
+                  <div className="lg:col-span-2 flex h-full">
                       <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 flex flex-col justify-center h-full">
                           <div className="flex items-center gap-2 mb-4">
                               <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
@@ -245,7 +248,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   Join a Thriving Community
               </h2>
               <p className="text-lg text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
-                  You are not alone. Connect with fellow artisans and expert mentors who have succeeded on the global stage. Learn, share, and grow together.
+                  You are not alone. Connect with fellow artisans and expert mentors. KalpanaAI will even suggest pairing you with artisans of different crafts to create unique bundles and increase your sales.
               </p>
               
               <div className="flex flex-wrap justify-center gap-8">
