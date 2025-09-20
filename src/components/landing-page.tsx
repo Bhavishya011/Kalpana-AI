@@ -1,4 +1,3 @@
-
 'use client';
 
 import type {getDictionary} from '@/lib/i18n/dictionaries';
@@ -143,7 +142,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   <h3 className="text-2xl font-headline text-primary mb-4">Before</h3>
                   <div className="relative rounded-2xl shadow-2xl border-4 border-primary/50 overflow-hidden">
                     <Image
-                      src="https://picsum.photos/seed/10/600/900"
+                      src="/before.png"
                       width={600}
                       height={900}
                       alt="Before AI Enhancement"
@@ -156,7 +155,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   <h3 className="text-2xl font-headline text-accent mb-4 ">After AI</h3>
                   <div className="relative rounded-2xl shadow-2xl border-4 border-accent overflow-hidden">
                     <Image
-                      src="https://picsum.photos/seed/11/600/900"
+                      src="/after.png"
                       width={600}
                       height={900}
                       alt="After AI Enhancement"
@@ -178,12 +177,12 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               </h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-                  <div className="lg:col-span-2">
+                  <div className="lg:col-span-3">
                       <div className="relative rounded-2xl shadow-2xl border-4 border-primary-foreground/20 overflow-hidden">
-                          <Image src="https://picsum.photos/seed/12/800/600" alt="India Demand Map" width={800} height={600} className="w-full" data-ai-hint="map india" />
+                          <Image src="/demand-map.png" alt="India Demand Map" width={800} height={450} className="w-full" data-ai-hint="map india" />
                       </div>
                   </div>
-                  <div className="lg:col-span-3 flex h-full">
+                  <div className="lg:col-span-2 flex h-full">
                       <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 flex flex-col justify-center h-full">
                           <div className="flex items-center gap-2 mb-4">
                               <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
@@ -224,7 +223,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="relative max-w-xs mx-auto">
                       <div className="relative rounded-2xl shadow-lg border-4 border-primary overflow-hidden">
-                        <Image src="https://picsum.photos/seed/13/400/400" alt="Original Craft" width={400} height={400} className="w-full" data-ai-hint="original craft" />
+                        <Image src="/muse-original.png" alt="Original Craft" width={400} height={400} className="w-full" data-ai-hint="original craft" />
                       </div>
                       <div className="absolute -bottom-4 -right-4 bg-accent text-accent-foreground font-bold py-2 px-4 rounded-full shadow-md">
                           Your Original
@@ -234,10 +233,10 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                       <h3 className="text-xl font-bold">Stuck for ideas? The Muse generates new designs from your work.</h3>
                       <div className="grid grid-cols-2 gap-4">
                           <div className="relative group rounded-lg shadow-md group-hover:shadow-xl transition-all border-2 border-primary/50 overflow-hidden">
-                            <Image src="https://picsum.photos/seed/14/400/400" alt="Variant 1" width={400} height={400} className="w-full" data-ai-hint="craft design" />
+                            <Image src="/muse-variant-1.png" alt="Variant 1" width={400} height={400} className="w-full" data-ai-hint="craft design" />
                           </div>
                           <div className="relative group rounded-lg shadow-md group-hover:shadow-xl transition-all border-2 border-primary/50 overflow-hidden">
-                            <Image src="https://picsum.photos/seed/15/400/400" alt="Variant 2" width={400} height={400} className="w-full" data-ai-hint="craft detail" />
+                            <Image src="/muse-variant-2.png" alt="Variant 2" width={400} height={400} className="w-full" data-ai-hint="craft detail" />
                           </div>
                       </div>
                   </div>
