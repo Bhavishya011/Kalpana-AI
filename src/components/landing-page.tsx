@@ -132,7 +132,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                 <div className="flex">
                   <div className="w-1/2 relative">
                     <Image
-                      src="/raw.png"
+                      src="/before.png"
                       width={600}
                       height={600}
                       alt="Before AI Enhancement"
@@ -145,7 +145,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   </div>
                   <div className="w-1/2 relative">
                     <Image
-                      src="/Gemini_Generated_Image_dosr7ddosr7ddosr.png"
+                      src="/after.png"
                       width={600}
                       height={600}
                       alt="After AI Enhancement"
