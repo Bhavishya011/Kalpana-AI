@@ -107,21 +107,21 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform">
+                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform group">
                       <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:shadow-[0_0_15px_hsl(var(--accent))]">
                           <i data-feather="upload" className="text-accent w-8 h-8"></i>
                       </div>
                       <h3 className="text-xl font-bold mb-2">Upload Photo</h3>
                       <p className="text-muted-foreground">Simply take a picture of your craft with your phone</p>
                   </div>
-                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform">
+                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform group">
                       <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:shadow-[0_0_15px_hsl(var(--accent))]">
                           <i data-feather="zap" className="text-accent w-8 h-8"></i>
                       </div>
                       <h3 className="text-xl font-bold mb-2">AI Enhances + Generates Story</h3>
                       <p className="text-muted-foreground">Our AI writes the perfect story about your craft's heritage</p>
                   </div>
-                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform">
+                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform group">
                       <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:shadow-[0_0_15px_hsl(var(--primary))]">
                           <i data-feather="share-2" className="text-primary w-8 h-8"></i>
                       </div>
@@ -130,7 +130,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   </div>
               </div>
 
-               <div className="relative max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-2xl border-4 border-white">
+               <div className="relative max-w-5xl mx-auto overflow-hidden rounded-2xl shadow-2xl border-4 border-white">
                 <div className="flex">
                   <div className="w-1/2 relative">
                     <Image
@@ -175,12 +175,12 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               </h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div>
+                  <div className="lg:col-span-1">
                       <div className="relative">
-                          <Image src="/demand-map.png" alt="India Demand Map" width={1200} height={630} className="w-full rounded-xl shadow-2xl" data-ai-hint="map india" />
+                          <Image src="/demand-map.png" alt="India Demand Map" width={800} height={450} className="w-full rounded-xl shadow-2xl" data-ai-hint="map india" />
                       </div>
                   </div>
-                  <div>
+                  <div className="lg:col-span-1">
                       <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                           <div className="flex items-center gap-2 mb-4">
                               <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
@@ -218,21 +218,21 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   The Muse - Your Generative Craft Co-Pilot
               </h2>
               
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
-                  <div className="lg:col-span-3 relative">
-                      <Image src="/muse-original.png" alt="Original Craft" width={1200} height={630} className="w-full rounded-xl shadow-lg border-4 border-primary" data-ai-hint="original craft" />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                  <div className="relative">
+                      <Image src="/muse-original.png" alt="Original Craft" width={800} height={800} className="w-full rounded-xl shadow-lg border-4 border-primary" data-ai-hint="original craft" />
                       <div className="absolute -bottom-4 -right-4 bg-accent text-accent-foreground font-bold py-2 px-4 rounded-full shadow-md">
                           Your Original
                       </div>
                   </div>
-                  <div className="lg:col-span-2 space-y-4">
+                  <div className="space-y-4">
                       <h3 className="text-xl font-bold">Stuck for ideas? The Muse generates new designs from your work.</h3>
                       <div className="grid grid-cols-2 gap-4">
                           <div className="relative group">
-                            <Image src="/muse-variant-1.png" alt="Variant 1" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft design" />
+                            <Image src="/muse-variant-1.png" alt="Variant 1" width={400} height={400} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft design" />
                           </div>
                           <div className="relative group">
-                            <Image src="/muse-variant-2.png" alt="Variant 2" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft detail" />
+                            <Image src="/muse-variant-2.png" alt="Variant 2" width={400} height={400} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft detail" />
                           </div>
                       </div>
                   </div>
