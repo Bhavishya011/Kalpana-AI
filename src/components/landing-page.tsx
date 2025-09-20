@@ -105,21 +105,21 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
+                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all hover:scale-105">
                       <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-4">
                           <i data-feather="upload" className="text-accent w-8 h-8"></i>
                       </div>
                       <h3 className="text-xl font-bold mb-2">Upload Photo</h3>
                       <p className="text-muted-foreground">Simply take a picture of your craft with your phone</p>
                   </div>
-                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
+                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all hover:scale-105">
                       <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-4">
                           <i data-feather="zap" className="text-accent w-8 h-8"></i>
                       </div>
                       <h3 className="text-xl font-bold mb-2">AI Enhances + Generates Story</h3>
                       <p className="text-muted-foreground">Our AI writes the perfect story about your craft's heritage</p>
                   </div>
-                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
+                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all hover:scale-105">
                       <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4">
                           <i data-feather="share-2" className="text-primary w-8 h-8"></i>
                       </div>
