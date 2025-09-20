@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from '@/lib/firebase/auth-context';
 
 export const metadata: Metadata = {
   title: 'KalpanaAI: Empowering Artisans',
@@ -21,8 +22,10 @@ export default function RootLayout({
          <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js" async></script>
       </head>
       <body className="font-body antialiased">
-        {children}
-        <Toaster />
+        <AuthProvider>
+          {children}
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );

@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Facebook, Instagram, Twitter, Youtube, BookOpen, Lightbulb, TrendingUp, Camera, Users, Award } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { usePathname } from 'next/navigation';
 
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
@@ -22,6 +23,9 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
       window.feather.replace();
     }
   }, []);
+  
+  const pathname = usePathname();
+  const lang = pathname.split('/')[1] || 'en-US';
 
   return (
     <div className="bg-background text-foreground">
@@ -51,7 +55,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
             </a>
           </div>
           <div className="flex items-center space-x-4">
-            <Link href="/en-US/dashboard">
+            <Link href={`/${lang}/login`}>
               <Button className="hidden md:block bg-primary text-primary-foreground hover:bg-primary/90 transition">
                 Artisan Login
               </Button>
@@ -139,7 +143,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   <h3 className="text-2xl font-headline text-primary mb-4">Before</h3>
                   <div className="relative rounded-2xl shadow-2xl border-4 border-primary/50 overflow-hidden">
                     <Image
-                      src="/before.png"
+                      src="https://picsum.photos/seed/before/600/900"
                       width={600}
                       height={900}
                       alt="Before AI Enhancement"
@@ -152,7 +156,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   <h3 className="text-2xl font-headline text-accent mb-4 ">After AI</h3>
                   <div className="relative rounded-2xl shadow-2xl border-4 border-accent overflow-hidden">
                     <Image
-                      src="/after.png"
+                      src="https://picsum.photos/seed/after/600/900"
                       width={600}
                       height={900}
                       alt="After AI Enhancement"
@@ -174,12 +178,12 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               </h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-                  <div className="lg:col-span-3">
+                  <div className="lg:col-span-2">
                       <div className="relative rounded-2xl shadow-2xl border-4 border-primary-foreground/20 overflow-hidden">
-                          <Image src="/demand-map.png" alt="India Demand Map" width={800} height={450} className="w-full" data-ai-hint="map india" />
+                          <Image src="https://picsum.photos/seed/map/800/600" alt="India Demand Map" width={800} height={600} className="w-full" data-ai-hint="map india" />
                       </div>
                   </div>
-                  <div className="lg:col-span-2 flex h-full">
+                  <div className="lg:col-span-3 flex h-full">
                       <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 flex flex-col justify-center h-full">
                           <div className="flex items-center gap-2 mb-4">
                               <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
@@ -220,7 +224,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="relative max-w-xs mx-auto">
                       <div className="relative rounded-2xl shadow-lg border-4 border-primary overflow-hidden">
-                        <Image src="/muse-original.png" alt="Original Craft" width={400} height={400} className="w-full" data-ai-hint="original craft" />
+                        <Image src="https://picsum.photos/seed/muse/400/400" alt="Original Craft" width={400} height={400} className="w-full" data-ai-hint="original craft" />
                       </div>
                       <div className="absolute -bottom-4 -right-4 bg-accent text-accent-foreground font-bold py-2 px-4 rounded-full shadow-md">
                           Your Original
@@ -230,10 +234,10 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                       <h3 className="text-xl font-bold">Stuck for ideas? The Muse generates new designs from your work.</h3>
                       <div className="grid grid-cols-2 gap-4">
                           <div className="relative group rounded-lg shadow-md group-hover:shadow-xl transition-all border-2 border-primary/50 overflow-hidden">
-                            <Image src="/muse-variant-1.png" alt="Variant 1" width={400} height={400} className="w-full" data-ai-hint="craft design" />
+                            <Image src="https://picsum.photos/seed/variant1/400/400" alt="Variant 1" width={400} height={400} className="w-full" data-ai-hint="craft design" />
                           </div>
                           <div className="relative group rounded-lg shadow-md group-hover:shadow-xl transition-all border-2 border-primary/50 overflow-hidden">
-                            <Image src="/muse-variant-2.png" alt="Variant 2" width={400} height={400} className="w-full" data-ai-hint="craft detail" />
+                            <Image src="https://picsum.photos/seed/variant2/400/400" alt="Variant 2" width={400} height={400} className="w-full" data-ai-hint="craft detail" />
                           </div>
                       </div>
                   </div>
@@ -372,5 +376,3 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
     </div>
   );
 }
-
-    

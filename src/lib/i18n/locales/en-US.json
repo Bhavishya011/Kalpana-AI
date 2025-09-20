@@ -106,6 +106,21 @@
             "salesAnalytics": "Sales Analytics",
             "settings": "Settings",
             "support": "Support"
+        },
+        "login": {
+            "title": "Artisan Login",
+            "description": "Enter your email below to login to your account.",
+            "emailLabel": "Email",
+            "emailPlaceholder": "m@example.com",
+            "passwordLabel": "Password",
+            "signIn": "Sign in",
+            "signInWithGoogle": "Sign in with Google",
+            "signUpPrompt": "New to KalpanaAI?",
+            "signUpLink": "Sign up",
+            "loginFailedTitle": "Login Failed",
+            "loginFailedDescription": "Invalid email or password. Please try again.",
+            "googleLoginFailedTitle": "Login Failed",
+            "googleLoginFailedDescription": "Could not sign in with Google. Please try again."
         }
     }
 }

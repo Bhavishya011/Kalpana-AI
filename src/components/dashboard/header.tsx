@@ -15,6 +15,8 @@ import { LanguageSwitcher } from "./language-switcher";
 import { LifeBuoy, LogOut, Settings, User } from "lucide-react";
 import type {getDictionary} from '@/lib/i18n/dictionaries';
 import Link from "next/link";
+import { useAuth } from "@/lib/firebase/auth-context";
+import { useRouter } from "next/navigation";
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
@@ -30,6 +32,14 @@ export function DashboardHeader({
   setLanguage,
   dictionary
 }: DashboardHeaderProps) {
+  const { user, signOutUser } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await signOutUser();
+    router.push(`/${language}`);
+  }
+
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-lg sm:px-6">
       <SidebarTrigger className="md:hidden" />
@@ -42,17 +52,17 @@ export function DashboardHeader({
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-9 w-9 rounded-full">
               <Avatar className="h-9 w-9">
-                <AvatarImage src="https://picsum.photos/100/100" alt="@artisan" data-ai-hint="person portrait" />
-                <AvatarFallback>A</AvatarFallback>
+                <AvatarImage src={user?.photoURL || "https://picsum.photos/100/100"} alt="@artisan" data-ai-hint="person portrait" />
+                <AvatarFallback>{user?.email?.[0]?.toUpperCase() || 'A'}</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">{dictionary.userMenu.artisanName}</p>
+                <p className="text-sm font-medium leading-none">{user?.displayName || dictionary.userMenu.artisanName}</p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  {dictionary.userMenu.artisanEmail}
+                  {user?.email || dictionary.userMenu.artisanEmail}
                 </p>
               </div>
             </DropdownMenuLabel>
@@ -70,12 +80,10 @@ export function DashboardHeader({
               <span>{dictionary.userMenu.support}</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <Link href="/">
-              <DropdownMenuItem>
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>{dictionary.userMenu.logout}</span>
-              </DropdownMenuItem>
-            </Link>
+            <DropdownMenuItem onClick={handleLogout}>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>{dictionary.userMenu.logout}</span>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
