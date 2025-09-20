@@ -4,7 +4,6 @@
 import type {getDictionary} from '@/lib/i18n/dictionaries';
 import {useEffect} from 'react';
 import {Button} from '@/components/ui/button';
-import {Logo} from '@/components/icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
@@ -28,7 +27,6 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
       <nav className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-sm shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
           <div className="flex items-center">
-            <Logo className="h-10 mr-4 text-primary" />
             <span className="text-xl font-headline text-primary">
               KalpanaAI
             </span>
@@ -243,7 +241,6 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
-              <Logo className="h-8 mr-3 text-primary-foreground" />
               <span className="text-lg font-headline text-primary-foreground">KalpanaAI</span>
             </div>
             <p className="max-w-md">
