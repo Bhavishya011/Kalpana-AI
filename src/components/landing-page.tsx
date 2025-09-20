@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import type {getDictionary} from '@/lib/i18n/dictionaries';
@@ -137,7 +136,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                     <Image
                       src="/before.png"
                       width={600}
-                      height={600}
+                      height={800}
                       alt="Before AI Enhancement"
                       className="w-full h-full object-cover"
                       data-ai-hint="raw craft photo"
@@ -150,7 +149,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                     <Image
                       src="/after.png"
                       width={600}
-                      height={600}
+                      height={800}
                       alt="After AI Enhancement"
                       className="w-full h-full object-cover"
                       data-ai-hint="enhanced craft photo"
@@ -170,13 +169,13 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               </h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-                  <div className="lg:col-span-2">
+                  <div className="lg:col-span-3">
                       <div className="relative rounded-2xl shadow-2xl border-4 border-primary-foreground/20 overflow-hidden">
                           <Image src="/demand-map.png" alt="India Demand Map" width={800} height={450} className="w-full" data-ai-hint="map india" />
                       </div>
                   </div>
-                  <div className="lg:col-span-3">
-                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                  <div className="lg:col-span-2 flex h-full">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 flex flex-col justify-center">
                           <div className="flex items-center gap-2 mb-4">
                               <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
                               <span className="font-bold uppercase tracking-wider">Urgent Opportunity</span>
@@ -214,7 +213,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               </h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="relative max-w-md mx-auto">
+                  <div className="relative max-w-sm mx-auto">
                       <div className="relative rounded-2xl shadow-lg border-4 border-primary overflow-hidden">
                         <Image src="/muse-original.png" alt="Original Craft" width={600} height={600} className="w-full" data-ai-hint="original craft" />
                       </div>
@@ -273,3 +272,4 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
     </div>
   );
 }
+
