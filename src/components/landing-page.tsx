@@ -6,7 +6,9 @@ import {useEffect} from 'react';
 import {Button} from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Youtube, BookOpen, Lightbulb, TrendingUp, Camera, Users, Award } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
@@ -129,14 +131,14 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   </div>
               </div>
 
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
                 <div className="text-center">
                   <h3 className="text-2xl font-headline text-primary mb-4">Before</h3>
                   <div className="relative rounded-2xl shadow-2xl border-4 border-primary/50 overflow-hidden">
                     <Image
                       src="/before.png"
                       width={600}
-                      height={800}
+                      height={900}
                       alt="Before AI Enhancement"
                       className="w-full h-full object-cover"
                       data-ai-hint="raw craft photo"
@@ -149,7 +151,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                     <Image
                       src="/after.png"
                       width={600}
-                      height={800}
+                      height={900}
                       alt="After AI Enhancement"
                       className="w-full h-full object-cover"
                       data-ai-hint="enhanced craft photo"
@@ -169,13 +171,13 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               </h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-                  <div className="lg:col-span-3">
+                  <div className="lg:col-span-2">
                       <div className="relative rounded-2xl shadow-2xl border-4 border-primary-foreground/20 overflow-hidden">
                           <Image src="/demand-map.png" alt="India Demand Map" width={800} height={450} className="w-full" data-ai-hint="map india" />
                       </div>
                   </div>
-                  <div className="lg:col-span-2 flex h-full">
-                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 flex flex-col justify-center">
+                  <div className="lg:col-span-3 flex h-full">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 flex flex-col justify-center h-full">
                           <div className="flex items-center gap-2 mb-4">
                               <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
                               <span className="font-bold uppercase tracking-wider">Urgent Opportunity</span>
@@ -213,9 +215,9 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               </h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="relative max-w-sm mx-auto">
+                  <div className="relative max-w-xs mx-auto">
                       <div className="relative rounded-2xl shadow-lg border-4 border-primary overflow-hidden">
-                        <Image src="/muse-original.png" alt="Original Craft" width={600} height={600} className="w-full" data-ai-hint="original craft" />
+                        <Image src="/muse-original.png" alt="Original Craft" width={400} height={400} className="w-full" data-ai-hint="original craft" />
                       </div>
                       <div className="absolute -bottom-4 -right-4 bg-accent text-accent-foreground font-bold py-2 px-4 rounded-full shadow-md">
                           Your Original
@@ -231,6 +233,101 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                             <Image src="/muse-variant-2.png" alt="Variant 2" width={400} height={400} className="w-full" data-ai-hint="craft detail" />
                           </div>
                       </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      {/* Community Section */}
+      <section id="community" className="py-20 px-8 bg-background">
+          <div className="max-w-6xl mx-auto relative">
+              <h2 className="text-4xl font-headline text-center text-primary mb-4 ink-text">
+                  Join a Thriving Community
+              </h2>
+              <p className="text-lg text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
+                  You are not alone. Connect with fellow artisans and expert mentors who have succeeded on the global stage. Learn, share, and grow together.
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-8">
+                  <div className="text-center">
+                      <Avatar className="h-24 w-24 mb-2 border-4 border-accent shadow-lg">
+                          <AvatarImage src="https://picsum.photos/100/100?random=1" data-ai-hint="woman portrait" />
+                          <AvatarFallback>MP</AvatarFallback>
+                      </Avatar>
+                      <p className="font-semibold">Meera P.</p>
+                      <p className="text-sm text-muted-foreground">Textile Expert</p>
+                  </div>
+                  <div className="text-center">
+                      <Avatar className="h-24 w-24 mb-2 border-4 border-accent shadow-lg">
+                          <AvatarImage src="https://picsum.photos/100/100?random=2" data-ai-hint="man portrait" />
+                          <AvatarFallback>RK</AvatarFallback>
+                      </Avatar>
+                      <p className="font-semibold">Rajesh K.</p>
+                      <p className="text-sm text-muted-foreground">Metalwork Master</p>
+                  </div>
+                   <div className="text-center">
+                      <Avatar className="h-24 w-24 mb-2 border-4 border-accent shadow-lg">
+                          <AvatarImage src="https://picsum.photos/100/100?random=3" data-ai-hint="woman smiling" />
+                          <AvatarFallback>AS</AvatarFallback>
+                      </Avatar>
+                      <p className="font-semibold">Anjali S.</p>
+                      <p className="text-sm text-muted-foreground">Pottery Guru</p>
+                  </div>
+                   <div className="text-center">
+                      <Avatar className="h-24 w-24 mb-2 border-4 border-accent shadow-lg">
+                          <AvatarImage src="https://picsum.photos/100/100?random=8" data-ai-hint="man smiling" />
+                          <AvatarFallback>SV</AvatarFallback>
+                      </Avatar>
+                      <p className="font-semibold">Sanjay V.</p>
+                      <p className="text-sm text-muted-foreground">Woodcarver</p>
+                  </div>
+                   <div className="text-center">
+                      <Avatar className="h-24 w-24 mb-2 border-4 border-accent shadow-lg">
+                          <AvatarImage src="https://picsum.photos/100/100?random=9" data-ai-hint="woman glasses" />
+                          <AvatarFallback>PD</AvatarFallback>
+                      </Avatar>
+                      <p className="font-semibold">Priya D.</p>
+                      <p className="text-sm text-muted-foreground">Jewelry Designer</p>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      {/* Artisan Mentor Section */}
+      <section id="mentor" className="py-20 px-8 bg-secondary/50">
+        <div className="absolute inset-0 craft-pattern"></div>
+          <div className="max-w-6xl mx-auto relative">
+              <h2 className="text-4xl font-headline text-center text-primary mb-16 ink-text">
+                  Learn from the Best with Artisan Mentor
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform group text-center">
+                      <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:shadow-[0_0_15px_hsl(var(--primary))] mx-auto">
+                          <Camera className="text-primary w-8 h-8"/>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">Product Photography</h3>
+                      <p className="text-muted-foreground">Take photos that sell</p>
+                  </div>
+                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform group text-center">
+                      <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:shadow-[0_0_15px_hsl(var(--primary))] mx-auto">
+                          <BookOpen className="text-primary w-8 h-8"/>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">Storytelling</h3>
+                      <p className="text-muted-foreground">Connect with customers</p>
+                  </div>
+                   <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform group text-center">
+                      <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:shadow-[0_0_15px_hsl(var(--primary))] mx-auto">
+                          <TrendingUp className="text-primary w-8 h-8"/>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">Market Trends</h3>
+                      <p className="text-muted-foreground">Know what's in demand</p>
+                  </div>
+                   <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform group text-center">
+                      <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:shadow-[0_0_15px_hsl(var(--primary))] mx-auto">
+                          <Award className="text-primary w-8 h-8"/>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">Digital Skills</h3>
+                      <p className="text-muted-foreground">Master online selling</p>
                   </div>
               </div>
           </div>
@@ -273,3 +370,4 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
   );
 }
 
+    
