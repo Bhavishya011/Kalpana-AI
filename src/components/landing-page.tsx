@@ -169,13 +169,13 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   Hyperlocal Demand Spikes
               </h2>
               
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-                  <div className="lg:col-span-3">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                  <div>
                       <div className="relative rounded-2xl shadow-2xl border-4 border-primary-foreground/20 overflow-hidden">
                           <Image src="/demand-map.png" alt="India Demand Map" width={800} height={450} className="w-full" data-ai-hint="map india" />
                       </div>
                   </div>
-                  <div className="lg:col-span-2">
+                  <div>
                       <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                           <div className="flex items-center gap-2 mb-4">
                               <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
@@ -215,7 +215,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="relative">
-                      <div className="relative max-w-md mx-auto rounded-2xl shadow-lg border-4 border-primary overflow-hidden">
+                      <div className="relative max-w-sm mx-auto rounded-2xl shadow-lg border-4 border-primary overflow-hidden">
                         <Image src="/muse-original.png" alt="Original Craft" width={600} height={600} className="w-full" data-ai-hint="original craft" />
                       </div>
                       <div className="absolute -bottom-4 -right-4 bg-accent text-accent-foreground font-bold py-2 px-4 rounded-full shadow-md">
