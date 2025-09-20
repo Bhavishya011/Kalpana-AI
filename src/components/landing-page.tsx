@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import type {getDictionary} from '@/lib/i18n/dictionaries';
@@ -99,28 +100,29 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
 
       {/* 1-Click Magic Section */}
       <section id="features" className="py-20 px-8 bg-secondary/50">
-          <div className="max-w-6xl mx-auto">
+        <div className="absolute inset-0 craft-pattern"></div>
+          <div className="max-w-6xl mx-auto relative">
               <h2 className="text-4xl font-headline text-center text-primary mb-16 ink-text">
                   The 1-Click Magic
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all hover:scale-105">
-                      <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-4">
+                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform">
+                      <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:shadow-[0_0_15px_hsl(var(--accent))]">
                           <i data-feather="upload" className="text-accent w-8 h-8"></i>
                       </div>
                       <h3 className="text-xl font-bold mb-2">Upload Photo</h3>
                       <p className="text-muted-foreground">Simply take a picture of your craft with your phone</p>
                   </div>
-                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all hover:scale-105">
-                      <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-4">
+                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform">
+                      <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:shadow-[0_0_15px_hsl(var(--accent))]">
                           <i data-feather="zap" className="text-accent w-8 h-8"></i>
                       </div>
                       <h3 className="text-xl font-bold mb-2">AI Enhances + Generates Story</h3>
                       <p className="text-muted-foreground">Our AI writes the perfect story about your craft's heritage</p>
                   </div>
-                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all hover:scale-105">
-                      <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4">
+                  <div className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all hover:scale-105 transform">
+                      <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:shadow-[0_0_15px_hsl(var(--primary))]">
                           <i data-feather="share-2" className="text-primary w-8 h-8"></i>
                       </div>
                       <h3 className="text-xl font-bold mb-2">Auto-Lists on Marketplaces</h3>
@@ -128,7 +130,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   </div>
               </div>
 
-               <div className="relative max-w-3xl mx-auto overflow-hidden rounded-2xl shadow-2xl border-4 border-white">
+               <div className="relative max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-2xl border-4 border-white">
                 <div className="flex">
                   <div className="w-1/2 relative">
                     <Image
@@ -166,7 +168,8 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
 
       {/* Hyperlocal Demand Section */}
       <section id="demand" className="py-20 px-8 bg-primary/90 text-primary-foreground">
-          <div className="max-w-6xl mx-auto">
+        <div className="absolute inset-0 craft-pattern rotate-180"></div>
+          <div className="max-w-6xl mx-auto relative">
               <h2 className="text-4xl font-headline text-center mb-16 ink-text">
                   Hyperlocal Demand Spikes
               </h2>
@@ -209,21 +212,22 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
 
       {/* The Muse Section */}
       <section id="muse" className="py-20 px-8 bg-secondary/50">
-          <div className="max-w-6xl mx-auto">
+        <div className="absolute inset-0 craft-pattern"></div>
+          <div className="max-w-6xl mx-auto relative">
               <h2 className="text-4xl font-headline text-center text-primary mb-16 ink-text">
                   The Muse - Your Generative Craft Co-Pilot
               </h2>
               
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="relative">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                  <div className="lg:col-span-3 relative">
                       <Image src="/muse-original.png" alt="Original Craft" width={1200} height={630} className="w-full rounded-xl shadow-lg border-4 border-primary" data-ai-hint="original craft" />
                       <div className="absolute -bottom-4 -right-4 bg-accent text-accent-foreground font-bold py-2 px-4 rounded-full shadow-md">
                           Your Original
                       </div>
                   </div>
-                  <div>
-                      <h3 className="text-2xl font-bold mb-4">Stuck for ideas? The Muse finds stylistically similar designs from 10,000+ Indian crafts.</h3>
-                      <div className="grid grid-cols-2 gap-4 mb-8">
+                  <div className="lg:col-span-2 space-y-4">
+                      <h3 className="text-xl font-bold">Stuck for ideas? The Muse generates new designs from your work.</h3>
+                      <div className="grid grid-cols-2 gap-4">
                           <div className="relative group">
                             <Image src="/muse-variant-1.png" alt="Variant 1" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft design" />
                           </div>
@@ -272,9 +276,3 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
     </div>
   );
 }
-
-    
-
-    
-
-    
