@@ -90,7 +90,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   needed.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-start gap-4">
-                  <Link href="/en-US/dashboard">
+                  <Link href={`/${lang}/login`}>
                     <Button
                       size="lg"
                       className="silk-gradient hover:bg-gradient-to-r hover:from-[#E6BE8A] hover:to-[#F5F5DC] text-foreground font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 diya-glow"
