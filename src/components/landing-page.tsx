@@ -90,7 +90,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   needed.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-start gap-4">
-                  <Link href={`/${lang}/login`}>
+                  <Link href="/en-US/dashboard">
                     <Button
                       size="lg"
                       className="silk-gradient hover:bg-gradient-to-r hover:from-[#E6BE8A] hover:to-[#F5F5DC] text-foreground font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 diya-glow"
@@ -369,7 +369,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
           </div>
         </div>
         <div className="max-w-6xl mx-auto mt-8 pt-8 border-t border-primary-foreground/20 text-center text-xs">
-          <p>© 2024 KalpanaAI. All rights reserved. Powered by Google Cloud AI.</p>
+          <p>© 2025 KalpanaAI. All rights reserved. Powered by Google Cloud AI.</p>
         </div>
       </footer>
     </div>
