@@ -7,8 +7,6 @@ import {Button} from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
-import BeforeImage from '/public/raw.png';
-import AfterImage from '/public/Gemini_Generated_Image_dosr7ddosr7ddosr.png';
 
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
