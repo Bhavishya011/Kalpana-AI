@@ -89,16 +89,6 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   finds buyers, and lists it everywhere. Zero tech skills
                   needed.
                 </p>
-                <div className="flex flex-col sm:flex-row justify-start gap-4">
-                  <Link href="/en-US/dashboard">
-                    <Button
-                      size="lg"
-                      className="silk-gradient hover:bg-gradient-to-r hover:from-[#E6BE8A] hover:to-[#F5F5DC] text-foreground font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 diya-glow"
-                    >
-                      <span className="mr-2">✨</span> Start Free (15 sec signup)
-                    </Button>
-                  </Link>
-                </div>
               </div>
             </div>
           </div>

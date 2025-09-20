@@ -31,7 +31,8 @@ const GoogleIcon = (props: React.ComponentProps<'svg'>) => (
 export function LoginPage({ dictionary }: { dictionary: Dictionary }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signInWithEmail, signInWithGoogle } = useAuth();
+  const [isSignUp, setIsSignUp] = useState(false);
+  const { signInWithEmail, signUpWithEmail, signInWithGoogle } = useAuth();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
@@ -39,12 +40,32 @@ export function LoginPage({ dictionary }: { dictionary: Dictionary }) {
 
   const handleEmailLogin = async () => {
     try {
-      await signInWithEmail(email, password);
-      router.push(`/${lang}/dashboard`);
-    } catch (error) {
+      if (isSignUp) {
+        await signUpWithEmail(email, password);
+        toast({
+          title: "Account Created",
+          description: "Welcome to KalpanaAI! Your account has been created successfully.",
+        });
+      } else {
+        await signInWithEmail(email, password);
+        toast({
+          title: "Login Successful",
+          description: "Welcome back!",
+        });
+      }
+      // Force a page reload to ensure auth state is properly synced
+      window.location.href = `/${lang}/dashboard`;
+    } catch (error: any) {
+      console.error('Authentication error:', error);
+      const errorMessage = isSignUp 
+        ? (error.code === 'auth/email-already-in-use' 
+          ? "This email is already registered. Try signing in instead."
+          : "Failed to create account. Please try again.")
+        : "Invalid email or password. Please try again.";
+        
       toast({
-        title: "Login Failed",
-        description: "Invalid email or password. Please try again.",
+        title: isSignUp ? "Sign Up Failed" : "Login Failed",
+        description: errorMessage,
         variant: "destructive",
       });
     }
@@ -53,10 +74,16 @@ export function LoginPage({ dictionary }: { dictionary: Dictionary }) {
   const handleGoogleLogin = async () => {
       try {
           await signInWithGoogle();
-          router.push(`/${lang}/dashboard`);
-      } catch (error) {
           toast({
-              title: "Login Failed",
+            title: isSignUp ? "Account Created" : "Login Successful",
+            description: isSignUp ? "Welcome to KalpanaAI!" : "Welcome back!",
+          });
+          // Force a page reload to ensure auth state is properly synced
+          window.location.href = `/${lang}/dashboard`;
+      } catch (error) {
+          console.error('Google login error:', error);
+          toast({
+              title: isSignUp ? "Sign Up Failed" : "Login Failed", 
               description: "Could not sign in with Google. Please try again.",
               variant: "destructive",
           });
@@ -67,9 +94,14 @@ export function LoginPage({ dictionary }: { dictionary: Dictionary }) {
     <div className="flex items-center justify-center min-h-screen bg-secondary/50">
       <Card className="w-full max-w-sm mx-auto">
         <CardHeader>
-          <CardTitle className="text-2xl font-headline">Artisan Login</CardTitle>
+          <CardTitle className="text-2xl font-headline">
+            {isSignUp ? "Create Account" : "Artisan Login"}
+          </CardTitle>
           <CardDescription>
-            Enter your email below to login to your account.
+            {isSignUp 
+              ? "Create your account to start your artisan journey with KalpanaAI."
+              : "Enter your email below to login to your account."
+            }
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -81,17 +113,36 @@ export function LoginPage({ dictionary }: { dictionary: Dictionary }) {
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" required value={password} onChange={e => setPassword(e.target.value)}/>
           </div>
-          <Button onClick={handleEmailLogin} className="w-full">Sign in</Button>
+          <Button onClick={handleEmailLogin} className="w-full">
+            {isSignUp ? "Create Account" : "Sign in"}
+          </Button>
           <Button variant="outline" className="w-full" onClick={handleGoogleLogin}>
             <GoogleIcon className="mr-2"/>
-            Sign in with Google
+            {isSignUp ? "Sign up with Google" : "Sign in with Google"}
           </Button>
         </CardContent>
         <CardFooter className="text-center text-sm">
-             New to KalpanaAI?&nbsp;
-            <a href="#" className="underline">
-              Sign up
-            </a>
+          {isSignUp ? (
+            <>
+              Already have an account?&nbsp;
+              <button 
+                onClick={() => setIsSignUp(false)} 
+                className="underline text-primary hover:text-primary/80"
+              >
+                Sign in
+              </button>
+            </>
+          ) : (
+            <>
+              New to KalpanaAI?&nbsp;
+              <button 
+                onClick={() => setIsSignUp(true)} 
+                className="underline text-primary hover:text-primary/80"
+              >
+                Create account
+              </button>
+            </>
+          )}
         </CardFooter>
       </Card>
     </div>

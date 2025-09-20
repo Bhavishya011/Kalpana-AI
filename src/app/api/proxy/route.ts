@@ -2,7 +2,10 @@
 import {NextRequest, NextResponse} from 'next/server';
 
 export async function POST(request: NextRequest) {
-  const serviceUrl = 'https://kalpanaai-storytelling-418149026163.us-central1.run.app/api/storytelling/generate';
+  // Use local development server instead of Cloud Run
+  const serviceUrl = 'http://localhost:8080/api/storytelling/generate';
+  // Production Cloud Run URL (comment out for local development):
+  // const serviceUrl = 'https://kalpanaai-storytelling-418149026163.us-central1.run.app/api/storytelling/generate';
   
   try {
     const formData = await request.formData();

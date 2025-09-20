@@ -1,6 +1,5 @@
 import {NextRequest, NextResponse} from 'next/server';
 import {i18n} from '@/lib/i18n/i18n-config';
-import {get} from '@vercel/edge-config';
 
 const PUBLIC_FILE = /\.(.*)$/;
 
@@ -28,26 +27,37 @@ export async function middleware(request: NextRequest) {
   }
 
   const publicRoutes = ['/', '/login'];
-  const isPublicRoute =
-    publicRoutes.some(route => pathname === `/${locale}${route}`) ||
-    pathname === `/${locale}`;
+  const isPublicRoute = 
+    pathname === '/' ||
+    pathname === `/${locale}` ||
+    pathname === `/${locale}/` ||
+    pathname === `/${locale}/login` ||
+    publicRoutes.some(route => pathname === `/${locale}${route}`);
 
   const session = request.cookies.get('firebase-session')?.value;
 
+  // Handle locale redirects first
   if (!pathnameHasLocale) {
     request.nextUrl.pathname = `/${locale}${pathname}`;
     return NextResponse.redirect(request.nextUrl);
   }
 
-  if (!session && !isPublicRoute) {
-    return NextResponse.redirect(
-      new URL(`/${locale}/login`, request.nextUrl)
-    );
+  // Allow access to public routes without authentication
+  if (isPublicRoute) {
+    // If user is already logged in and trying to access login page, redirect to dashboard
+    if (session && pathname === `/${locale}/login`) {
+      return NextResponse.redirect(
+        new URL(`/${locale}/dashboard`, request.nextUrl)
+      );
+    }
+    // Allow access to other public routes
+    return NextResponse.next();
   }
 
-  if (session && pathname === `/${locale}/login`) {
+  // For protected routes, require authentication
+  if (!session) {
     return NextResponse.redirect(
-      new URL(`/${locale}/dashboard`, request.nextUrl)
+      new URL(`/${locale}/login`, request.nextUrl)
     );
   }
 }
