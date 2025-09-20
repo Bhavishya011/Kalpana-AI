@@ -130,9 +130,10 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   </div>
               </div>
 
-               <div className="relative max-w-5xl mx-auto overflow-hidden rounded-2xl shadow-2xl border-4 border-white">
-                <div className="flex">
-                  <div className="w-1/2 relative">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
+                <div className="text-center">
+                  <h3 className="text-2xl font-headline text-primary mb-4">Before</h3>
+                  <div className="relative rounded-2xl shadow-2xl border-4 border-primary/50 overflow-hidden">
                     <Image
                       src="/before.png"
                       width={600}
@@ -141,26 +142,20 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                       className="w-full h-full object-cover"
                       data-ai-hint="raw craft photo"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white text-center py-2 font-bold">
-                      BEFORE
-                    </div>
                   </div>
-                  <div className="w-1/2 relative">
+                </div>
+                <div className="text-center">
+                  <h3 className="text-2xl font-headline text-accent mb-4">After AI</h3>
+                  <div className="relative rounded-2xl shadow-2xl border-4 border-accent overflow-hidden">
                     <Image
                       src="/after.png"
                       width={600}
                       height={600}
                       alt="After AI Enhancement"
-                      className="w-full h-full object-cover border-l-4 border-accent"
+                      className="w-full h-full object-cover"
                       data-ai-hint="enhanced craft photo"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 bg-accent text-accent-foreground text-center py-2 font-bold">
-                      AFTER AI
-                    </div>
                   </div>
-                </div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg">
-                  <i data-feather="arrow-right" className="text-primary w-6 h-6"></i>
                 </div>
               </div>
           </div>
@@ -174,13 +169,13 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   Hyperlocal Demand Spikes
               </h2>
               
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="lg:col-span-1">
-                      <div className="relative">
-                          <Image src="/demand-map.png" alt="India Demand Map" width={800} height={450} className="w-full rounded-xl shadow-2xl" data-ai-hint="map india" />
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+                  <div className="lg:col-span-3">
+                      <div className="relative rounded-2xl shadow-2xl border-4 border-primary-foreground/20 overflow-hidden">
+                          <Image src="/demand-map.png" alt="India Demand Map" width={800} height={450} className="w-full" data-ai-hint="map india" />
                       </div>
                   </div>
-                  <div className="lg:col-span-1">
+                  <div className="lg:col-span-2">
                       <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                           <div className="flex items-center gap-2 mb-4">
                               <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
@@ -220,7 +215,9 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="relative">
-                      <Image src="/muse-original.png" alt="Original Craft" width={800} height={800} className="w-full rounded-xl shadow-lg border-4 border-primary" data-ai-hint="original craft" />
+                      <div className="relative max-w-md mx-auto rounded-2xl shadow-lg border-4 border-primary overflow-hidden">
+                        <Image src="/muse-original.png" alt="Original Craft" width={600} height={600} className="w-full" data-ai-hint="original craft" />
+                      </div>
                       <div className="absolute -bottom-4 -right-4 bg-accent text-accent-foreground font-bold py-2 px-4 rounded-full shadow-md">
                           Your Original
                       </div>
@@ -228,11 +225,11 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   <div className="space-y-4">
                       <h3 className="text-xl font-bold">Stuck for ideas? The Muse generates new designs from your work.</h3>
                       <div className="grid grid-cols-2 gap-4">
-                          <div className="relative group">
-                            <Image src="/muse-variant-1.png" alt="Variant 1" width={400} height={400} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft design" />
+                          <div className="relative group rounded-lg shadow-md group-hover:shadow-xl transition-all border-2 border-primary/50 overflow-hidden">
+                            <Image src="/muse-variant-1.png" alt="Variant 1" width={400} height={400} className="w-full" data-ai-hint="craft design" />
                           </div>
-                          <div className="relative group">
-                            <Image src="/muse-variant-2.png" alt="Variant 2" width={400} height={400} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft detail" />
+                          <div className="relative group rounded-lg shadow-md group-hover:shadow-xl transition-all border-2 border-primary/50 overflow-hidden">
+                            <Image src="/muse-variant-2.png" alt="Variant 2" width={400} height={400} className="w-full" data-ai-hint="craft detail" />
                           </div>
                       </div>
                   </div>
