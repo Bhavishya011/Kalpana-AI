@@ -174,7 +174,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div>
                       <div className="relative">
-                          <Image src="https://picsum.photos/1200/630?random=12" alt="India Demand Map" width={1200} height={630} className="w-full rounded-xl shadow-2xl" data-ai-hint="map india" />
+                          <Image src="/demand-map.png" alt="India Demand Map" width={1200} height={630} className="w-full rounded-xl shadow-2xl" data-ai-hint="map india" />
                       </div>
                   </div>
                   <div>
@@ -216,7 +216,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="relative">
-                      <Image src="https://picsum.photos/1200/630?random=13" alt="Original Craft" width={1200} height={630} className="w-full rounded-xl shadow-lg border-4 border-primary" data-ai-hint="original craft" />
+                      <Image src="/muse-original.png" alt="Original Craft" width={1200} height={630} className="w-full rounded-xl shadow-lg border-4 border-primary" data-ai-hint="original craft" />
                       <div className="absolute -bottom-4 -right-4 bg-accent text-accent-foreground font-bold py-2 px-4 rounded-full shadow-md">
                           Your Original
                       </div>
@@ -225,10 +225,10 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                       <h3 className="text-2xl font-bold mb-4">Stuck for ideas? The Muse finds stylistically similar designs from 10,000+ Indian crafts.</h3>
                       <div className="grid grid-cols-2 gap-4 mb-8">
                           <div className="relative group">
-                            <Image src="https://picsum.photos/600/600?random=14" alt="Variant 1" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft design" />
+                            <Image src="/muse-variant-1.png" alt="Variant 1" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft design" />
                           </div>
                           <div className="relative group">
-                            <Image src="https://picsum.photos/600/600?random=15" alt="Variant 2" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft detail" />
+                            <Image src="/muse-variant-2.png" alt="Variant 2" width={600} height={600} className="w-full rounded-lg shadow-md group-hover:shadow-xl transition-all" data-ai-hint="craft detail" />
                           </div>
                       </div>
                   </div>
@@ -272,5 +272,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
     </div>
   );
 }
+
+    
 
     
