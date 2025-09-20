@@ -145,7 +145,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
                   </div>
                 </div>
                 <div className="text-center">
-                  <h3 className="text-2xl font-headline text-accent mb-4">After AI</h3>
+                  <h3 className="text-2xl font-headline text-accent mb-4 ">After AI</h3>
                   <div className="relative rounded-2xl shadow-2xl border-4 border-accent overflow-hidden">
                     <Image
                       src="/after.png"
