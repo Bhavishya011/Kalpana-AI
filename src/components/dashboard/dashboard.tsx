@@ -35,7 +35,7 @@ export function Dashboard({
         setLanguage={handleLanguageChange}
         dictionary={dictionary}
       />
-      <main className="flex-1 p-4 sm:p-6 md:p-8">
+      <main className="flex-1 p-4 sm:p-6 md:p-8 animate-fade-in-up">
         {children}
       </main>
     </DashboardLayout>

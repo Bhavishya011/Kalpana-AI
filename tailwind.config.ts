@@ -99,6 +99,16 @@ export default {
             boxShadow: '0 0 0 0 rgba(255, 213, 79, 0)',
           },
         },
+        'fade-in-up': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(10px)'
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)'
+          }
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -106,6 +116,7 @@ export default {
         'spin-slow': 'spin 5s linear infinite',
         'spin-slow-reverse': 'spin 5s linear infinite reverse',
         'pulse-glow': 'pulse-glow 1.5s infinite',
+        'fade-in-up': 'fade-in-up 0.5s ease-out',
       },
     },
   },
