@@ -55,7 +55,7 @@ export function LandingPage({dictionary}: {dictionary: Dictionary}) {
           </div>
           <div className="flex items-center space-x-4">
             <Link href={`/${lang}/login`}>
-              <Button className="hidden md:block bg-primary text-primary-foreground hover:bg-primary/90 transition">
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 transition text-sm md:text-base px-3 md:px-4 py-2">
                 Artisan Login
               </Button>
             </Link>
