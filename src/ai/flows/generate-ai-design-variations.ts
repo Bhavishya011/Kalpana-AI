@@ -35,9 +35,9 @@ export async function generateAIDesignVariations(
     const response = await fetch(input.photoDataUri);
     const blob = await response.blob();
     
-    // Create FormData and append the file
+    // Create FormData and append the file with the correct field name 'image'
     const formData = new FormData();
-    formData.append('file', blob, 'craft-image.jpg');
+    formData.append('image', blob, 'craft-image.jpg');
     
     // Call Muse Agent API
     const apiResponse = await fetch(`${MUSE_AGENT_API}/generate`, {
@@ -46,29 +46,33 @@ export async function generateAIDesignVariations(
     });
     
     if (!apiResponse.ok) {
-      throw new Error(`Muse Agent API error: ${apiResponse.status} ${apiResponse.statusText}`);
+      const errorText = await apiResponse.text();
+      console.error('Muse Agent API error response:', errorText);
+      throw new Error(`Muse Agent API error: ${apiResponse.status} - ${errorText}`);
     }
     
     const result = await apiResponse.json();
     
     if (result.status !== 'success') {
-      throw new Error(result.error_message || 'Failed to generate design variations');
+      throw new Error(result.message || 'Failed to generate design variations');
     }
     
     // Extract all image URLs from the response
     const designVariations: string[] = [];
     
     // Add traditional variations
-    if (result.images?.traditional) {
-      result.images.traditional.forEach((img: { url: string }) => {
-        if (img.url) designVariations.push(img.url);
+    if (result.data?.traditional_images) {
+      result.data.traditional_images.forEach((img: { url: string } | string) => {
+        const url = typeof img === 'string' ? img : img.url;
+        if (url) designVariations.push(url);
       });
     }
     
     // Add modern variations
-    if (result.images?.modern) {
-      result.images.modern.forEach((img: { url: string }) => {
-        if (img.url) designVariations.push(img.url);
+    if (result.data?.modern_images) {
+      result.data.modern_images.forEach((img: { url: string } | string) => {
+        const url = typeof img === 'string' ? img : img.url;
+        if (url) designVariations.push(url);
       });
     }
     
