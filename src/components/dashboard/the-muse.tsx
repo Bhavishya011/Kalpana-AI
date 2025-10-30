@@ -100,6 +100,7 @@ export function TheMuse({dictionary}: {dictionary: Dictionary}) {
                       sizes="(max-width: 640px) 100vw, 50vw"
                       style={{ objectFit: 'cover' }}
                       data-ai-hint="traditional craft design"
+                      unoptimized
                     />
                   </div>
                 ))}
@@ -126,6 +127,7 @@ export function TheMuse({dictionary}: {dictionary: Dictionary}) {
                         sizes="(max-width: 640px) 100vw, 50vw"
                         style={{ objectFit: 'cover' }}
                         data-ai-hint="modern craft design"
+                        unoptimized
                       />
                     </div>
                   ))}
