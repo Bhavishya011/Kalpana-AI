@@ -73,25 +73,65 @@ export function TheMuse({dictionary}: {dictionary: Dictionary}) {
         {isPending ? (
           <div className="flex flex-col items-center justify-center gap-4 py-8">
             <LoadingKolam />
-            <p className="text-muted-foreground">{dictionary.theMuse.generating}</p>
+            <div className="text-center space-y-2">
+              <p className="text-muted-foreground font-semibold">{dictionary.theMuse.generating}</p>
+              <p className="text-sm text-muted-foreground">Analyzing craft and generating 4 unique variations...</p>
+              <p className="text-xs text-muted-foreground">(2 traditional + 2 modern interpretations)</p>
+            </div>
           </div>
         ) : results.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {results.map((src, index) => (
-              <div
-                key={index}
-                className="relative aspect-square w-full overflow-hidden rounded-lg border"
-              >
-                <Image
-                  src={src}
-                  alt={`Design variation ${index + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 33vw, 25vw"
-                  style={{ objectFit: 'cover' }}
-                  data-ai-hint="craft design"
-                />
+          <div className="space-y-6">
+            {/* Traditional Variations */}
+            <div>
+              <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                <Palette className="h-4 w-4 text-amber-600" />
+                Traditional Variations
+              </h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {results.slice(0, 2).map((src, index) => (
+                  <div
+                    key={`traditional-${index}`}
+                    className="relative aspect-square w-full overflow-hidden rounded-lg border"
+                  >
+                    <Image
+                      src={src}
+                      alt={`Traditional variation ${index + 1}`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                      style={{ objectFit: 'cover' }}
+                      data-ai-hint="traditional craft design"
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Modern Variations */}
+            {results.length > 2 && (
+              <div>
+                <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                  <Wand2 className="h-4 w-4 text-purple-600" />
+                  Modern Interpretations
+                </h3>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {results.slice(2, 4).map((src, index) => (
+                    <div
+                      key={`modern-${index}`}
+                      className="relative aspect-square w-full overflow-hidden rounded-lg border"
+                    >
+                      <Image
+                        src={src}
+                        alt={`Modern variation ${index + 1}`}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                        style={{ objectFit: 'cover' }}
+                        data-ai-hint="modern craft design"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div className="flex h-32 items-center justify-center rounded-lg border-2 border-dashed">
