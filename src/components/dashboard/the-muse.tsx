@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslatedDictionary } from "@/hooks/use-dictionary-translation";
 import { Palette, Wand2 } from "lucide-react";
 import Image from "next/image";
 import { useState, useTransition, useRef } from "react";
@@ -27,11 +28,14 @@ const fileToDataUri = (file: File): Promise<string> => {
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
-export function TheMuse({dictionary}: {dictionary: Dictionary}) {
+export function TheMuse({dictionary, language}: {dictionary: Dictionary; language: string}) {
   const [results, setResults] = useState<string[]>([]);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  // Translate dictionary
+  const t = useTranslatedDictionary(dictionary, language);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -45,8 +49,8 @@ export function TheMuse({dictionary}: {dictionary: Dictionary}) {
         } catch (error) {
           console.error("Error generating designs:", error);
           toast({
-            title: dictionary.theMuse.generationFailedTitle,
-            description: dictionary.theMuse.generationFailedDescription,
+            title: t.theMuse.generationFailedTitle,
+            description: t.theMuse.generationFailedDescription,
             variant: "destructive",
           });
         }
@@ -63,10 +67,10 @@ export function TheMuse({dictionary}: {dictionary: Dictionary}) {
       <CardHeader>
         <CardTitle className="flex items-center gap-3">
           <Palette className="text-primary" />
-          <span className="font-headline">{dictionary.theMuse.title}</span>
+          <span className="font-headline">{t.theMuse.title}</span>
         </CardTitle>
         <CardDescription>
-          {dictionary.theMuse.description}
+          {t.theMuse.description}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -74,7 +78,7 @@ export function TheMuse({dictionary}: {dictionary: Dictionary}) {
           <div className="flex flex-col items-center justify-center gap-4 py-8">
             <LoadingKolam />
             <div className="text-center space-y-2">
-              <p className="text-muted-foreground font-semibold">{dictionary.theMuse.generating}</p>
+              <p className="text-muted-foreground font-semibold">{t.theMuse.generating}</p>
               <p className="text-sm text-muted-foreground">Analyzing craft and generating 4 unique variations...</p>
               <p className="text-xs text-muted-foreground">(2 traditional + 2 modern interpretations)</p>
             </div>
@@ -139,7 +143,7 @@ export function TheMuse({dictionary}: {dictionary: Dictionary}) {
           <div className="flex h-32 items-center justify-center rounded-lg border-2 border-dashed">
             <div className="text-center">
               <p className="mb-2 text-sm text-muted-foreground">
-                {dictionary.theMuse.uploadPrompt}
+                {t.theMuse.uploadPrompt}
               </p>
               <input
                 type="file"
@@ -150,14 +154,14 @@ export function TheMuse({dictionary}: {dictionary: Dictionary}) {
               />
               <Button onClick={handleButtonClick} variant="outline" size="sm">
                 <Wand2 className="mr-2 h-4 w-4" />
-                {dictionary.theMuse.generateVariations}
+                {t.theMuse.generateVariations}
               </Button>
             </div>
           </div>
         )}
         {results.length > 0 && (
            <div className="mt-4 flex justify-end">
-             <Button onClick={() => setResults([])} variant="outline">{dictionary.theMuse.startOver}</Button>
+             <Button onClick={() => setResults([])} variant="outline">{t.theMuse.startOver}</Button>
            </div>
         )}
       </CardContent>

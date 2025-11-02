@@ -31,12 +31,14 @@ type Dictionary = Awaited<ReturnType<typeof getDictionary>>["dashboard"];
 export function DashboardLayout({
   children,
   dictionary,
+  language,
 }: {
   children: ReactNode;
   dictionary: Dictionary;
+  language?: string;
 }) {
   const pathname = usePathname();
-  const lang = pathname.split('/')[1] || 'en-US';
+  const lang = language || pathname.split('/')[1] || 'en-US';
 
   const menuItems = [
     {
@@ -122,8 +124,8 @@ export function DashboardLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip={dictionary.sidebar.support}>
-                <Link href="#">
+              <SidebarMenuButton asChild tooltip={dictionary.sidebar.support} isActive={pathname === `/${lang}/support`}>
+                <Link href={`/${lang}/support`}>
                   <LifeBuoy />
                   <span>{dictionary.sidebar.support}</span>
                 </Link>

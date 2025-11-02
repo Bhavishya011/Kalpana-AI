@@ -11,6 +11,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useAuth } from "@/lib/firebase/auth-context";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";
@@ -31,6 +38,8 @@ const GoogleIcon = (props: React.ComponentProps<'svg'>) => (
 export function LoginPage({ dictionary }: { dictionary: Dictionary }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [craftType, setCraftType] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
   const { signInWithEmail, signUpWithEmail, signInWithGoogle } = useAuth();
   const { toast } = useToast();
@@ -41,10 +50,30 @@ export function LoginPage({ dictionary }: { dictionary: Dictionary }) {
   const handleEmailLogin = async () => {
     try {
       if (isSignUp) {
-        await signUpWithEmail(email, password);
+        // Validate required fields for sign up
+        if (!name.trim()) {
+          toast({
+            title: "Name Required",
+            description: "Please enter your name.",
+            variant: "destructive",
+          });
+          return;
+        }
+        if (!craftType.trim()) {
+          toast({
+            title: "Craft Type Required",
+            description: "Please select your craft type.",
+            variant: "destructive",
+          });
+          return;
+        }
+        
+        // Create account with profile data
+        await signUpWithEmail(email, password, name, craftType);
+        
         toast({
           title: "Account Created",
-          description: "Welcome to KalpanaAI! Your account has been created successfully.",
+          description: `Welcome to KalpanaAI, ${name}! Your ${craftType} artisan profile has been created.`,
         });
       } else {
         await signInWithEmail(email, password);
@@ -105,6 +134,47 @@ export function LoginPage({ dictionary }: { dictionary: Dictionary }) {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
+          {isSignUp && (
+            <>
+              <div className="grid gap-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input 
+                  id="name" 
+                  type="text" 
+                  placeholder="John Smith" 
+                  required 
+                  value={name} 
+                  onChange={e => setName(e.target.value)} 
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="craftType">Craft Type</Label>
+                <Select value={craftType} onValueChange={setCraftType}>
+                  <SelectTrigger id="craftType">
+                    <SelectValue placeholder="Select your craft type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pottery">Pottery & Ceramics</SelectItem>
+                    <SelectItem value="jewelry">Jewelry Making</SelectItem>
+                    <SelectItem value="textiles">Textiles & Weaving</SelectItem>
+                    <SelectItem value="woodwork">Woodworking</SelectItem>
+                    <SelectItem value="painting">Painting & Art</SelectItem>
+                    <SelectItem value="sculpture">Sculpture</SelectItem>
+                    <SelectItem value="leather">Leather Crafts</SelectItem>
+                    <SelectItem value="metalwork">Metalworking</SelectItem>
+                    <SelectItem value="glasswork">Glasswork</SelectItem>
+                    <SelectItem value="papercraft">Paper Crafts</SelectItem>
+                    <SelectItem value="embroidery">Embroidery & Needlework</SelectItem>
+                    <SelectItem value="soap">Soap & Candle Making</SelectItem>
+                    <SelectItem value="other">Other Handmade Crafts</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  Choose the craft you primarily create
+                </p>
+              </div>
+            </>
+          )}
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" placeholder="m@example.com" required value={email} onChange={e => setEmail(e.target.value)} />
@@ -126,7 +196,11 @@ export function LoginPage({ dictionary }: { dictionary: Dictionary }) {
             <>
               Already have an account?&nbsp;
               <button 
-                onClick={() => setIsSignUp(false)} 
+                onClick={() => {
+                  setIsSignUp(false);
+                  setName("");
+                  setCraftType("");
+                }} 
                 className="underline text-primary hover:text-primary/80"
               >
                 Sign in

@@ -15,18 +15,27 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
-import { auth } from "./firebase";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { auth, db } from "./firebase";
 import { usePathname, useRouter } from "next/navigation";
 import { i18n } from "../i18n/i18n-config";
 import { LoadingKolam } from "@/components/loading-kolam";
+
+type UserProfile = {
+  name: string;
+  craftType: string;
+  email: string;
+  createdAt: Date;
+};
 
 type AuthContextType = {
   user: User | null;
   loading: boolean;
   signInWithGoogle: () => Promise<any>;
   signInWithEmail: (email: string, pass: string) => Promise<any>;
-  signUpWithEmail: (email: string, pass: string) => Promise<any>;
+  signUpWithEmail: (email: string, pass: string, name?: string, craftType?: string) => Promise<any>;
   signOutUser: () => Promise<void>;
 };
 
@@ -45,8 +54,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return signInWithEmailAndPassword(auth, email, pass);
   };
 
-  const signUpWithEmail = (email: string, pass: string) => {
-    return createUserWithEmailAndPassword(auth, email, pass);
+  const signUpWithEmail = async (email: string, pass: string, name?: string, craftType?: string) => {
+    // Create the user account
+    const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+    const user = userCredential.user;
+
+    // Update display name if provided
+    if (name) {
+      await updateProfile(user, {
+        displayName: name,
+      });
+    }
+
+    // Store user profile in Firestore if name and craftType are provided
+    if (name && craftType) {
+      const userProfile: UserProfile = {
+        name,
+        craftType,
+        email,
+        createdAt: new Date(),
+      };
+
+      await setDoc(doc(db, "users", user.uid), userProfile);
+      console.log("User profile created in Firestore:", userProfile);
+    }
+
+    return userCredential;
   };
 
   const signOutUser = async () => {

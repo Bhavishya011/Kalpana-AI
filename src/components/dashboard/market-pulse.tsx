@@ -13,14 +13,25 @@ import { TrendingUp, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import type {getDictionary} from '@/lib/i18n/dictionaries';
 import { Badge } from "../ui/badge";
+import { useTranslatedObject } from "@/hooks/use-translation";
+import { useTranslatedDictionary } from "@/hooks/use-dictionary-translation";
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
 
-export function MarketPulse({dictionary}: {dictionary: Dictionary}) {
+export function MarketPulse({dictionary, language}: {dictionary: Dictionary; language: string}) {
   const [data, setData] =
     useState<DisplayHyperlocalDemandAlertsOutput | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Translate static dictionary text
+  const t = useTranslatedDictionary(dictionary, language);
+  
+  // Translate dynamic API data - this will update when language OR data changes
+  const { data: translatedData, isTranslating } = useTranslatedObject(data, language);
+  
+  // Use translated data if available and not currently translating
+  const displayData = (translatedData && !isTranslating) ? translatedData : data;
 
   useEffect(() => {
     async function getDemand() {
@@ -50,9 +61,9 @@ export function MarketPulse({dictionary}: {dictionary: Dictionary}) {
       <CardHeader>
         <CardTitle className="flex items-center gap-3">
           <TrendingUp className="text-primary" />
-          <span className="font-headline">{dictionary.marketPulse.title}</span>
+          <span className="font-headline">{t.marketPulse.title}</span>
         </CardTitle>
-        <CardDescription>{dictionary.marketPulse.description}</CardDescription>
+        <CardDescription>{t.marketPulse.description}</CardDescription>
       </CardHeader>
       <CardContent>
         {loading ? (
@@ -67,26 +78,26 @@ export function MarketPulse({dictionary}: {dictionary: Dictionary}) {
         ) : (
           <div className="space-y-4">
             <div>
-              <p className="text-lg text-foreground font-semibold">{data?.alert}</p>
+              <p className="text-lg text-foreground font-semibold">{displayData?.alert}</p>
               <p className="text-3xl font-bold text-accent">
-                {data?.demandMultiplier}x {dictionary.marketPulse.demand}
+                {displayData?.demandMultiplier}x {t.marketPulse.demand}
               </p>
             </div>
             
             <div>
               <h4 className="flex items-center gap-2 font-headline text-md mb-2">
                 <Sparkles className="text-primary size-4" />
-                {dictionary.marketPulse.topTrends}
+                {t.marketPulse.topTrends}
               </h4>
               <div className="flex flex-wrap gap-2">
-                {data?.trends?.map((trend, index) => (
+                {displayData?.trends?.map((trend, index) => (
                   <Badge key={index} variant="secondary" className="text-sm">{trend}</Badge>
                 ))}
               </div>
             </div>
             
             <p className="text-xs text-muted-foreground pt-2">
-              {dictionary.marketPulse.update} &bull; {dictionary.marketPulse.interval}
+              {t.marketPulse.update} &bull; {t.marketPulse.interval}
             </p>
           </div>
         )}

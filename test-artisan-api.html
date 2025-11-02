@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Artisan Mentor API</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        button { padding: 10px 20px; margin: 10px; }
+        pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Artisan Mentor API Test</h1>
+    
+    <div>
+        <h2>Test 1: Start Journey</h2>
+        <button onclick="testStartJourney()">Start Journey</button>
+        <pre id="journey-result"></pre>
+    </div>
+
+    <div>
+        <h2>Test 2: Get Lesson</h2>
+        <input type="text" id="lesson-id" placeholder="Lesson ID (e.g., F1.1)" value="F1.1">
+        <button onclick="testGetLesson()">Get Lesson</button>
+        <pre id="lesson-result"></pre>
+    </div>
+
+    <div>
+        <h2>Test 3: Dashboard</h2>
+        <button onclick="testDashboard()">Get Dashboard</button>
+        <pre id="dashboard-result"></pre>
+    </div>
+
+    <script>
+        const API_BASE = 'https://artisan-mentor-api-508329185712.us-central1.run.app';
+        let currentUserId = 'test_user_' + Date.now();
+
+        async function testStartJourney() {
+            const resultEl = document.getElementById('journey-result');
+            resultEl.textContent = 'Loading...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/start-journey`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: currentUserId,
+                        name: 'Test User',
+                        phone: '+91 0000000000',
+                        craft_type: 'pottery',
+                        language: 'en'
+                    })
+                });
+
+                const data = await response.json();
+                resultEl.className = response.ok ? 'success' : 'error';
+                resultEl.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultEl.className = 'error';
+                resultEl.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testGetLesson() {
+            const resultEl = document.getElementById('lesson-result');
+            const lessonId = document.getElementById('lesson-id').value;
+            resultEl.textContent = 'Loading...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/get-lesson`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: currentUserId,
+                        lesson_id: lessonId
+                    })
+                });
+
+                const data = await response.json();
+                resultEl.className = response.ok ? 'success' : 'error';
+                resultEl.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultEl.className = 'error';
+                resultEl.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testDashboard() {
+            const resultEl = document.getElementById('dashboard-result');
+            resultEl.textContent = 'Loading...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/dashboard`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: currentUserId
+                    })
+                });
+
+                const data = await response.json();
+                resultEl.className = response.ok ? 'success' : 'error';
+                resultEl.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultEl.className = 'error';
+                resultEl.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Test User ID:', currentUserId);
+        });
+    </script>
+</body>
+</html>

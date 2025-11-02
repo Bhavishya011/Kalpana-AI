@@ -10,10 +10,12 @@ type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
 export function Dashboard({
   dictionary,
-  children
+  children,
+  language
 }: {
   dictionary: Dictionary,
-  children: React.ReactNode
+  children: React.ReactNode,
+  language?: string
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -22,14 +24,17 @@ export function Dashboard({
     const currentPath = pathname;
     const langSegment = currentPath.split('/')[1];
     const newPath = currentPath.replace(`/${langSegment}`, `/${lang}`);
-    router.replace(newPath);
+    
+    // Use push and refresh to ensure the page reloads with new language
+    router.push(newPath);
+    router.refresh();
   };
   
   const langFromPath = pathname.split('/')[1];
-  const currentLang = i18n.locales.find(l => l === langFromPath) ?? i18n.defaultLocale;
+  const currentLang = language || (i18n.locales.find(l => l === langFromPath) ?? i18n.defaultLocale);
 
   return (
-    <DashboardLayout dictionary={dictionary}>
+    <DashboardLayout dictionary={dictionary} language={currentLang}>
       <DashboardHeader
         language={currentLang}
         setLanguage={handleLanguageChange}

@@ -14,6 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslatedObject } from "@/hooks/use-translation";
+import { useTranslatedDictionary } from "@/hooks/use-dictionary-translation";
 import { Sparkles, Upload, Mic } from "lucide-react";
 import Image from "next/image";
 import { useState, useTransition } from "react";
@@ -99,6 +101,21 @@ export function AddProduct({
   const [isPending, startTransition] = useTransition();
   const [loadingStep, setLoadingStep] = useState<string>("");
   const { toast } = useToast();
+  
+  // Translate static dictionary text
+  const t = useTranslatedDictionary(dictionary, language);
+  
+  // Automatically translate the API response
+  const { data: translatedResult, isTranslating } = useTranslatedObject(
+    result?.marketing_kit || null,
+    language
+  );
+  
+  // Use translated result if available, otherwise use original
+  const displayResult = result && translatedResult ? {
+    ...result,
+    marketing_kit: translatedResult
+  } : result;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -115,8 +132,8 @@ export function AddProduct({
   const handleSubmit = () => {
     if (!file && !artisanBackground) {
       toast({
-        title: dictionary.addProduct.missingInfoTitle,
-        description: dictionary.addProduct.missingInfoDescription,
+        title: t.addProduct.missingInfoTitle,
+        description: t.addProduct.missingInfoDescription,
         variant: "destructive",
       });
       return;
@@ -174,8 +191,8 @@ export function AddProduct({
         console.error("Error generating story:", error);
         setLoadingStep("");
         toast({
-          title: dictionary.addProduct.generationFailedTitle,
-          description: error instanceof Error ? error.message : dictionary.addProduct.generationFailedDescription,
+          title: t.addProduct.generationFailedTitle,
+          description: error instanceof Error ? error.message : t.addProduct.generationFailedDescription,
           variant: "destructive",
         });
       }
@@ -196,16 +213,16 @@ export function AddProduct({
       <CardHeader>
         <CardTitle className="flex items-center gap-3">
           <Sparkles className="text-primary" />
-          <span className="font-headline">{dictionary.addProduct.title}</span>
+          <span className="font-headline">{t.addProduct.title}</span>
         </CardTitle>
-        <CardDescription>{dictionary.addProduct.description}</CardDescription>
+        <CardDescription>{t.addProduct.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {!result && !isPending && (
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-4">
                <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="product-photo">{dictionary.addProduct.productPhoto}</Label>
+                <Label htmlFor="product-photo">{t.addProduct.productPhoto}</Label>
                 <Input
                   id="product-photo"
                   type="file"
@@ -227,9 +244,9 @@ export function AddProduct({
             </div>
             <div className="space-y-4">
               <div className="grid w-full gap-1.5">
-                <Label htmlFor="artisan-background">{dictionary.addProduct.yourBackground}</Label>
+                <Label htmlFor="artisan-background">{t.addProduct.yourBackground}</Label>
                 <Textarea
-                  placeholder={dictionary.addProduct.backgroundPlaceholder}
+                  placeholder={t.addProduct.backgroundPlaceholder}
                   id="artisan-background"
                   value={artisanBackground}
                   onChange={(e) => setArtisanBackground(e.target.value)}
@@ -254,7 +271,7 @@ export function AddProduct({
               </div>
               <Button variant="outline" className="w-full">
                 <Mic className="mr-2 h-4 w-4" />
-                {dictionary.addProduct.recordStory || "Record Story (Coming Soon)"}
+                {t.addProduct.recordStory || "Record Story (Coming Soon)"}
               </Button>
             </div>
           </div>
@@ -534,17 +551,17 @@ export function AddProduct({
               variant="outline"
               onClick={handleReset}
             >
-              {dictionary.addProduct.createAnother}
+              {t.addProduct.createAnother}
             </Button>
             <Button>
               <Upload className="mr-2 h-4 w-4" />
-              {dictionary.addProduct.publish}
+              {t.addProduct.publish}
             </Button>
           </>
         ) : (
           <Button onClick={handleSubmit} disabled={isPending}>
             <Sparkles className="mr-2 h-4 w-4" />
-            {dictionary.addProduct.generateStory || "Process"}
+            {t.addProduct.generateStory || "Process"}
           </Button>
         )}
       </CardFooter>

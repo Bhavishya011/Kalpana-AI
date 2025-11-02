@@ -1,4 +1,4 @@
-﻿
+
 "use client";
 
 import * as React from "react";
@@ -17,6 +17,13 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import {
   BookOpen,
@@ -37,7 +44,11 @@ import {
   XCircle,
   Upload,
   Eye,
+  Languages,
 } from "lucide-react";
+import type { getDictionary } from '@/lib/i18n/dictionaries';
+
+type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
 // API Configuration
 const API_BASE_URL = "https://artisan-mentor-api-508329185712.us-central1.run.app";
@@ -141,6 +152,8 @@ interface SubmissionResponse {
   points_earned: number;
   total_points: number;
   achievement_unlocked?: Achievement;
+  retry_guidance?: string;
+  improvement_suggestions?: string[];
   progress_update: {
     current_lesson: string;
     completion_percent: number;
@@ -153,7 +166,7 @@ interface SubmissionResponse {
   };
 }
 
-export function ArtisanMentor() {
+export function ArtisanMentor({ dictionary, language }: { dictionary: Dictionary; language: string }) {
   const { toast } = useToast();
   
   // State Management
@@ -168,12 +181,37 @@ export function ArtisanMentor() {
   const [activeTab, setActiveTab] = React.useState("lesson");
   const [isNewUser, setIsNewUser] = React.useState(false);
   
+  // Separate language for lesson content (independent from UI language)
+  const [lessonLanguage, setLessonLanguage] = React.useState<string>("en-US");
+  
   // Local progress tracking (fallback when backend dashboard fails)
   const [localProgress, setLocalProgress] = React.useState({
     completedLessons: 0,
     totalPoints: 0,
     currentStreak: 0,
   });
+
+  // Use API data directly - API handles translation based on language parameter
+  const displayLesson = currentLesson;
+  const displayDashboard = dashboardData;
+
+  // Re-fetch data when language changes
+  React.useEffect(() => {
+    if (userId && language) {
+      console.log('🌐 Language changed to:', language);
+      console.log('� Reloading data in new language...');
+      
+      // Reload current lesson in new language
+      if (currentLesson?.lesson_id) {
+        loadNextLesson(currentLesson.lesson_id);
+      }
+      
+      // Reload dashboard in new language
+      if (dashboardData) {
+        loadDashboard();
+      }
+    }
+  }, [language]);
 
   // Initialize user and load data
   React.useEffect(() => {
@@ -213,7 +251,7 @@ export function ArtisanMentor() {
               totalPoints: progress.totalPoints || 0,
               currentStreak: progress.currentStreak || 0,
             });
-            console.log("📊 Loaded local progress:", progress);
+            console.log("?? Loaded local progress:", progress);
           } catch (e) {
             console.warn("Failed to parse stored progress:", e);
           }
@@ -237,7 +275,7 @@ export function ArtisanMentor() {
             name: "Artisan User",
             phone: "+91 0000000000",
             craft_type: "pottery",
-            language: "en",
+            language: lessonLanguage || "en-US",
           }),
         });
 
@@ -253,14 +291,14 @@ export function ArtisanMentor() {
         console.log("Journey started successfully:", data);
         
         toast({
-          title: "🎉 Welcome to Artisan Mentor!",
+          title: "?? Welcome to Artisan Mentor!",
           description: "Your learning journey has begun. Loading your first lesson...",
         });
         
         // CRITICAL: Wait for Firestore write to complete (3 seconds)
-        console.log("⏳ Waiting for database sync...");
+        console.log("? Waiting for database sync...");
         await new Promise(resolve => setTimeout(resolve, 3000));
-        console.log("✅ Database synced, loading lesson...");
+        console.log("? Database synced, loading lesson...");
         
       } else {
         console.log("Returning user:", currentUserId);
@@ -296,7 +334,7 @@ export function ArtisanMentor() {
           const progress = JSON.parse(storedProgress);
           if (progress.currentLesson) {
             currentLessonId = progress.currentLesson;
-            console.log("📖 Restored current lesson from localStorage:", currentLessonId);
+            console.log("?? Restored current lesson from localStorage:", currentLessonId);
           } else if (progress.lastCompleted) {
             // If we have lastCompleted but no currentLesson, advance to next
             const nextLessonMap: { [key: string]: string } = {
@@ -308,7 +346,7 @@ export function ArtisanMentor() {
               "F2.3": "F3.1",
             };
             currentLessonId = nextLessonMap[progress.lastCompleted] || progress.lastCompleted;
-            console.log("📖 Calculated next lesson from lastCompleted:", currentLessonId);
+            console.log("?? Calculated next lesson from lastCompleted:", currentLessonId);
           }
         } catch (e) {
           console.warn("Failed to parse stored progress:", e);
@@ -320,7 +358,10 @@ export function ArtisanMentor() {
         const dashResponse = await fetch(`${API_BASE_URL}/dashboard`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id: uid }),
+          body: JSON.stringify({ 
+            user_id: uid,
+            language: lessonLanguage || "en-US"
+          }),
         });
 
         if (dashResponse.ok) {
@@ -343,7 +384,7 @@ export function ArtisanMentor() {
             // Only override if dashboard has a current_lesson and localStorage didn't have currentLesson
             if (dashboard?.learning_progress?.current_lesson && !storedProgress) {
               currentLessonId = dashboard.learning_progress.current_lesson;
-              console.log("📊 Using lesson from dashboard:", currentLessonId);
+              console.log("?? Using lesson from dashboard:", currentLessonId);
             }
           }
         } else {
@@ -363,7 +404,7 @@ export function ArtisanMentor() {
       
       while (retryCount <= maxRetries) {
         try {
-          console.log(`📥 Attempt ${retryCount + 1}/${maxRetries + 1} - Fetching lesson...`);
+          console.log(`?? Attempt ${retryCount + 1}/${maxRetries + 1} - Fetching lesson...`);
           
           const lessonResponse = await fetch(`${API_BASE_URL}/get-lesson`, {
             method: "POST",
@@ -371,6 +412,7 @@ export function ArtisanMentor() {
             body: JSON.stringify({
               user_id: uid,
               lesson_id: currentLessonId,
+              language: lessonLanguage || "en-US",
             }),
           });
 
@@ -393,13 +435,13 @@ export function ArtisanMentor() {
           
           // Check for API error responses
           if (lessonData.status === "error") {
-            console.warn(`⚠️ API error (attempt ${retryCount + 1}):`, lessonData.message);
+            console.warn(`?? API error (attempt ${retryCount + 1}):`, lessonData.message);
             
             // If "User not found", retry after delay
             if (lessonData.message && lessonData.message.includes("not found")) {
               if (retryCount < maxRetries) {
                 const delay = (retryCount + 1) * 2000; // 2s, 4s, 6s
-                console.log(`⏳ Retrying in ${delay/1000} seconds...`);
+                console.log(`? Retrying in ${delay/1000} seconds...`);
                 await new Promise(resolve => setTimeout(resolve, delay));
                 retryCount++;
                 continue;
@@ -410,10 +452,10 @@ export function ArtisanMentor() {
           
           // Check if we got valid data
           if (lessonData && Object.keys(lessonData).length > 0) {
-            console.log("✅ Valid response received");
+            console.log("? Valid response received");
             break; // Success!
           } else {
-            console.warn("⚠️ Empty response, retrying...");
+            console.warn("?? Empty response, retrying...");
             if (retryCount < maxRetries) {
               await new Promise(resolve => setTimeout(resolve, 2000));
               retryCount++;
@@ -422,7 +464,7 @@ export function ArtisanMentor() {
           }
           
         } catch (fetchError) {
-          console.error(`❌ Fetch error (attempt ${retryCount + 1}):`, fetchError);
+          console.error(`? Fetch error (attempt ${retryCount + 1}):`, fetchError);
           if (retryCount >= maxRetries) {
             throw fetchError;
           }
@@ -447,7 +489,7 @@ export function ArtisanMentor() {
         lesson = lessonData;
       }
       
-      console.log("📚 Parsed lesson:", lesson);
+      console.log("?? Parsed lesson:", lesson);
       
       if (!lesson) {
         console.error("Invalid lesson data structure:", lessonData);
@@ -460,7 +502,7 @@ export function ArtisanMentor() {
         throw new Error("Lesson data is incomplete (no title).");
       }
       
-      console.log("✅ Lesson loaded successfully:", lesson.title);
+      console.log("? Lesson loaded successfully:", lesson.title);
       setCurrentLesson(lesson);
       
     } catch (error) {
@@ -474,12 +516,12 @@ export function ArtisanMentor() {
   };
 
   const handleSubmitWork = async () => {
-    if (!currentLesson || !userId) return;
+    if (!displayLesson || !userId) return;
 
     // Determine submission type based on action_type or legacy task.type
-    const submissionType = currentLesson.action_type === "photo_upload" ? "photo" 
-                          : currentLesson.action_type === "text_input" ? "text"
-                          : currentLesson.task?.type || "text";
+    const submissionType = displayLesson.action_type === "photo_upload" ? "photo" 
+                          : displayLesson.action_type === "text_input" ? "text"
+                          : displayLesson.task?.type || "text";
 
     // Validate submission
     if (submissionType === "text" && !submissionContent.trim()) {
@@ -521,9 +563,9 @@ export function ArtisanMentor() {
       }
 
       // Get lesson ID from currentLesson (could be 'id' or 'lesson_id')
-      const lessonId = currentLesson.id || currentLesson.lesson_id || "F1.1";
+      const lessonId = displayLesson.id || displayLesson.lesson_id || "F1.1";
 
-      console.log("📤 Submitting work:", { 
+      console.log("?? Submitting work:", { 
         user_id: userId, 
         lesson_id: lessonId, 
         submission_type: submissionType,
@@ -538,11 +580,12 @@ export function ArtisanMentor() {
           lesson_id: lessonId,
           submission_type: submissionType,
           submission: submissionData,
+          language: lessonLanguage || "en-US",
         }),
       });
 
       const responseText = await response.text();
-      console.log("📥 Submission response:", responseText);
+      console.log("?? Submission response:", responseText);
 
       if (!response.ok) {
         console.error("Submission API error:", responseText);
@@ -550,7 +593,7 @@ export function ArtisanMentor() {
       }
 
       const result = JSON.parse(responseText);
-      console.log("✅ Submission result:", JSON.stringify(result, null, 2));
+      console.log("? Submission result:", JSON.stringify(result, null, 2));
       
       // Store the result for display
       setLastSubmissionResult(result);
@@ -591,15 +634,15 @@ export function ArtisanMentor() {
         localStorage.setItem(progressKey, JSON.stringify(storedProgress));
         
         toast({
-          title: `🎉 Lesson Complete! +${pointsEarned} Points`,
+          title: `?? Lesson Complete! +${pointsEarned} Points`,
           description: result.feedback || "Great work! Moving to next lesson...",
         });
 
         // Auto-advance to next lesson after 3 seconds
         setTimeout(async () => {
-          console.log("🔄 Advancing to next lesson...");
+          console.log("?? Advancing to next lesson...");
           
-          // Define lesson progression (F1.1 → F1.2 → F1.3 → F2.1, etc.)
+          // Define lesson progression (F1.1 ? F1.2 ? F1.3 ? F2.1, etc.)
           const nextLessonMap: { [key: string]: string } = {
             "F1.1": "F1.2",
             "F1.2": "F1.3",
@@ -614,12 +657,12 @@ export function ArtisanMentor() {
           const nextLessonId = nextLessonMap[currentId];
           
           if (nextLessonId) {
-            console.log(`📚 Loading next lesson: ${nextLessonId}`);
+            console.log(`?? Loading next lesson: ${nextLessonId}`);
             await loadNextLesson(nextLessonId);
           } else {
-            console.log("✅ All lessons completed!");
+            console.log("? All lessons completed!");
             toast({
-              title: "🏆 Congratulations!",
+              title: "?? Congratulations!",
               description: "You've completed all available lessons!",
             });
           }
@@ -629,7 +672,7 @@ export function ArtisanMentor() {
         }, 3000);
       } else {
         toast({
-          title: "📝 Keep Improving",
+          title: "?? Keep Improving",
           description: result.feedback || "Review the feedback and try again.",
           variant: "default",
         });
@@ -640,7 +683,7 @@ export function ArtisanMentor() {
       setSelectedFile(null);
       
     } catch (error) {
-      console.error("❌ Submit error:", error);
+      console.error("? Submit error:", error);
       toast({
         variant: "destructive",
         title: "Submission Error",
@@ -662,6 +705,7 @@ export function ArtisanMentor() {
         body: JSON.stringify({
           user_id: userId,
           lesson_id: lessonId,
+          language: lessonLanguage || "en-US",
         }),
       });
 
@@ -683,7 +727,7 @@ export function ArtisanMentor() {
         progress.currentLesson = lessonId;
         progress.lastActivity = new Date().toISOString();
         localStorage.setItem(progressKey, JSON.stringify(progress));
-        console.log("💾 Saved current lesson to localStorage:", lessonId);
+        console.log("?? Saved current lesson to localStorage:", lessonId);
       }
       
       // Refresh dashboard
@@ -703,19 +747,22 @@ export function ArtisanMentor() {
 
   const loadDashboard = async () => {
     try {
-      console.log("📊 Loading dashboard for user:", userId);
+      console.log("?? Loading dashboard for user:", userId);
       const response = await fetch(`${API_BASE_URL}/dashboard`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: userId }),
+        body: JSON.stringify({ 
+          user_id: userId,
+          language: lessonLanguage || "en-US"
+        }),
       });
 
       const data = await response.json();
-      console.log("📊 Dashboard response:", data);
+      console.log("?? Dashboard response:", data);
       
       // Check for API errors
       if (data.status === "error") {
-        console.warn("⚠️ Dashboard API error:", data.message);
+        console.warn("?? Dashboard API error:", data.message);
         toast({
           title: "Dashboard Unavailable",
           description: "Dashboard data is currently unavailable. Your progress is still being tracked.",
@@ -733,13 +780,13 @@ export function ArtisanMentor() {
       
       if (dashboard && Object.keys(dashboard).length > 0) {
         setDashboardData(dashboard);
-        console.log("✅ Dashboard loaded successfully");
+        console.log("? Dashboard loaded successfully");
       } else {
-        console.warn("⚠️ Dashboard returned empty data");
+        console.warn("?? Dashboard returned empty data");
       }
       
     } catch (error) {
-      console.error("❌ Load dashboard error:", error);
+      console.error("? Load dashboard error:", error);
       toast({
         title: "Dashboard Error",
         description: "Unable to load dashboard. Please try again later.",
@@ -749,8 +796,8 @@ export function ArtisanMentor() {
   };
 
   const playAudio = () => {
-    if (currentLesson?.audio_url) {
-      const audio = new Audio(currentLesson.audio_url);
+    if (displayLesson?.audio_url) {
+      const audio = new Audio(displayLesson.audio_url);
       audio.play();
       toast({
         title: "🔊 Playing Audio",
@@ -799,6 +846,34 @@ export function ArtisanMentor() {
 
   return (
     <div className="space-y-6">
+      {/* Language Selector for Lesson Content */}
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-sm font-medium">Lesson Language</CardTitle>
+              <CardDescription className="text-xs">
+                Choose your preferred language for learning content
+              </CardDescription>
+            </div>
+            <Select value={lessonLanguage} onValueChange={setLessonLanguage}>
+              <SelectTrigger className="w-[180px]">
+                <Languages className="mr-2 h-4 w-4" />
+                <SelectValue placeholder="Select language" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="en-US">🇺🇸 English</SelectItem>
+                <SelectItem value="hi-IN">🇮🇳 हिन्दी (Hindi)</SelectItem>
+                <SelectItem value="bn-IN">🇮🇳 বাংলা (Bengali)</SelectItem>
+                <SelectItem value="ta-IN">🇮🇳 தமிழ் (Tamil)</SelectItem>
+                <SelectItem value="te-IN">🇮🇳 తెలుగు (Telugu)</SelectItem>
+                <SelectItem value="mr-IN">🇮🇳 मराठी (Marathi)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </CardHeader>
+      </Card>
+
       {/* Progress Bar - Always Visible */}
       <Card className="bg-gradient-to-r from-primary/10 to-secondary/10">
         <CardHeader className="pb-3">
@@ -806,7 +881,7 @@ export function ArtisanMentor() {
             <div>
               <CardTitle className="text-lg">Your Learning Progress</CardTitle>
               <CardDescription>
-                {localProgress.completedLessons} lessons completed · {localProgress.totalPoints} points earned
+                {localProgress.completedLessons} lessons completed � {localProgress.totalPoints} points earned
               </CardDescription>
             </div>
             <div className="flex items-center gap-4">
@@ -826,12 +901,12 @@ export function ArtisanMentor() {
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Overall Progress</span>
               <span className="font-medium">
-                {dashboardData?.learning_progress?.completion_percent?.toFixed(1) || 
+                {displayDashboard?.learning_progress?.completion_percent?.toFixed(1) || 
                  Math.min(100, (localProgress.completedLessons / 12) * 100).toFixed(1)}%
               </span>
             </div>
             <Progress 
-              value={dashboardData?.learning_progress?.completion_percent || 
+              value={displayDashboard?.learning_progress?.completion_percent || 
                      Math.min(100, (localProgress.completedLessons / 12) * 100)} 
               className="h-2"
             />
@@ -898,7 +973,7 @@ export function ArtisanMentor() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {dashboardData?.achievements?.length || 0}
+              {displayDashboard?.achievements?.length || 0}
             </div>
             <p className="text-xs text-muted-foreground">badges unlocked</p>
           </CardContent>
@@ -910,7 +985,7 @@ export function ArtisanMentor() {
         setActiveTab(value);
         // Load/reload dashboard data when switching to dashboard tab
         if (value === "dashboard" && userId) {
-          console.log("📊 Loading dashboard data...");
+          console.log("?? Loading dashboard data...");
           loadDashboard();
         }
       }} className="space-y-6">
@@ -927,7 +1002,7 @@ export function ArtisanMentor() {
 
         {/* Lesson Tab */}
         <TabsContent value="lesson" className="space-y-6">
-          {!currentLesson ? (
+          {!displayLesson ? (
             <Card>
               <CardContent className="py-12">
                 <div className="text-center space-y-4">
@@ -954,22 +1029,22 @@ export function ArtisanMentor() {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="space-y-2">
-                      <Badge variant="secondary">{currentLesson.module}</Badge>
+                      <Badge variant="secondary">{displayLesson.module}</Badge>
                       <CardTitle className="text-2xl font-headline">
-                        {currentLesson.title}
+                        {displayLesson.title}
                       </CardTitle>
                       <CardDescription className="flex items-center gap-4 text-base">
                         <span className="flex items-center gap-1">
                           <Trophy className="h-4 w-4" />
-                          {currentLesson.points} points
+                          {displayLesson.points} points
                         </span>
                         <span className="flex items-center gap-1">
                           <Clock className="h-4 w-4" />
-                          {currentLesson.estimated_time}
+                          {displayLesson.estimated_time}
                         </span>
                       </CardDescription>
                     </div>
-                    {currentLesson.audio_url && (
+                    {displayLesson.audio_url && (
                       <Button
                         variant="outline"
                         size="sm"
@@ -994,27 +1069,27 @@ export function ArtisanMentor() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {/* Objective */}
-                  {currentLesson.objective && (
+                  {displayLesson.objective && (
                     <>
                       <div>
                         <h3 className="font-semibold mb-2 flex items-center gap-2">
                           <Target className="h-4 w-4" />
                           Objective:
                         </h3>
-                        <p className="text-muted-foreground pl-6">{currentLesson.objective}</p>
+                        <p className="text-muted-foreground pl-6">{displayLesson.objective}</p>
                       </div>
                       <Separator />
                     </>
                   )}
 
                   {/* Instructions from multimodal_content or prompt_template */}
-                  {(currentLesson.multimodal_content?.instructions || currentLesson.prompt_template) && (
+                  {(displayLesson.multimodal_content?.instructions || displayLesson.prompt_template) && (
                     <>
                       <div>
                         <h3 className="font-semibold mb-2">Instructions:</h3>
                         <div className="prose prose-sm max-w-none dark:prose-invert text-muted-foreground">
                           <div dangerouslySetInnerHTML={{ 
-                            __html: (currentLesson.multimodal_content?.instructions || currentLesson.prompt_template || '').replace(/\n/g, '<br />') 
+                            __html: (displayLesson.multimodal_content?.instructions || displayLesson.prompt_template || '').replace(/\n/g, '<br />') 
                           }} />
                         </div>
                       </div>
@@ -1023,24 +1098,24 @@ export function ArtisanMentor() {
                   )}
 
                   {/* Legacy content field support */}
-                  {currentLesson.content && (
+                  {displayLesson.content && (
                     <div className="prose prose-sm max-w-none dark:prose-invert">
-                      <div dangerouslySetInnerHTML={{ __html: currentLesson.content.replace(/\n/g, '<br />') }} />
+                      <div dangerouslySetInnerHTML={{ __html: displayLesson.content.replace(/\n/g, '<br />') }} />
                     </div>
                   )}
                   
                   {/* Additional Info */}
                   <div className="grid grid-cols-2 gap-4 pt-2">
-                    {currentLesson.estimated_completion_time && (
+                    {displayLesson.estimated_completion_time && (
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Clock className="h-4 w-4" />
-                        {currentLesson.estimated_completion_time}
+                        {displayLesson.estimated_completion_time}
                       </div>
                     )}
-                    {currentLesson.points && (
+                    {displayLesson.points && (
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Award className="h-4 w-4" />
-                        {currentLesson.points} points
+                        {displayLesson.points} points
                       </div>
                     )}
                   </div>
@@ -1048,41 +1123,41 @@ export function ArtisanMentor() {
               </Card>
 
               {/* Task Submission - Always show for lessons with action_type */}
-              {(currentLesson.action_type || currentLesson.task) && (
+              {(displayLesson.action_type || displayLesson.task) && (
                 <Card className="border-primary/30">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Target className="h-5 w-5 text-primary" />
                       Your Task
                     </CardTitle>
-                    {currentLesson.objective && (
-                      <CardDescription>{currentLesson.objective}</CardDescription>
+                    {displayLesson.objective && (
+                      <CardDescription>{displayLesson.objective}</CardDescription>
                     )}
-                    {currentLesson.task?.description && (
-                      <CardDescription>{currentLesson.task.description}</CardDescription>
+                    {displayLesson.task?.description && (
+                      <CardDescription>{displayLesson.task.description}</CardDescription>
                     )}
                   </CardHeader>
                 <CardContent className="space-y-4">
                   {/* Task Type Badge */}
-                  {currentLesson.action_type && (
+                  {displayLesson.action_type && (
                     <div className="flex items-center gap-2">
                       <Badge variant="outline" className="capitalize">
-                        {currentLesson.action_type.replace('_', ' ')}
+                        {displayLesson.action_type.replace('_', ' ')}
                       </Badge>
-                      {currentLesson.reward && (
+                      {displayLesson.reward && (
                         <Badge variant="secondary">
-                          {currentLesson.reward}
+                          {displayLesson.reward}
                         </Badge>
                       )}
                     </div>
                   )}
                   
                   {/* Validation Criteria */}
-                  {currentLesson.validation_criteria && Array.isArray(currentLesson.validation_criteria) && currentLesson.validation_criteria.length > 0 && (
+                  {displayLesson.validation_criteria && Array.isArray(displayLesson.validation_criteria) && displayLesson.validation_criteria.length > 0 && (
                     <div className="bg-muted/50 p-4 rounded-lg">
                       <h4 className="font-semibold mb-2">Evaluation Criteria:</h4>
                       <ul className="list-disc list-inside space-y-1 text-sm">
-                        {currentLesson.validation_criteria.map((criteria, idx) => (
+                        {displayLesson.validation_criteria.map((criteria, idx) => (
                           <li key={idx} className="capitalize">{criteria.replace('_', ' ')}</li>
                         ))}
                       </ul>
@@ -1090,11 +1165,11 @@ export function ArtisanMentor() {
                   )}
                   
                   {/* Legacy task requirements */}
-                  {currentLesson.task?.requirements && Array.isArray(currentLesson.task.requirements) && currentLesson.task.requirements.length > 0 && (
+                  {displayLesson.task?.requirements && Array.isArray(displayLesson.task.requirements) && displayLesson.task.requirements.length > 0 && (
                     <div className="bg-muted/50 p-4 rounded-lg">
                       <h4 className="font-semibold mb-2">Requirements:</h4>
                       <ul className="list-disc list-inside space-y-1 text-sm">
-                        {currentLesson.task.requirements.map((req, idx) => (
+                        {displayLesson.task.requirements.map((req, idx) => (
                           <li key={idx}>{req}</li>
                         ))}
                       </ul>
@@ -1103,7 +1178,7 @@ export function ArtisanMentor() {
 
                   {/* Input Field Based on Action Type */}
                   {/* Show photo upload only if explicitly photo_upload */}
-                  {(currentLesson.action_type === "photo_upload" || currentLesson.task?.type === "image") && (
+                  {(displayLesson.action_type === "photo_upload" || displayLesson.task?.type === "image") && (
                     <div className="space-y-2">
                       <label className="text-sm font-medium">Upload Photos:</label>
                       <div className="flex items-center gap-4">
@@ -1112,7 +1187,7 @@ export function ArtisanMentor() {
                           accept="image/*"
                           onChange={handleFileSelect}
                           className="flex-1"
-                          multiple={currentLesson.action_type === "photo_upload"}
+                          multiple={displayLesson.action_type === "photo_upload"}
                         />
                         {selectedFile && (
                           <Badge variant="secondary" className="gap-2">
@@ -1128,7 +1203,7 @@ export function ArtisanMentor() {
                   )}
 
                   {/* Show text input for all other action types (text_input, text_submission, or any other) */}
-                  {currentLesson.action_type !== "photo_upload" && currentLesson.task?.type !== "image" && (
+                  {displayLesson.action_type !== "photo_upload" && displayLesson.task?.type !== "image" && (
                     <div className="space-y-2">
                       <label className="text-sm font-medium">Your Submission:</label>
                       <Textarea
@@ -1169,10 +1244,10 @@ export function ArtisanMentor() {
 
               {/* Validation Result */}
               {lastSubmissionResult && (
-                <Card className={lastSubmissionResult.passed ? "border-green-500/50 bg-green-500/5" : "border-amber-500/50 bg-amber-500/5"}>
+                <Card className={lastSubmissionResult.validation_result.passed ? "border-green-500/50 bg-green-500/5" : "border-amber-500/50 bg-amber-500/5"}>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      {lastSubmissionResult.passed ? (
+                      {lastSubmissionResult.validation_result.passed ? (
                         <>
                           <CheckCircle2 className="h-5 w-5 text-green-500" />
                           Passed! Great Work!
@@ -1184,27 +1259,27 @@ export function ArtisanMentor() {
                         </>
                       )}
                     </CardTitle>
-                    {lastSubmissionResult.score && (
+                    {lastSubmissionResult.validation_result.score && (
                       <CardDescription>
-                        Score: {lastSubmissionResult.score}/100
+                        Score: {lastSubmissionResult.validation_result.score}/100
                       </CardDescription>
                     )}
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {/* Feedback */}
-                    {lastSubmissionResult.feedback && (
+                    {lastSubmissionResult.validation_result.feedback && (
                       <Alert>
                         <AlertTitle>AI Feedback</AlertTitle>
                         <AlertDescription className="whitespace-pre-wrap">
-                          {lastSubmissionResult.feedback}
+                          {lastSubmissionResult.validation_result.feedback}
                         </AlertDescription>
                       </Alert>
                     )}
 
                     {/* Retry Guidance */}
-                    {lastSubmissionResult.retry_guidance && !lastSubmissionResult.passed && (
+                    {lastSubmissionResult.validation_result.improvements && !lastSubmissionResult.validation_result.passed && (
                       <Alert variant="default">
-                        <AlertTitle>💡 How to Improve</AlertTitle>
+                        <AlertTitle>?? How to Improve</AlertTitle>
                         <AlertDescription>
                           {lastSubmissionResult.retry_guidance}
                         </AlertDescription>
@@ -1217,7 +1292,7 @@ export function ArtisanMentor() {
                      lastSubmissionResult.improvement_suggestions.length > 0 && (
                       <div>
                         <h4 className="font-semibold text-amber-600 dark:text-amber-400 mb-2">
-                          💡 Suggestions for Improvement:
+                          ?? Suggestions for Improvement:
                         </h4>
                         <ul className="list-disc list-inside space-y-1 text-sm">
                           {lastSubmissionResult.improvement_suggestions.map((suggestion, idx) => (
@@ -1233,7 +1308,7 @@ export function ArtisanMentor() {
                      lastSubmissionResult.validation_result.strengths.length > 0 && (
                       <div>
                         <h4 className="font-semibold text-green-600 dark:text-green-400 mb-2">
-                          ✅ Strengths:
+                          ? Strengths:
                         </h4>
                         <ul className="list-disc list-inside space-y-1 text-sm">
                           {lastSubmissionResult.validation_result.strengths.map((s, idx) => (
@@ -1249,7 +1324,7 @@ export function ArtisanMentor() {
                      lastSubmissionResult.validation_result.improvements.length > 0 && (
                       <div>
                         <h4 className="font-semibold text-amber-600 dark:text-amber-400 mb-2">
-                          💡 Areas for Improvement:
+                          ?? Areas for Improvement:
                         </h4>
                         <ul className="list-disc list-inside space-y-1 text-sm">
                           {lastSubmissionResult.validation_result.improvements.map((i, idx) => (
@@ -1263,7 +1338,7 @@ export function ArtisanMentor() {
                     {lastSubmissionResult.achievement_unlocked && (
                       <Alert className="border-yellow-500/50 bg-yellow-500/10">
                         <Trophy className="h-4 w-4 text-yellow-600" />
-                        <AlertTitle>🏆 Achievement Unlocked!</AlertTitle>
+                        <AlertTitle>?? Achievement Unlocked!</AlertTitle>
                         <AlertDescription>
                           {lastSubmissionResult.achievement_unlocked.title}
                         </AlertDescription>
@@ -1271,7 +1346,7 @@ export function ArtisanMentor() {
                     )}
 
                     {/* Next Action */}
-                    {lastSubmissionResult.next_action?.lesson_id && lastSubmissionResult.passed && (
+                    {lastSubmissionResult.next_action?.lesson_id && lastSubmissionResult.validation_result.passed && (
                       <Button
                         onClick={() => loadNextLesson(lastSubmissionResult.next_action.lesson_id!)}
                         size="lg"
@@ -1301,7 +1376,7 @@ export function ArtisanMentor() {
                     </div>
                     <div className="flex-1 space-y-2">
                       <h3 className="font-semibold text-amber-900 dark:text-amber-100">
-                        📊 {localProgress.completedLessons === 0 ? 'Start Your Journey' : 'Viewing Local Progress'}
+                        ?? {localProgress.completedLessons === 0 ? 'Start Your Journey' : 'Viewing Local Progress'}
                       </h3>
                       <p className="text-sm text-amber-800 dark:text-amber-200">
                         {localProgress.completedLessons === 0 
@@ -1323,7 +1398,7 @@ export function ArtisanMentor() {
                         </div>
                       </div>
                       <Button onClick={() => {
-                        console.log("🔄 Manually refreshing dashboard...");
+                        console.log("?? Manually refreshing dashboard...");
                         loadDashboard();
                       }} variant="outline" className="mt-4 border-amber-500 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/30" size="sm">
                         <ArrowRight className="h-4 w-4 mr-2" />
@@ -1335,7 +1410,7 @@ export function ArtisanMentor() {
               </Card>
 
             {/* Business Readiness */}
-              {dashboardData?.business_readiness && Object.keys(dashboardData.business_readiness).length > 0 && (
+              {displayDashboard?.business_readiness && Object.keys(displayDashboard.business_readiness).length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -1347,7 +1422,7 @@ export function ArtisanMentor() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {Object.entries(dashboardData.business_readiness).map(([key, value]) => (
+                    {Object.entries(displayDashboard.business_readiness).map(([key, value]) => (
                       <div key={key} className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-sm font-medium capitalize">
@@ -1363,7 +1438,7 @@ export function ArtisanMentor() {
               )}
 
               {/* Skill Matrix */}
-              {dashboardData?.skill_matrix && Object.keys(dashboardData.skill_matrix).length > 0 && (
+              {displayDashboard?.skill_matrix && Object.keys(displayDashboard.skill_matrix).length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -1376,7 +1451,7 @@ export function ArtisanMentor() {
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-4 md:grid-cols-2">
-                      {Object.entries(dashboardData.skill_matrix).map(([skill, proficiency]) => (
+                      {Object.entries(displayDashboard.skill_matrix).map(([skill, proficiency]) => (
                         <div key={skill} className="space-y-2">
                           <div className="flex items-center justify-between">
                             <span className="text-sm capitalize">
@@ -1395,7 +1470,7 @@ export function ArtisanMentor() {
               )}
 
               {/* Achievements */}
-              {dashboardData?.achievements && Array.isArray(dashboardData.achievements) && (
+              {displayDashboard?.achievements && Array.isArray(displayDashboard.achievements) && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -1403,12 +1478,12 @@ export function ArtisanMentor() {
                       Achievements Unlocked
                     </CardTitle>
                     <CardDescription>
-                      {dashboardData.achievements.length} badges earned
+                      {displayDashboard.achievements.length} badges earned
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-3 md:grid-cols-3">
-                      {dashboardData.achievements.map((achievement) => (
+                      {displayDashboard.achievements.map((achievement) => (
                         <div
                           key={achievement.id}
                           className="flex items-center gap-3 p-3 rounded-lg border bg-card"
@@ -1425,7 +1500,7 @@ export function ArtisanMentor() {
                         </div>
                       ))}
                     </div>
-                    {dashboardData.achievements.length === 0 && (
+                    {displayDashboard.achievements.length === 0 && (
                       <p className="text-center text-muted-foreground py-8">
                         Complete lessons to unlock achievements!
                       </p>
@@ -1435,7 +1510,7 @@ export function ArtisanMentor() {
               )}
 
               {/* Recommendations */}
-              {dashboardData?.recommendations && Array.isArray(dashboardData.recommendations) && dashboardData.recommendations.length > 0 && (
+              {displayDashboard?.recommendations && Array.isArray(displayDashboard.recommendations) && displayDashboard.recommendations.length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -1447,7 +1522,7 @@ export function ArtisanMentor() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    {dashboardData.recommendations.map((rec, idx) => (
+                    {displayDashboard.recommendations.map((rec, idx) => (
                       <Alert key={idx} className={
                         rec.priority === "high" ? "border-red-500/50" :
                         rec.priority === "medium" ? "border-yellow-500/50" :
@@ -1463,7 +1538,7 @@ export function ArtisanMentor() {
                           <p>{rec.message}</p>
                           {rec.estimated_impact && (
                             <p className="text-sm font-semibold text-green-600 dark:text-green-400">
-                              💰 {rec.estimated_impact}
+                              ?? {rec.estimated_impact}
                             </p>
                           )}
                           {rec.action && (
@@ -1479,7 +1554,7 @@ export function ArtisanMentor() {
               )}
 
               {/* Milestones */}
-              {dashboardData?.next_milestones && Array.isArray(dashboardData.next_milestones) && dashboardData.next_milestones.length > 0 && (
+              {displayDashboard?.next_milestones && Array.isArray(displayDashboard.next_milestones) && displayDashboard.next_milestones.length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -1488,7 +1563,7 @@ export function ArtisanMentor() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {dashboardData.next_milestones.map((milestone, idx) => (
+                    {displayDashboard.next_milestones.map((milestone, idx) => (
                       <div key={idx} className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-sm font-medium">{milestone.title}</span>
@@ -1508,3 +1583,4 @@ export function ArtisanMentor() {
     </div>
   );
 }
+

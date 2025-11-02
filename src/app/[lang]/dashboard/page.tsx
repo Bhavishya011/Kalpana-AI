@@ -8,15 +8,16 @@ export async function generateStaticParams() {
     return i18n.locales.map(locale => ({ lang: locale }));
 }
 
-export default async function DashboardPage({ params: { lang } }: { params: { lang: string } }) {
+export default async function DashboardPage({ params }: { params: Promise<{ lang: string }> }) {
+    const { lang } = await params;
     const locale = i18n.locales.find(l => l === lang) ?? i18n.defaultLocale;
     const dictionary = await getDictionary(locale);
 
     return (
-        <Dashboard dictionary={dictionary.dashboard}>
+        <Dashboard dictionary={dictionary.dashboard} language={locale}>
             <div className="grid grid-cols-1 gap-8">
-                <MarketPulse dictionary={dictionary.dashboard}/>
-                <RecentCreations dictionary={dictionary.dashboard}/>
+                <MarketPulse dictionary={dictionary.dashboard} language={locale}/>
+                <RecentCreations dictionary={dictionary.dashboard} language={locale}/>
             </div>
         </Dashboard>
     );

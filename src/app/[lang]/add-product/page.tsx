@@ -7,13 +7,14 @@ export async function generateStaticParams() {
     return i18n.locales.map(locale => ({ lang: locale }));
 }
 
-export default async function AddProductPage({ params: { lang } }: { params: { lang: string } }) {
+export default async function AddProductPage({ params }: { params: Promise<{ lang: string }> }) {
+    const { lang } = await params;
     const locale = i18n.locales.find(l => l === lang) ?? i18n.defaultLocale;
     const dictionary = await getDictionary(locale);
 
     return (
-        <Dashboard dictionary={dictionary.dashboard}>
-            <AddProduct language={lang} dictionary={dictionary.dashboard} />
+        <Dashboard dictionary={dictionary.dashboard} language={locale}>
+            <AddProduct language={locale} dictionary={dictionary.dashboard} />
         </Dashboard>
     );
 }
