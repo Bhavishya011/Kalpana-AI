@@ -13,7 +13,8 @@ interface ChatResponse {
   language: string;
 }
 
-const CHATBOT_API_URL = 'https://kalpana-support-chatbot-508329185712.us-central1.run.app';
+// Use frontend proxy instead of direct API calls
+const CHATBOT_PROXY_URL = '/api/chatbot';
 
 export const useChatbot = (language: string = 'en-US') => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -33,16 +34,19 @@ export const useChatbot = (language: string = 'en-US') => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${CHATBOT_API_URL}/chat`, {
+      const response = await fetch(CHATBOT_PROXY_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message,
-          session_id: sessionId,
-          language,
-          history: messages.slice(-5) // Last 5 messages for context
+          endpoint: 'chat',
+          data: {
+            message,
+            session_id: sessionId,
+            language,
+            history: messages.slice(-5) // Last 5 messages for context
+          }
         }),
       });
 
@@ -82,8 +86,8 @@ export const useChatbot = (language: string = 'en-US') => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${CHATBOT_API_URL}/quick-help?category=${category}`, {
-        method: 'POST',
+      const response = await fetch(`${CHATBOT_PROXY_URL}?endpoint=quick-help&category=${category}`, {
+        method: 'GET',
       });
 
       if (!response.ok) {
@@ -109,7 +113,7 @@ export const useChatbot = (language: string = 'en-US') => {
 
   const resetChat = useCallback(async () => {
     try {
-      await fetch(`${CHATBOT_API_URL}/chat/reset?session_id=${sessionId}`, {
+      await fetch(`${CHATBOT_PROXY_URL}?endpoint=chat/reset&session_id=${sessionId}`, {
         method: 'POST',
       });
       

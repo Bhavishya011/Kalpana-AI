@@ -20,6 +20,7 @@ import { Sparkles, Upload, Mic } from "lucide-react";
 import Image from "next/image";
 import { useState, useTransition } from "react";
 import { LoadingKolam } from "../loading-kolam";
+import { CraftDNASection } from "./craft-dna-section";
 import type { getDictionary } from "@/lib/i18n/dictionaries";
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>["dashboard"];
@@ -541,6 +542,11 @@ export function AddProduct({
                 </div>
               </section>
             )}
+
+            {/* Craft DNA Section */}
+            <section>
+              <CraftDNASection productId={result.asset_id} />
+            </section>
           </div>
         )}
       </CardContent>

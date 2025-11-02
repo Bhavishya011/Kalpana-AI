@@ -9,7 +9,7 @@ export async function GET(
     const imagePath = path.join('/');
     
     // Construct the URL to the Cloud Run backend
-    const backendUrl = `https://kalpana-ai-api-508329185712.us-central1.run.app/generated/${imagePath}`;
+    const backendUrl = `https://support-chatbot-api-508329185712.us-central1.run.app/generated/${imagePath}`;
     // For local development:
     // const backendUrl = `http://localhost:8000/generated/${imagePath}`;
     

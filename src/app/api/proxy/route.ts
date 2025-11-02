@@ -3,7 +3,7 @@ import {NextRequest, NextResponse} from 'next/server';
 
 export async function POST(request: NextRequest) {
   // Production Cloud Run URL:
-  const serviceUrl = 'https://kalpana-ai-api-508329185712.us-central1.run.app/api/storytelling/generate';
+  const serviceUrl = 'https://support-chatbot-api-508329185712.us-central1.run.app/api/storytelling/generate';
   // Use local development server (comment out for production):
   // const serviceUrl = 'http://localhost:8000/api/storytelling/generate';
   
