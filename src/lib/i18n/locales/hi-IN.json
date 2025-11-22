@@ -106,6 +106,21 @@
         "salesAnalytics": "बिक्री विश्लेषिकी",
         "settings": "सेटिंग्स",
         "support": "सहायता"
+      },
+      "login": {
+        "title": "कारीगर लॉगिन",
+        "description": "अपने खाते में लॉगिन करने के लिए नीचे अपना ईमेल दर्ज करें।",
+        "emailLabel": "ईमेल",
+        "emailPlaceholder": "m@example.com",
+        "passwordLabel": "पासवर्ड",
+        "signIn": "साइन इन करें",
+        "signInWithGoogle": "Google के साथ साइन इन करें",
+        "signUpPrompt": "KalpanaAI में नए हैं?",
+        "signUpLink": "साइन अप करें",
+        "loginFailedTitle": "लॉगिन विफल",
+        "loginFailedDescription": "अमान्य ईमेल या पासवर्ड। कृपया पुनः प्रयास करें।",
+        "googleLoginFailedTitle": "लॉगिन विफल",
+        "googleLoginFailedDescription": "Google के साथ साइन इन नहीं किया जा सका। कृपया पुनः प्रयास करें।"
       }
     }
   }

@@ -15,7 +15,7 @@ import { Palette, Wand2 } from "lucide-react";
 import Image from "next/image";
 import { useState, useTransition, useRef } from "react";
 import { LoadingKolam } from "../loading-kolam";
-import type {getDictionary} from '@/lib/i18n/dictionaries';
+import type { getDictionary } from '@/lib/i18n/dictionaries';
 
 const fileToDataUri = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -28,14 +28,14 @@ const fileToDataUri = (file: File): Promise<string> => {
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
-export function TheMuse({dictionary, language}: {dictionary: Dictionary; language: string}) {
+export function TheMuse({ dictionary, language }: { dictionary: Dictionary; language: string }) {
   const [results, setResults] = useState<string[]>([]);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   // Translate dictionary
-  const t = useTranslatedDictionary(dictionary, language);
+  const t = dictionary; // Already translated server-side
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -63,7 +63,7 @@ export function TheMuse({dictionary, language}: {dictionary: Dictionary; languag
   };
 
   return (
-    <Card className="bg-card/60 backdrop-blur-lg border-border/50">
+    <Card className="bg-card/60 backdrop-blur-lg border-border/50 card-hover">
       <CardHeader>
         <CardTitle className="flex items-center gap-3">
           <Palette className="text-primary" />
@@ -95,7 +95,7 @@ export function TheMuse({dictionary, language}: {dictionary: Dictionary; languag
                 {results.slice(0, 2).map((src, index) => (
                   <div
                     key={`traditional-${index}`}
-                    className="relative aspect-square w-full overflow-hidden rounded-lg border"
+                    className="relative aspect-square w-full overflow-hidden rounded-lg border hover-scale shadow-sm hover:shadow-md transition-all"
                   >
                     <Image
                       src={src}
@@ -152,7 +152,7 @@ export function TheMuse({dictionary, language}: {dictionary: Dictionary; languag
                 onChange={handleFileChange}
                 accept="image/*"
               />
-              <Button onClick={handleButtonClick} variant="outline" size="sm">
+              <Button onClick={handleButtonClick} variant="outline" size="sm" className="btn-ripple hover:shadow-md transition-all">
                 <Wand2 className="mr-2 h-4 w-4" />
                 {t.theMuse.generateVariations}
               </Button>
@@ -160,9 +160,9 @@ export function TheMuse({dictionary, language}: {dictionary: Dictionary; languag
           </div>
         )}
         {results.length > 0 && (
-           <div className="mt-4 flex justify-end">
-             <Button onClick={() => setResults([])} variant="outline">{t.theMuse.startOver}</Button>
-           </div>
+          <div className="mt-4 flex justify-end">
+            <Button onClick={() => setResults([])} variant="outline">{t.theMuse.startOver}</Button>
+          </div>
         )}
       </CardContent>
     </Card>

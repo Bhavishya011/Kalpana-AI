@@ -102,16 +102,16 @@ export function AddProduct({
   const [isPending, startTransition] = useTransition();
   const [loadingStep, setLoadingStep] = useState<string>("");
   const { toast } = useToast();
-  
+
   // Translate static dictionary text
-  const t = useTranslatedDictionary(dictionary, language);
-  
+  const t = dictionary; // Already translated server-side
+
   // Automatically translate the API response
   const { data: translatedResult, isTranslating } = useTranslatedObject(
     result?.marketing_kit || null,
     language
   );
-  
+
   // Use translated result if available, otherwise use original
   const displayResult = result && translatedResult ? {
     ...result,
@@ -142,17 +142,17 @@ export function AddProduct({
     startTransition(async () => {
       try {
         setLoadingStep("🎨 Analyzing your product and story...");
-        
+
         const formData = new FormData();
-        if(file) {
-            formData.append('photo', file);
+        if (file) {
+          formData.append('photo', file);
         }
         formData.append('description', artisanBackground);
         formData.append('material_cost', materialCost || "100");
         formData.append('enable_generation', "true");
-        
+
         setLoadingStep("📖 Creating compelling stories...");
-        
+
         const apiResponse = await fetch('/api/proxy', {
           method: 'POST',
           body: formData,
@@ -164,30 +164,30 @@ export function AddProduct({
         }
 
         setLoadingStep("🖼️ Generating enhanced images...");
-        
+
         const response: GenerateEmotionalProductStoryOutput = await apiResponse.json();
-        
+
         console.log("📦 API Response:", JSON.stringify(response, null, 2));
-        
+
         // Validate response structure
         if (!response.marketing_kit) {
           console.error("❌ Invalid response structure:", response);
           throw new Error("Invalid response: marketing_kit is missing");
         }
-        
+
         setLoadingStep("✨ Finalizing your marketing kit...");
-        
+
         // Simulate a brief delay to show the final step
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
+
         setResult(response);
         setLoadingStep("");
-        
+
         toast({
           title: "🎉 Success!",
           description: "Your marketing kit has been generated with enhanced stories and images!",
         });
-        
+
       } catch (error) {
         console.error("Error generating story:", error);
         setLoadingStep("");
@@ -199,7 +199,7 @@ export function AddProduct({
       }
     });
   };
-  
+
   const handleReset = () => {
     setResult(null);
     setPreview(null);
@@ -222,7 +222,7 @@ export function AddProduct({
         {!result && !isPending && (
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-4">
-               <div className="grid w-full items-center gap-1.5">
+              <div className="grid w-full items-center gap-1.5">
                 <Label htmlFor="product-photo">{t.addProduct.productPhoto}</Label>
                 <Input
                   id="product-photo"
@@ -232,7 +232,7 @@ export function AddProduct({
                 />
               </div>
               {preview && (
-                <div className="relative aspect-square w-full max-w-sm overflow-hidden rounded-lg border">
+                <div className="relative aspect-square w-full max-w-sm overflow-hidden rounded-lg border hover-scale cursor-pointer shadow-sm hover:shadow-md transition-all">
                   <Image
                     src={preview}
                     alt="Product preview"
@@ -289,8 +289,8 @@ export function AddProduct({
               </p>
               <div className="flex items-center justify-center gap-2 mt-4">
                 <div className="h-2 w-2 bg-primary rounded-full animate-bounce"></div>
-                <div className="h-2 w-2 bg-primary rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                <div className="h-2 w-2 bg-primary rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                <div className="h-2 w-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                <div className="h-2 w-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
               </div>
             </div>
           </div>
@@ -329,7 +329,7 @@ export function AddProduct({
                   <span className="text-2xl">💰</span>
                   AI Dynamic Pricing Analysis
                 </h3>
-                
+
                 {/* Main Pricing Display with Material Cost */}
                 <div className="grid gap-4 md:grid-cols-3 mb-6">
                   <div className="text-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg border">
@@ -375,9 +375,9 @@ export function AddProduct({
                       <span className="text-sm font-bold text-primary">{result.marketing_kit.pricing.breakdown.heritage_score.toFixed(1)}/10</span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
-                      <div 
-                        className="bg-gradient-to-r from-amber-500 to-orange-500 h-1.5 rounded-full" 
-                        style={{width: `${result.marketing_kit.pricing.breakdown.heritage_score * 10}%`}}
+                      <div
+                        className="bg-gradient-to-r from-amber-500 to-orange-500 h-1.5 rounded-full"
+                        style={{ width: `${result.marketing_kit.pricing.breakdown.heritage_score * 10}%` }}
                       ></div>
                     </div>
                   </div>
@@ -387,9 +387,9 @@ export function AddProduct({
                       <span className="text-sm font-bold text-primary">{result.marketing_kit.pricing.breakdown.complexity_score.toFixed(1)}/10</span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
-                      <div 
-                        className="bg-gradient-to-r from-blue-500 to-indigo-500 h-1.5 rounded-full" 
-                        style={{width: `${result.marketing_kit.pricing.breakdown.complexity_score * 10}%`}}
+                      <div
+                        className="bg-gradient-to-r from-blue-500 to-indigo-500 h-1.5 rounded-full"
+                        style={{ width: `${result.marketing_kit.pricing.breakdown.complexity_score * 10}%` }}
                       ></div>
                     </div>
                   </div>
@@ -399,9 +399,9 @@ export function AddProduct({
                       <span className="text-sm font-bold text-primary">{result.marketing_kit.pricing.breakdown.market_score.toFixed(1)}/10</span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
-                      <div 
-                        className="bg-gradient-to-r from-green-500 to-emerald-500 h-1.5 rounded-full" 
-                        style={{width: `${result.marketing_kit.pricing.breakdown.market_score * 10}%`}}
+                      <div
+                        className="bg-gradient-to-r from-green-500 to-emerald-500 h-1.5 rounded-full"
+                        style={{ width: `${result.marketing_kit.pricing.breakdown.market_score * 10}%` }}
                       ></div>
                     </div>
                   </div>
@@ -428,7 +428,7 @@ export function AddProduct({
                 </p>
               </section>
             )}
-            
+
             {/* Enhanced Photos Section */}
             {result.marketing_kit.assets?.enhanced_photos && result.marketing_kit.assets.enhanced_photos.length > 0 && (
               <section>
@@ -451,10 +451,10 @@ export function AddProduct({
                       </div>
                       <div className="text-center">
                         <h4 className="font-semibold text-sm text-primary">
-                          {photoUrl.includes('studio') ? '🏢 Studio Shot' : 
-                           photoUrl.includes('lifestyle') ? '� Lifestyle' : 
-                           photoUrl.includes('mask') ? '🎭 Debug Mask' : 
-                           `Enhanced ${index + 1}`}
+                          {photoUrl.includes('studio') ? '🏢 Studio Shot' :
+                            photoUrl.includes('lifestyle') ? '� Lifestyle' :
+                              photoUrl.includes('mask') ? '🎭 Debug Mask' :
+                                `Enhanced ${index + 1}`}
                         </h4>
                       </div>
                     </div>
@@ -483,7 +483,7 @@ export function AddProduct({
                 </div>
               </section>
             )}
-            
+
             {/* Story Images Section */}
             {result.marketing_kit.assets?.story_images && result.marketing_kit.assets.story_images.length > 0 && (
               <section>
@@ -559,13 +559,13 @@ export function AddProduct({
             >
               {t.addProduct.createAnother}
             </Button>
-            <Button>
+            <Button className="btn-ripple">
               <Upload className="mr-2 h-4 w-4" />
               {t.addProduct.publish}
             </Button>
           </>
         ) : (
-          <Button onClick={handleSubmit} disabled={isPending}>
+          <Button onClick={handleSubmit} disabled={isPending} className="btn-ripple transition-all duration-300 hover:shadow-lg">
             <Sparkles className="mr-2 h-4 w-4" />
             {t.addProduct.generateStory || "Process"}
           </Button>

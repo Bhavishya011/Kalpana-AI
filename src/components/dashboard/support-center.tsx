@@ -37,14 +37,14 @@ import { useChatbot } from "@/hooks/useChatbot";
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
 export function SupportCenter({ dictionary, language }: { dictionary: Dictionary; language: string }) {
-  const t = useTranslatedDictionary(dictionary, language);
-  
+  const t = dictionary; // Already translated server-side
+
   // Use the chatbot hook with current language
   const { messages, isLoading, sendMessage, getQuickHelp } = useChatbot(language);
-  
+
   const [chatMessage, setChatMessage] = React.useState("");
   const chatEndRef = React.useRef<HTMLDivElement>(null);
-  
+
   // State for translated content
   const [content, setContent] = React.useState({
     subtitle: "Everything you need to know about KalpanaAI features and how to use them",
@@ -197,7 +197,7 @@ export function SupportCenter({ dictionary, language }: { dictionary: Dictionary
 
   const handleSendMessage = async () => {
     if (!chatMessage.trim() || isLoading) return;
-    
+
     const userMessage = chatMessage;
     setChatMessage("");
     await sendMessage(userMessage);
@@ -766,11 +766,10 @@ export function SupportCenter({ dictionary, language }: { dictionary: Dictionary
                           className={`flex ${chat.role === 'user' ? 'justify-end' : 'justify-start'}`}
                         >
                           <div
-                            className={`max-w-[80%] rounded-lg p-4 ${
-                              chat.role === 'user'
+                            className={`max-w-[80%] rounded-lg p-4 ${chat.role === 'user'
                                 ? 'bg-primary text-primary-foreground'
                                 : 'bg-card border shadow-sm'
-                            }`}
+                              }`}
                           >
                             <p className="text-sm leading-relaxed whitespace-pre-wrap">{chat.content}</p>
                             <p className="text-xs opacity-70 mt-1">

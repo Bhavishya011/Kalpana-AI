@@ -11,7 +11,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { TrendingUp, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
-import type {getDictionary} from '@/lib/i18n/dictionaries';
+import type { getDictionary } from '@/lib/i18n/dictionaries';
 import { Badge } from "../ui/badge";
 import { useTranslatedObject } from "@/hooks/use-translation";
 import { useTranslatedDictionary } from "@/hooks/use-dictionary-translation";
@@ -19,17 +19,17 @@ import { useTranslatedDictionary } from "@/hooks/use-dictionary-translation";
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
 
-export function MarketPulse({dictionary, language}: {dictionary: Dictionary; language: string}) {
+export function MarketPulse({ dictionary, language }: { dictionary: Dictionary; language: string }) {
   const [data, setData] =
     useState<DisplayHyperlocalDemandAlertsOutput | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Translate static dictionary text
-  const t = useTranslatedDictionary(dictionary, language);
-  
+  // Dictionary is already translated server-side, use it directly
+  const t = dictionary;
+
   // Translate dynamic API data - this will update when language OR data changes
   const { data: translatedData, isTranslating } = useTranslatedObject(data, language);
-  
+
   // Use translated data if available and not currently translating
   const displayData = (translatedData && !isTranslating) ? translatedData : data;
 
@@ -57,7 +57,7 @@ export function MarketPulse({dictionary, language}: {dictionary: Dictionary; lan
   }, []);
 
   return (
-    <Card className="bg-card/60 backdrop-blur-lg border-border/50">
+    <Card className="bg-card/60 backdrop-blur-lg border-border/50 card-hover">
       <CardHeader>
         <CardTitle className="flex items-center gap-3">
           <TrendingUp className="text-primary" />
@@ -83,7 +83,7 @@ export function MarketPulse({dictionary, language}: {dictionary: Dictionary; lan
                 {displayData?.demandMultiplier}x {t.marketPulse.demand}
               </p>
             </div>
-            
+
             <div>
               <h4 className="flex items-center gap-2 font-headline text-md mb-2">
                 <Sparkles className="text-primary size-4" />
@@ -95,7 +95,7 @@ export function MarketPulse({dictionary, language}: {dictionary: Dictionary; lan
                 ))}
               </div>
             </div>
-            
+
             <p className="text-xs text-muted-foreground pt-2">
               {t.marketPulse.update} &bull; {t.marketPulse.interval}
             </p>

@@ -1,111 +1,125 @@
-
 {
-    "dashboard": {
-        "title": "கல்பனாஏஐ டாஷ்போர்டு",
-        "greeting": "வாருங்கள், கைவினைஞரே",
-        "description": "உங்கள் créativité-ஐ அதிகரிக்கவும், உங்கள் வரம்பை விரிவுபடுத்தவும் AI-ஆல் இயங்கும் கருவிகள்.",
-        "marketPulse": {
-            "title": "சந்தை நாடித்துடிப்பு",
-            "description": "உங்கள் கைவினைக்கான హైపర్లోకల్ தேவை மற்றும் சிறந்த போக்குகள்.",
-            "demand": "தேவை",
-            "update": "இப்போதுதான் புதுப்பிக்கப்பட்டது",
-            "interval": "ஒவ்வொரு 6 மணி நேரத்திற்கும் புதுப்பிக்கப்படும்",
-            "topTrends": "சிறந்த போக்குகள்"
-        },
-        "artisanCircle": {
-            "title": "கைவினைஞர் வட்டம்",
-            "description": "வழிகாட்டுதலுக்காக AI-பொருந்திய வழிகாட்டிகளுடன் இணையுங்கள்.",
-            "call": "அழை"
-        },
-        "artisanMentor": {
-            "title": "கைவினைஞர் வழிகாட்டி",
-            "description": "வெற்றிபெற உங்கள் டிஜிட்டல் திறன்களைக் கற்றுக் கொள்ளுங்கள்.",
-             "skillOfTheDay": {
-                "title": "Skill of the Day",
-                "skills": {
-                    "hashtags": "Use hashtags on Instagram to reach more customers. Try #handicraft #indianartisan #madeinindia.",
-                    "packaging": "How to package your crafts safely for international shipping. Use bubble wrap and sturdy boxes.",
-                    "reviews": "Responding to customer reviews, even the negative ones, shows you care. Always be polite and helpful.",
-                    "videos": "Create a short video (15-30 seconds) of your crafting process. It's great content for social media!",
-                    "seo": "Use descriptive keywords in your product titles. Instead of 'Vase', try 'Hand-painted Terracotta Flower Vase'."
-                }
-            },
-            "coreSkills": {
-                "unlockingTheMuse": {
-                    "title": "'The Muse' ஐ திறத்தல்",
-                    "content": "முடிவற்ற வடிவமைப்பு மாறுபாடுகளை உருவாக்க 'The Muse' ஐ எவ்வாறு பயன்படுத்துவது என்பதை அறிக. உங்கள் கைவினையின் புகைப்படத்தைப் பதிவேற்றவும், மேலும் AI இணை-விமானி இந்திய கலை வடிவங்களின் பரந்த நூலகத்தின் அடிப்படையில் புதிய வடிவங்கள், வண்ண சேர்க்கைகள் மற்றும் பாணி சார்ந்த யோசனைகளுடன் உங்களை ஊக்குவிக்கட்டும்."
-                },
-                "readingMarketPulse": {
-                    "title": "'Market Pulse' ஐ படித்தல்",
-                    "content": "உங்கள் பகுதியில் என்ன பிரபலமாக உள்ளது என்பதைக் கண்டறியவும். 'Market Pulse' எந்த கைவினைப்பொருட்கள் அதிக தேவையில் உள்ளன என்பதைக் காட்டுகிறது, அடுத்து என்ன உருவாக்குவது என்பதை தீர்மானிக்க உதவுகிறது. இது உங்கள் உற்பத்தியை வழிநடத்த ஒரு தேவை பெருக்கி மற்றும் முக்கிய போக்குகளை வழங்குகிறது."
-                },
-                "takingPhotos": {
-                    "title": " பிரமிக்க வைக்கும் தயாரிப்பு புகைப்படங்களை எடுத்தல்",
-                    "content": "ஒரு சிறந்த புகைப்படம் விற்பனைக்கான முதல் படியாகும். உங்கள் தயாரிப்பை தனித்து நிற்கச் செய்ய விளக்கு, ಸಂಯೋಜನೆ மற்றும் பின்னணியின் அடிப்படைகளைக் கற்றுக்கொள்ளுங்கள். சிறந்த முடிவுகளுக்கு எளிய, சுத்தமான பின்னணி மற்றும் இயற்கை ஒளியைப் பயன்படுத்தவும்."
-                },
-                "tellingYourStory": {
-                    "title": "உங்கள் கதையைச் சொல்லுதல்",
-                    "content": "உங்கள் கதை உங்கள் கைவினையை விற்கிறது. ஒரு தயாரிப்பைச் சேர்க்கும்போது, உங்கள் உத்வேகம், உங்கள் வேலையின் பின்னணியில் உள்ள பாரம்பரியம் மற்றும் அதை தனித்துவமாக்குவது எது என்பதை விவரிக்கவும். ஒரு தனிப்பட்ட கதை உங்களை வாங்குபவர்களுடன் உணர்ச்சி மட்டத்தில் இணைக்கிறது."
-                }
-            }
-        },
-        "recentCreations": {
-            "title": "சமீபத்திய படைப்புகள்",
-            "description": "உங்கள் சமீபத்திய படைப்புகளின் галеரி."
-        },
-        "addProduct": {
-            "title": "தயாரிப்பைச் சேர்",
-            "description": "உங்கள் தயாரிப்பு மற்றும் கதையைச் சேர்க்கவும், நாங்கள் உங்களுக்காக சந்தைப்படுத்தல் சொத்துக்களை உருவாக்குவோம்.",
-            "productPhoto": "தயாரிப்பு புகைப்படம்",
-            "yourBackground": "உங்கள் கதை",
-            "backgroundPlaceholder": "உங்கள் கலையின் பின்னணியில் உள்ள கதை, உங்கள் உத்வேகம் அல்லது உங்கள் செயல்முறை பற்றி எங்களிடம் கூறுங்கள்...",
-            "generateStory": "செயல்முறை",
-            "generating": "உங்கள் கதையை உருவாக்குகிறோம்...",
-            "productPosts": "தயாரிப்பு இடுகைகள்",
-            "storyPosts": "கதை இடுகைகள்",
-            "recordStory": "கதையைப் பதிவுசெய் (விரைவில்)",
-            "createAnother": "மீண்டும் தொடங்கு",
-            "publish": "வெளியிடு",
-            "missingInfoTitle": "தகவல் இல்லை",
-            "missingInfoDescription": "தயவுசெய்து ஒரு புகைப்படத்தைப் பதிவேற்றி ஒரு கதையை வழங்கவும்.",
-            "generationFailedTitle": "உருவாக்குவதில் தோல்வி",
-            "generationFailedDescription": "சொத்துக்களை உருவாக்க முடியவில்லை. தயவுசெய்து కన్సోల్లో உள்ள பிழைகளைச் சரிபார்க்கவும்."
-        },
-        "theMuse": {
-            "title": "தி மியூஸ்",
-            "description": "உங்கள் வடிவமைப்பு துணை விமானி. புதிய δημιουργικές திசைகளை ஆராய ஒரு புகைப்படத்தைப் பதிவேற்றவும்.",
-            "generateVariations": "மாறுபாடுகளை உருவாக்கு",
-            "generating": "உத்வேகத்தை வரவழைக்கிறது...",
-            "uploadPrompt": "வடிவமைப்பு மாறுபாடுகளைப் பார்க்க ஒரு புகைப்படத்தைப் பதிவேற்றவும்.",
-            "startOver": "மீண்டும் தொடங்கு",
-            "generationFailedTitle": "உருவாக்குவதில் தோல்வி",
-            "generationFailedDescription": "வடிவமைப்புகளை உருவாக்க முடியவில்லை. தயவுசெய்து కన్సోల్ ಅನ್ನು சரிபார்க்கவும்."
-        },
-        "salesAnalytics": {
-            "title": "விற்பனை பகுப்பாய்வு",
-            "description": "காலப்போக்கில் உங்கள் விற்பனை செயல்திறனைக் கண்காணிக்கவும்."
-        },
-        "languageSwitcher": {
-            "placeholder": "மொழி"
-        },
-        "userMenu": {
-            "artisanName": "கைவினைஞர் பெயர்",
-            "artisanEmail": "artisan@example.com",
-            "profile": "சுயவிவரம்",
-            "settings": "அமைப்புகள்",
-            "support": "ஆதரவு",
-            "logout": "வெளியேறு"
-        },
-        "sidebar": {
-            "dashboard": "டாஷ்போர்டு",
-            "addProduct": "தயாரிப்பைச் சேர்",
-            "marketPulse": "சந்தை நாடித்துடிப்பு",
-            "theMuse": "தி மியூஸ்",
-            "artisanCircle": "கைவினைஞர் வட்டம்",
-            "artisanMentor": "கைவினைஞர் வழிகாட்டி",
-            "salesAnalytics": "விற்பனை பகுப்பாய்வு",
-            "settings": "அமைப்புகள்",
-            "support": "ஆதரவு"
+  "dashboard": {
+    "title": "கல்பனாஏஐ டாஷ்போர்டு",
+    "greeting": "வாருங்கள், கைவினைஞரே",
+    "description": "உங்கள் créativité-ஐ அதிகரிக்கவும், உங்கள் வரம்பை விரிவுபடுத்தவும் AI-ஆல் இயங்கும் கருவிகள்.",
+    "marketPulse": {
+      "title": "சந்தை நாடித்துடிப்பு",
+      "description": "உங்கள் கைவினைக்கான హైపర్లోకల్ தேவை மற்றும் சிறந்த போக்குகள்.",
+      "demand": "தேவை",
+      "update": "இப்போதுதான் புதுப்பிக்கப்பட்டது",
+      "interval": "ஒவ்வொரு 6 மணி நேரத்திற்கும் புதுப்பிக்கப்படும்",
+      "topTrends": "சிறந்த போக்குகள்"
+    },
+    "artisanCircle": {
+      "title": "கைவினைஞர் வட்டம்",
+      "description": "வழிகாட்டுதலுக்காக AI-பொருந்திய வழிகாட்டிகளுடன் இணையுங்கள்.",
+      "call": "அழை"
+    },
+    "artisanMentor": {
+      "title": "கைவினைஞர் வழிகாட்டி",
+      "description": "வெற்றிபெற உங்கள் டிஜிட்டல் திறன்களைக் கற்றுக் கொள்ளுங்கள்.",
+      "skillOfTheDay": {
+        "title": "Skill of the Day",
+        "skills": {
+          "hashtags": "Use hashtags on Instagram to reach more customers. Try #handicraft #indianartisan #madeinindia.",
+          "packaging": "How to package your crafts safely for international shipping. Use bubble wrap and sturdy boxes.",
+          "reviews": "Responding to customer reviews, even the negative ones, shows you care. Always be polite and helpful.",
+          "videos": "Create a short video (15-30 seconds) of your crafting process. It's great content for social media!",
+          "seo": "Use descriptive keywords in your product titles. Instead of 'Vase', try 'Hand-painted Terracotta Flower Vase'."
         }
+      },
+      "coreSkills": {
+        "unlockingTheMuse": {
+          "title": "'The Muse' ஐ திறத்தல்",
+          "content": "முடிவற்ற வடிவமைப்பு மாறுபாடுகளை உருவாக்க 'The Muse' ஐ எவ்வாறு பயன்படுத்துவது என்பதை அறிக. உங்கள் கைவினையின் புகைப்படத்தைப் பதிவேற்றவும், மேலும் AI இணை-விமானி இந்திய கலை வடிவங்களின் பரந்த நூலகத்தின் அடிப்படையில் புதிய வடிவங்கள், வண்ண சேர்க்கைகள் மற்றும் பாணி சார்ந்த யோசனைகளுடன் உங்களை ஊக்குவிக்கட்டும்."
+        },
+        "readingMarketPulse": {
+          "title": "'Market Pulse' ஐ படித்தல்",
+          "content": "உங்கள் பகுதியில் என்ன பிரபலமாக உள்ளது என்பதைக் கண்டறியவும். 'Market Pulse' எந்த கைவினைப்பொருட்கள் அதிக தேவையில் உள்ளன என்பதைக் காட்டுகிறது, அடுத்து என்ன உருவாக்குவது என்பதை தீர்மானிக்க உதவுகிறது. இது உங்கள் உற்பத்தியை வழிநடத்த ஒரு தேவை பெருக்கி மற்றும் முக்கிய போக்குகளை வழங்குகிறது."
+        },
+        "takingPhotos": {
+          "title": " பிரமிக்க வைக்கும் தயாரிப்பு புகைப்படங்களை எடுத்தல்",
+          "content": "ஒரு சிறந்த புகைப்படம் விற்பனைக்கான முதல் படியாகும். உங்கள் தயாரிப்பை தனித்து நிற்கச் செய்ய விளக்கு, ಸಂಯೋಜನೆ மற்றும் பின்னணியின் அடிப்படைகளைக் கற்றுக்கொள்ளுங்கள். சிறந்த முடிவுகளுக்கு எளிய, சுத்தமான பின்னணி மற்றும் இயற்கை ஒளியைப் பயன்படுத்தவும்."
+        },
+        "tellingYourStory": {
+          "title": "உங்கள் கதையைச் சொல்லுதல்",
+          "content": "உங்கள் கதை உங்கள் கைவினையை விற்கிறது. ஒரு தயாரிப்பைச் சேர்க்கும்போது, உங்கள் உத்வேகம், உங்கள் வேலையின் பின்னணியில் உள்ள பாரம்பரியம் மற்றும் அதை தனித்துவமாக்குவது எது என்பதை விவரிக்கவும். ஒரு தனிப்பட்ட கதை உங்களை வாங்குபவர்களுடன் உணர்ச்சி மட்டத்தில் இணைக்கிறது."
+        }
+      }
+    },
+    "recentCreations": {
+      "title": "சமீபத்திய படைப்புகள்",
+      "description": "உங்கள் சமீபத்திய படைப்புகளின் галеரி."
+    },
+    "addProduct": {
+      "title": "தயாரிப்பைச் சேர்",
+      "description": "உங்கள் தயாரிப்பு மற்றும் கதையைச் சேர்க்கவும், நாங்கள் உங்களுக்காக சந்தைப்படுத்தல் சொத்துக்களை உருவாக்குவோம்.",
+      "productPhoto": "தயாரிப்பு புகைப்படம்",
+      "yourBackground": "உங்கள் கதை",
+      "backgroundPlaceholder": "உங்கள் கலையின் பின்னணியில் உள்ள கதை, உங்கள் உத்வேகம் அல்லது உங்கள் செயல்முறை பற்றி எங்களிடம் கூறுங்கள்...",
+      "generateStory": "செயல்முறை",
+      "generating": "உங்கள் கதையை உருவாக்குகிறோம்...",
+      "productPosts": "தயாரிப்பு இடுகைகள்",
+      "storyPosts": "கதை இடுகைகள்",
+      "recordStory": "கதையைப் பதிவுசெய் (விரைவில்)",
+      "createAnother": "மீண்டும் தொடங்கு",
+      "publish": "வெளியிடு",
+      "missingInfoTitle": "தகவல் இல்லை",
+      "missingInfoDescription": "தயவுசெய்து ஒரு புகைப்படத்தைப் பதிவேற்றி ஒரு கதையை வழங்கவும்.",
+      "generationFailedTitle": "உருவாக்குவதில் தோல்வி",
+      "generationFailedDescription": "சொத்துக்களை உருவாக்க முடியவில்லை. தயவுசெய்து కన్సోల్లో உள்ள பிழைகளைச் சரிபார்க்கவும்."
+    },
+    "theMuse": {
+      "title": "தி மியூஸ்",
+      "description": "உங்கள் வடிவமைப்பு துணை விமானி. புதிய δημιουργικές திசைகளை ஆராய ஒரு புகைப்படத்தைப் பதிவேற்றவும்.",
+      "generateVariations": "மாறுபாடுகளை உருவாக்கு",
+      "generating": "உத்வேகத்தை வரவழைக்கிறது...",
+      "uploadPrompt": "வடிவமைப்பு மாறுபாடுகளைப் பார்க்க ஒரு புகைப்படத்தைப் பதிவேற்றவும்.",
+      "startOver": "மீண்டும் தொடங்கு",
+      "generationFailedTitle": "உருவாக்குவதில் தோல்வி",
+      "generationFailedDescription": "வடிவமைப்புகளை உருவாக்க முடியவில்லை. தயவுசெய்து కన్సోల్ ಅನ್ನು சரிபார்க்கவும்."
+    },
+    "salesAnalytics": {
+      "title": "விற்பனை பகுப்பாய்வு",
+      "description": "காலப்போக்கில் உங்கள் விற்பனை செயல்திறனைக் கண்காணிக்கவும்."
+    },
+    "languageSwitcher": {
+      "placeholder": "மொழி"
+    },
+    "userMenu": {
+      "artisanName": "கைவினைஞர் பெயர்",
+      "artisanEmail": "artisan@example.com",
+      "profile": "சுயவிவரம்",
+      "settings": "அமைப்புகள்",
+      "support": "ஆதரவு",
+      "logout": "வெளியேறு"
+    },
+    "sidebar": {
+      "dashboard": "டாஷ்போர்டு",
+      "addProduct": "தயாரிப்பைச் சேர்",
+      "marketPulse": "சந்தை நாடித்துடிப்பு",
+      "theMuse": "தி மியூஸ்",
+      "artisanCircle": "கைவினைஞர் வட்டம்",
+      "artisanMentor": "கைவினைஞர் வழிகாட்டி",
+      "salesAnalytics": "விற்பனை பகுப்பாய்வு",
+      "settings": "அமைப்புகள்",
+      "support": "ஆதரவு"
+    },
+    "login": {
+      "title": "கைவினைஞர் உள்நுழைவு",
+      "description": "உங்கள் கணக்கில் உள்நுழைய கீழே உங்கள் மின்னஞ்சலை உள்ளிடவும்।",
+      "emailLabel": "மின்னஞ்சல்",
+      "emailPlaceholder": "m@example.com",
+      "passwordLabel": "கடவுச்சொல்",
+      "signIn": "உள்நுழைக",
+      "signInWithGoogle": "Google உடன் உள்நுழைக",
+      "signUpPrompt": "KalpanaAI க்கு புதியவரா?",
+      "signUpLink": "பதிவு செய்க",
+      "loginFailedTitle": "உள்நுழைவு தோல்வியுற்றது",
+      "loginFailedDescription": "தவறான மின்னஞ்சல் அல்லது கடவுச்சொல். மீண்டும் முயற்சிக்கவும்।",
+      "googleLoginFailedTitle": "உள்நுழைவு தோல்வியுற்றது",
+      "googleLoginFailedDescription": "Google உடன் உள்நுழைய முடியவில்லை। மீண்டும் முயற்சிக்கவும்।"
     }
+  }
 }

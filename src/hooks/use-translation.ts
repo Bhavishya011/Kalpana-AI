@@ -84,15 +84,15 @@ export function useTranslatedObject<T extends Record<string, any>>(
   useEffect(() => {
     // Create a stable reference using JSON
     const objString = obj ? JSON.stringify(obj) : null;
-    
+
     // Check if the content or locale actually changed
     const contentChanged = objString !== lastObjRef.current;
     const localeChanged = locale !== lastLocaleRef.current;
-    
+
     if (!contentChanged && !localeChanged) {
       return; // No change, skip translation
     }
-    
+
     lastObjRef.current = objString;
     lastLocaleRef.current = locale;
 
