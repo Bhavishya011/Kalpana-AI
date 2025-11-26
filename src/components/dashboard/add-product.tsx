@@ -18,7 +18,7 @@ import { useTranslatedObject } from "@/hooks/use-translation";
 import { useTranslatedDictionary } from "@/hooks/use-dictionary-translation";
 import { Sparkles, Upload, Mic } from "lucide-react";
 import Image from "next/image";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { LoadingKolam } from "../loading-kolam";
 import { CraftDNASection } from "./craft-dna-section";
 import type { getDictionary } from "@/lib/i18n/dictionaries";
@@ -209,6 +209,89 @@ export function AddProduct({
     setLoadingStep("");
   }
 
+  // ... inside AddProduct component ...
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+
+  const handleVoiceRecord = async () => {
+    // STOP RECORDING
+    if (isRecording) {
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+        mediaRecorderRef.current.stop();
+        setIsRecording(false);
+        setLoadingStep("🎤 Processing your voice...");
+      }
+      return;
+    }
+
+    // START RECORDING
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      const audioChunks: Blob[] = [];
+
+      mediaRecorder.ondataavailable = (event) => {
+        audioChunks.push(event.data);
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+
+        // Send to Backend
+        startTransition(async () => {
+          try {
+            const formData = new FormData();
+            formData.append("file", audioBlob, "recording.webm");
+
+            const response = await fetch("/api/transcribe", {
+              method: "POST",
+              body: formData,
+            });
+
+            const data = await response.json();
+
+            if (data.success && data.transcription) {
+              // Append transcription to existing text
+              setArtisanBackground((prev) =>
+                prev ? `${prev}\n${data.transcription}` : data.transcription
+              );
+              toast({
+                title: "Voice Added!",
+                description: "Your story has been transcribed successfully.",
+              });
+            } else {
+              throw new Error(data.error || "Transcription failed");
+            }
+          } catch (error) {
+            console.error(error);
+            toast({
+              title: "Error",
+              description: "Could not process audio. Please try again.",
+              variant: "destructive",
+            });
+          } finally {
+            setLoadingStep("");
+            // Stop all tracks to release microphone
+            stream.getTracks().forEach(track => track.stop());
+          }
+        });
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+      toast({ title: "🎙️ Listening...", description: "Speak your story now." });
+
+    } catch (err) {
+      console.error("Microphone error:", err);
+      toast({
+        title: "Microphone Error",
+        description: "Please allow microphone access to record.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <Card className="bg-card/60 backdrop-blur-lg border-border/50">
       <CardHeader>
@@ -270,9 +353,23 @@ export function AddProduct({
                   Base cost of materials used in crafting this product
                 </p>
               </div>
-              <Button variant="outline" className="w-full">
-                <Mic className="mr-2 h-4 w-4" />
-                {t.addProduct.recordStory || "Record Story (Coming Soon)"}
+              <Button
+                variant={isRecording ? "destructive" : "outline"}
+                className={`w-full transition-all duration-300 ${isRecording ? "animate-pulse" : ""}`}
+                onClick={handleVoiceRecord}
+                disabled={isPending && !isRecording} // Disable if other API calls are running
+              >
+                {isRecording ? (
+                  <>
+                    <span className="mr-2 h-3 w-3 rounded-full bg-white animate-ping" />
+                    Stop Recording...
+                  </>
+                ) : (
+                  <>
+                    <Mic className="mr-2 h-4 w-4" />
+                    {t.addProduct.recordStory || "Record Story"}
+                  </>
+                )}
               </Button>
             </div>
           </div>
@@ -312,18 +409,18 @@ export function AddProduct({
             </div>
 
             {/* Story Header */}
-            {result.marketing_kit?.story_title && (
+            {displayResult?.marketing_kit?.story_title && (
               <section className="text-center space-y-4 p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border">
-                <h2 className="text-2xl font-headline text-primary">{result.marketing_kit.story_title}</h2>
-                <p className="text-muted-foreground leading-relaxed max-w-3xl mx-auto">{result.marketing_kit.story_text}</p>
+                <h2 className="text-2xl font-headline text-primary">{displayResult.marketing_kit.story_title}</h2>
+                <p className="text-muted-foreground leading-relaxed max-w-3xl mx-auto">{displayResult.marketing_kit.story_text}</p>
                 <span className="inline-block px-3 py-1 bg-primary/20 text-primary text-xs rounded-full">
-                  Theme: {result.marketing_kit.emotional_theme}
+                  Theme: {displayResult.marketing_kit.emotional_theme}
                 </span>
               </section>
             )}
 
             {/* AI Dynamic Pricing */}
-            {result.marketing_kit?.pricing ? (
+            {displayResult?.marketing_kit?.pricing ? (
               <section className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 p-6 rounded-lg border border-green-200 dark:border-green-800">
                 <h3 className="font-headline text-2xl mb-4 flex items-center gap-2 text-green-700 dark:text-green-300">
                   <span className="text-2xl">💰</span>
@@ -335,33 +432,33 @@ export function AddProduct({
                   <div className="text-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg border">
                     <h4 className="font-semibold text-sm text-green-600 dark:text-green-400 mb-2">Minimum Price</h4>
                     <p className="text-2xl font-bold text-green-700 dark:text-green-300">
-                      ₹{(result.marketing_kit.pricing.price_range.min + parseFloat(materialCost || "0")).toFixed(2)}
+                      ₹{(displayResult.marketing_kit.pricing.price_range.min + parseFloat(materialCost || "0")).toFixed(2)}
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      ₹{result.marketing_kit.pricing.price_range.min.toFixed(2)} + ₹{parseFloat(materialCost || "0").toFixed(2)}
+                      ₹{displayResult.marketing_kit.pricing.price_range.min.toFixed(2)} + ₹{parseFloat(materialCost || "0").toFixed(2)}
                     </p>
                     <p className="text-xs text-muted-foreground">Budget range</p>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-lg border-2 border-green-300 dark:border-green-600">
                     <h4 className="font-semibold text-sm text-green-600 dark:text-green-400 mb-2">Recommended Price</h4>
                     <p className="text-3xl font-bold text-green-700 dark:text-green-300">
-                      ₹{(result.marketing_kit.pricing.suggested_price + parseFloat(materialCost || "0")).toFixed(2)}
+                      ₹{(displayResult.marketing_kit.pricing.suggested_price + parseFloat(materialCost || "0")).toFixed(2)}
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      ₹{result.marketing_kit.pricing.suggested_price.toFixed(2)} + ₹{parseFloat(materialCost || "0").toFixed(2)}
+                      ₹{displayResult.marketing_kit.pricing.suggested_price.toFixed(2)} + ₹{parseFloat(materialCost || "0").toFixed(2)}
                     </p>
                     <p className="text-xs text-muted-foreground mb-2">AI suggested</p>
                     <span className="inline-block px-2 py-1 bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-200 text-xs rounded-full">
-                      ⭐ {result.marketing_kit.pricing.success_probability.toFixed(1)}% Success Rate
+                      ⭐ {displayResult.marketing_kit.pricing.success_probability.toFixed(1)}% Success Rate
                     </span>
                   </div>
                   <div className="text-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg border">
                     <h4 className="font-semibold text-sm text-green-600 dark:text-green-400 mb-2">Maximum Price</h4>
                     <p className="text-2xl font-bold text-green-700 dark:text-green-300">
-                      ₹{(result.marketing_kit.pricing.price_range.max + parseFloat(materialCost || "0")).toFixed(2)}
+                      ₹{(displayResult.marketing_kit.pricing.price_range.max + parseFloat(materialCost || "0")).toFixed(2)}
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      ₹{result.marketing_kit.pricing.price_range.max.toFixed(2)} + ₹{parseFloat(materialCost || "0").toFixed(2)}
+                      ₹{displayResult.marketing_kit.pricing.price_range.max.toFixed(2)} + ₹{parseFloat(materialCost || "0").toFixed(2)}
                     </p>
                     <p className="text-xs text-muted-foreground">Premium range</p>
                   </div>
@@ -372,36 +469,36 @@ export function AddProduct({
                   <div className="p-3 bg-white/70 dark:bg-gray-800/70 rounded-lg">
                     <div className="flex justify-between items-center">
                       <span className="text-xs font-medium text-muted-foreground">Heritage Value</span>
-                      <span className="text-sm font-bold text-primary">{result.marketing_kit.pricing.breakdown.heritage_score.toFixed(1)}/10</span>
+                      <span className="text-sm font-bold text-primary">{displayResult.marketing_kit.pricing.breakdown.heritage_score.toFixed(1)}/10</span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
                       <div
                         className="bg-gradient-to-r from-amber-500 to-orange-500 h-1.5 rounded-full"
-                        style={{ width: `${result.marketing_kit.pricing.breakdown.heritage_score * 10}%` }}
+                        style={{ width: `${displayResult.marketing_kit.pricing.breakdown.heritage_score * 10}%` }}
                       ></div>
                     </div>
                   </div>
                   <div className="p-3 bg-white/70 dark:bg-gray-800/70 rounded-lg">
                     <div className="flex justify-between items-center">
                       <span className="text-xs font-medium text-muted-foreground">Craft Complexity</span>
-                      <span className="text-sm font-bold text-primary">{result.marketing_kit.pricing.breakdown.complexity_score.toFixed(1)}/10</span>
+                      <span className="text-sm font-bold text-primary">{displayResult.marketing_kit.pricing.breakdown.complexity_score.toFixed(1)}/10</span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
                       <div
                         className="bg-gradient-to-r from-blue-500 to-indigo-500 h-1.5 rounded-full"
-                        style={{ width: `${result.marketing_kit.pricing.breakdown.complexity_score * 10}%` }}
+                        style={{ width: `${displayResult.marketing_kit.pricing.breakdown.complexity_score * 10}%` }}
                       ></div>
                     </div>
                   </div>
                   <div className="p-3 bg-white/70 dark:bg-gray-800/70 rounded-lg">
                     <div className="flex justify-between items-center">
                       <span className="text-xs font-medium text-muted-foreground">Market Demand</span>
-                      <span className="text-sm font-bold text-primary">{result.marketing_kit.pricing.breakdown.market_score.toFixed(1)}/10</span>
+                      <span className="text-sm font-bold text-primary">{displayResult.marketing_kit.pricing.breakdown.market_score.toFixed(1)}/10</span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
                       <div
                         className="bg-gradient-to-r from-green-500 to-emerald-500 h-1.5 rounded-full"
-                        style={{ width: `${result.marketing_kit.pricing.breakdown.market_score * 10}%` }}
+                        style={{ width: `${displayResult.marketing_kit.pricing.breakdown.market_score * 10}%` }}
                       ></div>
                     </div>
                   </div>
@@ -412,7 +509,7 @@ export function AddProduct({
                   <p className="text-sm text-blue-700 dark:text-blue-300 flex items-start gap-2">
                     <span className="text-lg mt-0.5">💡</span>
                     <span>
-                      <strong>AI Analysis:</strong> {result.marketing_kit.pricing.justification}
+                      <strong>AI Analysis:</strong> {displayResult.marketing_kit.pricing.justification}
                     </span>
                   </p>
                 </div>
@@ -430,14 +527,14 @@ export function AddProduct({
             )}
 
             {/* Enhanced Photos Section */}
-            {result.marketing_kit.assets?.enhanced_photos && result.marketing_kit.assets.enhanced_photos.length > 0 && (
+            {displayResult?.marketing_kit.assets?.enhanced_photos && displayResult.marketing_kit.assets.enhanced_photos.length > 0 && (
               <section>
                 <h3 className="font-headline text-2xl mb-6 flex items-center gap-2">
                   <span className="text-2xl">🎨</span>
                   AI Enhanced Photos
                 </h3>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {result.marketing_kit.assets.enhanced_photos.map((photoUrl, index) => (
+                  {displayResult.marketing_kit.assets.enhanced_photos.map((photoUrl, index) => (
                     <div key={`enhanced-${index}`} className="space-y-4 p-4 border rounded-lg bg-card/50 backdrop-blur-sm">
                       <div className="relative aspect-square w-full overflow-hidden rounded-lg border-2 border-border/50">
                         <Image
@@ -464,7 +561,7 @@ export function AddProduct({
             )}
 
             {/* Original Photo */}
-            {result.marketing_kit.assets?.original_photo && (
+            {displayResult?.marketing_kit.assets?.original_photo && (
               <section>
                 <h3 className="font-headline text-2xl mb-6 flex items-center gap-2">
                   <span className="text-2xl">📷</span>
@@ -473,7 +570,7 @@ export function AddProduct({
                 <div className="max-w-md mx-auto">
                   <div className="relative aspect-square w-full overflow-hidden rounded-lg border-2 border-border/50">
                     <Image
-                      src={result.marketing_kit.assets.original_photo.startsWith('/generated') ? `/api${result.marketing_kit.assets.original_photo}` : result.marketing_kit.assets.original_photo}
+                      src={displayResult.marketing_kit.assets.original_photo.startsWith('/generated') ? `/api${displayResult.marketing_kit.assets.original_photo}` : displayResult.marketing_kit.assets.original_photo}
                       alt="Original uploaded photo"
                       fill
                       style={{ objectFit: "cover" }}
@@ -485,14 +582,14 @@ export function AddProduct({
             )}
 
             {/* Story Images Section */}
-            {result.marketing_kit.assets?.story_images && result.marketing_kit.assets.story_images.length > 0 && (
+            {displayResult?.marketing_kit.assets?.story_images && displayResult.marketing_kit.assets.story_images.length > 0 && (
               <section>
                 <h3 className="font-headline text-2xl mb-6 flex items-center gap-2">
                   <span className="text-2xl">�️</span>
                   AI Generated Story Images
                 </h3>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {result.marketing_kit.assets.story_images.map((imageUrl, index) => (
+                  {displayResult.marketing_kit.assets.story_images.map((imageUrl, index) => (
                     <div key={`story-${index}`} className="space-y-4 p-4 border rounded-lg bg-card/50 backdrop-blur-sm">
                       <div className="relative aspect-square w-full overflow-hidden rounded-lg border-2 border-border/50">
                         <Image
@@ -506,9 +603,9 @@ export function AddProduct({
                       </div>
                       <div className="space-y-2">
                         <h4 className="font-semibold text-sm text-primary">Story Visual {index + 1}</h4>
-                        {result.marketing_kit.assets.image_prompts?.[index] && (
+                        {displayResult.marketing_kit.assets.image_prompts?.[index] && (
                           <p className="text-xs text-muted-foreground italic">
-                            "{result.marketing_kit.assets.image_prompts[index]}"
+                            "{displayResult.marketing_kit.assets.image_prompts[index]}"
                           </p>
                         )}
                       </div>
@@ -519,7 +616,7 @@ export function AddProduct({
             )}
 
             {/* Social Media Post */}
-            {result.marketing_kit.assets?.social_post && (
+            {displayResult?.marketing_kit.assets?.social_post && (
               <section>
                 <h3 className="font-headline text-2xl mb-6 flex items-center gap-2">
                   <span className="text-2xl">📱</span>
@@ -528,7 +625,7 @@ export function AddProduct({
                 <div className="max-w-md mx-auto">
                   <div className="relative aspect-square w-full overflow-hidden rounded-lg border-2 border-border/50">
                     <Image
-                      src={result.marketing_kit.assets.social_post.startsWith('/generated') ? `/api${result.marketing_kit.assets.social_post}` : result.marketing_kit.assets.social_post}
+                      src={displayResult.marketing_kit.assets.social_post.startsWith('/generated') ? `/api${displayResult.marketing_kit.assets.social_post}` : displayResult.marketing_kit.assets.social_post}
                       alt="Social media post"
                       fill
                       style={{ objectFit: "cover" }}
