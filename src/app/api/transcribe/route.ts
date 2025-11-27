@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const TRANSLATION_URL = "https://kalpana-translation-sali7hblyq-uc.a.run.app";
+const BACKEND_URL = "https://support-chatbot-api-508329185712.us-central1.run.app";
 
 export async function POST(request: NextRequest) {
     try {
         const formData = await request.formData();
 
-        const response = await fetch(`${TRANSLATION_URL}/transcribe`, {
+        const response = await fetch(`${BACKEND_URL}/transcribe`, {
             method: "POST",
             body: formData,
         });
