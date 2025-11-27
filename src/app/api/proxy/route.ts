@@ -20,6 +20,10 @@ export async function POST(request: NextRequest) {
     const apiResponse = await fetch(serviceUrl, {
       method: 'POST',
       body: formData,
+      headers: {
+        'Accept': 'application/json',
+      },
+      signal: AbortSignal.timeout(300000), // 5 minute timeout
     });
 
     console.log('📥 Response status:', apiResponse.status, apiResponse.statusText);

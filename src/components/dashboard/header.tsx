@@ -12,11 +12,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { LanguageSwitcher } from "./language-switcher";
-import { LifeBuoy, LogOut, Settings, User } from "lucide-react";
+import { LifeBuoy, LogOut, Settings, User, Sun, Moon } from "lucide-react";
 import type {getDictionary} from '@/lib/i18n/dictionaries';
 import Link from "next/link";
 import { useAuth } from "@/lib/firebase/auth-context";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 type Dictionary = Awaited<ReturnType<typeof getDictionary>>['dashboard'];
 
@@ -34,11 +36,21 @@ export function DashboardHeader({
 }: DashboardHeaderProps) {
   const { user, signOutUser } = useAuth();
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLogout = async () => {
     await signOutUser();
     router.push(`/${language}`);
   }
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-lg sm:px-6">
@@ -48,6 +60,20 @@ export function DashboardHeader({
       </h1>
       <div className="ml-auto flex items-center gap-4">
         <LanguageSwitcher language={language} setLanguage={setLanguage} dictionary={dictionary} />
+        {mounted && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="h-9 w-9"
+          >
+            {theme === "dark" ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </Button>
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-9 w-9 rounded-full">
