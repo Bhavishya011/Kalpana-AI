@@ -16,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useTranslatedObject } from "@/hooks/use-translation";
 import { useTranslatedDictionary } from "@/hooks/use-dictionary-translation";
-import { Sparkles, Upload, Mic } from "lucide-react";
+import { Sparkles, Upload, Mic, Edit2, Check, X } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState, useTransition } from "react";
 import { LoadingKolam } from "../loading-kolam";
@@ -101,6 +101,8 @@ export function AddProduct({
     useState<GenerateEmotionalProductStoryOutput | null>(null);
   const [isPending, startTransition] = useTransition();
   const [loadingStep, setLoadingStep] = useState<string>("");
+  const [isEditingPrice, setIsEditingPrice] = useState(false);
+  const [customPrice, setCustomPrice] = useState<string>("");
   const { toast } = useToast();
 
   // Translate static dictionary text
@@ -207,6 +209,8 @@ export function AddProduct({
     setArtisanBackground("");
     setMaterialCost("100");
     setLoadingStep("");
+    setIsEditingPrice(false);
+    setCustomPrice("");
   }
 
   // ... inside AddProduct component ...
@@ -440,17 +444,90 @@ export function AddProduct({
                     <p className="text-xs text-muted-foreground">Budget range</p>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-lg border-2 border-green-300 dark:border-green-600">
-                    <h4 className="font-semibold text-sm text-green-600 dark:text-green-400 mb-2">Recommended Price</h4>
-                    <p className="text-3xl font-bold text-green-700 dark:text-green-300">
-                      ₹{(displayResult.marketing_kit.pricing.suggested_price + parseFloat(materialCost || "0")).toFixed(2)}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      ₹{displayResult.marketing_kit.pricing.suggested_price.toFixed(2)} + ₹{parseFloat(materialCost || "0").toFixed(2)}
-                    </p>
-                    <p className="text-xs text-muted-foreground mb-2">AI suggested</p>
-                    <span className="inline-block px-2 py-1 bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-200 text-xs rounded-full">
-                      ⭐ {displayResult.marketing_kit.pricing.success_probability.toFixed(1)}% Success Rate
-                    </span>
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-semibold text-sm text-green-600 dark:text-green-400">Recommended Price</h4>
+                      {!isEditingPrice && (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => {
+                            setCustomPrice((displayResult.marketing_kit.pricing.suggested_price + parseFloat(materialCost || "0")).toFixed(2));
+                            setIsEditingPrice(true);
+                          }}
+                          className="h-7 px-2 text-green-600 hover:text-green-700 hover:bg-green-200"
+                        >
+                          <Edit2 className="h-3 w-3 mr-1" />
+                          Edit
+                        </Button>
+                      )}
+                    </div>
+                    
+                    {isEditingPrice ? (
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1">
+                            <Input
+                              type="number"
+                              value={customPrice}
+                              onChange={(e) => setCustomPrice(e.target.value)}
+                              className="text-center text-xl font-bold"
+                              placeholder="Enter price"
+                              min="0"
+                              step="0.01"
+                            />
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            onClick={() => {
+                              toast({
+                                title: "Price Updated!",
+                                description: `Your custom price ₹${parseFloat(customPrice).toFixed(2)} has been set.`,
+                              });
+                              setIsEditingPrice(false);
+                            }}
+                            className="flex-1 bg-green-600 hover:bg-green-700"
+                          >
+                            <Check className="h-3 w-3 mr-1" />
+                            Save
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => {
+                              setIsEditingPrice(false);
+                              setCustomPrice("");
+                            }}
+                            className="flex-1"
+                          >
+                            <X className="h-3 w-3 mr-1" />
+                            Cancel
+                          </Button>
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          AI Suggested: ₹{(displayResult.marketing_kit.pricing.suggested_price + parseFloat(materialCost || "0")).toFixed(2)}
+                        </p>
+                      </div>
+                    ) : (
+                      <>
+                        <p className="text-3xl font-bold text-green-700 dark:text-green-300">
+                          ₹{customPrice ? parseFloat(customPrice).toFixed(2) : (displayResult.marketing_kit.pricing.suggested_price + parseFloat(materialCost || "0")).toFixed(2)}
+                        </p>
+                        {customPrice && (
+                          <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 font-medium">
+                            Custom Price
+                          </p>
+                        )}
+                        <p className="text-xs text-muted-foreground mt-1">
+                          ₹{displayResult.marketing_kit.pricing.suggested_price.toFixed(2)} + ₹{parseFloat(materialCost || "0").toFixed(2)}
+                        </p>
+                        <p className="text-xs text-muted-foreground mb-2">{customPrice ? "Your custom price" : "AI suggested"}</p>
+                        <span className="inline-block px-2 py-1 bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-200 text-xs rounded-full">
+                          ⭐ {displayResult.marketing_kit.pricing.success_probability.toFixed(1)}% Success Rate
+                        </span>
+                      </>
+                    )}
                   </div>
                   <div className="text-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg border">
                     <h4 className="font-semibold text-sm text-green-600 dark:text-green-400 mb-2">Maximum Price</h4>
