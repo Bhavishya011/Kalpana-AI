@@ -42,6 +42,7 @@ import {
   Edit2,
   Plus,
   Save,
+  Trash2,
 } from "lucide-react";
 import type { getDictionary } from "@/lib/i18n/dictionaries";
 import {
@@ -266,6 +267,32 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
       toast({
         title: "Error",
         description: "Could not update stock. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Delete product
+  const handleDeleteProduct = async (productId: string, productName: string) => {
+    try {
+      const response = await fetch(`${SALES_API_URL}/api/inventory/delete-product/${productId}`, {
+        method: "DELETE",
+      });
+      
+      if (response.ok) {
+        toast({
+          title: "Product Deleted!",
+          description: `${productName} has been removed from inventory.`,
+        });
+        fetchInventoryStatus();
+        fetchAllProducts();
+      } else {
+        throw new Error("Failed to delete product");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Could not delete product. Please try again.",
         variant: "destructive",
       });
     }
@@ -906,19 +933,20 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
                               <span>Reorder at: {product.reorder_point}</span>
                             </div>
                           </div>
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button 
-                                size="sm" 
-                                variant="ghost"
-                                onClick={() => {
-                                  setEditingProduct(product);
-                                  setEditQuantity(product.stock_quantity);
-                                }}
-                              >
-                                <Edit2 className="h-4 w-4" />
-                              </Button>
-                            </DialogTrigger>
+                          <div className="flex items-center gap-1">
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost"
+                                  onClick={() => {
+                                    setEditingProduct(product);
+                                    setEditQuantity(product.stock_quantity);
+                                  }}
+                                >
+                                  <Edit2 className="h-4 w-4" />
+                                </Button>
+                              </DialogTrigger>
                             <DialogContent>
                               <DialogHeader>
                                 <DialogTitle>Update Stock: {product.name}</DialogTitle>
@@ -957,6 +985,15 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
                               </DialogFooter>
                             </DialogContent>
                           </Dialog>
+                          <Button 
+                            size="sm" 
+                            variant="ghost"
+                            className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                            onClick={() => handleDeleteProduct(product.id, product.name)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
                         </div>
                       ))
                     ) : (
