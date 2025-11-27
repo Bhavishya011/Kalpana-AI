@@ -102,6 +102,20 @@ interface InventoryStatus {
   generated_at: string;
 }
 
+interface Product {
+  id: string;
+  name: string;
+  category: string;
+  stock_quantity: number;
+  reorder_point: number;
+  price: number;
+}
+
+interface ProductsResponse {
+  products: Product[];
+  total_count: number;
+}
+
 interface RevenueForecast {
   forecast_period: {
     start_date: string;
@@ -129,11 +143,13 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
   const [salesData, setSalesData] = useState<SalesOverview | null>(null);
   const [inventoryData, setInventoryData] = useState<InventoryStatus | null>(null);
   const [forecastData, setForecastData] = useState<RevenueForecast | null>(null);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [days, setDays] = useState(30);
   
   // Inventory management states
   const [isAddingProduct, setIsAddingProduct] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<any>(null);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [editQuantity, setEditQuantity] = useState<number>(0);
   const [newProduct, setNewProduct] = useState({
     name: "",
     category: "",
@@ -171,6 +187,17 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
     }
   };
 
+  // Fetch all products
+  const fetchAllProducts = async () => {
+    try {
+      const response = await fetch(`${SALES_API_URL}/api/inventory/products`);
+      const data: ProductsResponse = await response.json();
+      setAllProducts(data.products);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
   // Fetch revenue forecast
   const fetchRevenueForecast = async () => {
     setLoading(true);
@@ -202,6 +229,7 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
         setIsAddingProduct(false);
         setNewProduct({ name: "", category: "", stock_quantity: 0, reorder_point: 0, price: 0 });
         fetchInventoryStatus();
+        fetchAllProducts();
       } else {
         throw new Error("Failed to add product");
       }
@@ -230,6 +258,7 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
         });
         setEditingProduct(null);
         fetchInventoryStatus();
+        fetchAllProducts();
       } else {
         throw new Error("Failed to update stock");
       }
@@ -247,6 +276,7 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
     fetchSalesOverview();
     fetchInventoryStatus();
     fetchRevenueForecast();
+    fetchAllProducts();
   }, [days]);
 
   // Convert daily sales to chart data
@@ -287,6 +317,7 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
                   fetchSalesOverview();
                   fetchInventoryStatus();
                   fetchRevenueForecast();
+                  fetchAllProducts();
                 }}
                 disabled={loading}
               >
@@ -843,24 +874,111 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
                 </CardContent>
               </Card>
 
-              {/* AI Recommendations */}
-              {inventoryData?.ai_recommendations && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <Info className="h-4 w-4" />
-                      AI Recommendations
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="prose prose-sm max-w-none dark:prose-invert">
-                      <p className="whitespace-pre-wrap text-sm text-muted-foreground">
-                        {inventoryData.ai_recommendations}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
+              {/* All Products List */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Package className="h-4 w-4" />
+                    All Products
+                  </CardTitle>
+                  <CardDescription>
+                    {allProducts.length} products in inventory
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 max-h-96 overflow-y-auto">
+                    {allProducts.length > 0 ? (
+                      allProducts.map((product) => (
+                        <div
+                          key={product.id}
+                          className="flex items-center justify-between p-3 rounded-lg bg-muted/50 border hover:bg-muted/80 transition-colors"
+                        >
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2">
+                              <p className="font-medium">{product.name}</p>
+                              <Badge variant="outline" className="text-xs">
+                                {product.category}
+                              </Badge>
+                            </div>
+                            <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
+                              <span>Stock: {product.stock_quantity} units</span>
+                              <span>Price: ₹{product.price.toLocaleString()}</span>
+                              <span>Reorder at: {product.reorder_point}</span>
+                            </div>
+                          </div>
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button 
+                                size="sm" 
+                                variant="ghost"
+                                onClick={() => {
+                                  setEditingProduct(product);
+                                  setEditQuantity(product.stock_quantity);
+                                }}
+                              >
+                                <Edit2 className="h-4 w-4" />
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>Update Stock: {product.name}</DialogTitle>
+                                <DialogDescription>
+                                  Current stock: {product.stock_quantity} units
+                                </DialogDescription>
+                              </DialogHeader>
+                              <div className="grid gap-4 py-4">
+                                <div className="grid gap-2">
+                                  <Label htmlFor={`edit-stock-${product.id}`}>New Stock Quantity</Label>
+                                  <Input
+                                    id={`edit-stock-${product.id}`}
+                                    type="number"
+                                    value={editQuantity}
+                                    onChange={(e) => setEditQuantity(parseInt(e.target.value) || 0)}
+                                    placeholder="Enter quantity"
+                                    onKeyDown={(e) => {
+                                      if (e.key === 'Enter' && editQuantity >= 0) {
+                                        handleUpdateStock(product.name, editQuantity);
+                                      }
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                              <DialogFooter>
+                                <Button 
+                                  onClick={() => {
+                                    if (editQuantity >= 0) {
+                                      handleUpdateStock(product.name, editQuantity);
+                                    }
+                                  }}
+                                >
+                                  <Save className="h-4 w-4 mr-2" />
+                                  Update Stock
+                                </Button>
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="flex items-center justify-center h-32 text-muted-foreground">
+                        <div className="text-center">
+                          <Package className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                          <p className="text-sm">No products found</p>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="mt-2"
+                            onClick={() => setIsAddingProduct(true)}
+                          >
+                            <Plus className="h-4 w-4 mr-2" />
+                            Add Your First Product
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
             </TabsContent>
 
             {/* Forecast Tab */}
