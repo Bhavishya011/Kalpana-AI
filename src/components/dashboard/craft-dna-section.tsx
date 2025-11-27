@@ -148,7 +148,7 @@ export function CraftDNASection({ productId }: { productId: string }) {
       formBody.append("years_of_experience", formData.yearsOfExperience);
 
       const response = await fetch(
-        "https://support-chatbot-api-508329185712.us-central1.run.app/api/craft-dna/generate",
+        "https://kalpana-ai-api-508329185712.us-central1.run.app/api/craft-dna/generate",
         {
           method: "POST",
           body: formBody,
