@@ -11,6 +11,18 @@ import {
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 import {
   LineChart,
   TrendingUp,
@@ -27,6 +39,9 @@ import {
   Box,
   AlertCircle,
   Info,
+  Edit2,
+  Plus,
+  Save,
 } from "lucide-react";
 import type { getDictionary } from "@/lib/i18n/dictionaries";
 import {
@@ -115,6 +130,18 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
   const [inventoryData, setInventoryData] = useState<InventoryStatus | null>(null);
   const [forecastData, setForecastData] = useState<RevenueForecast | null>(null);
   const [days, setDays] = useState(30);
+  
+  // Inventory management states
+  const [isAddingProduct, setIsAddingProduct] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<any>(null);
+  const [newProduct, setNewProduct] = useState({
+    name: "",
+    category: "",
+    stock_quantity: 0,
+    reorder_point: 0,
+    price: 0,
+  });
+  const { toast } = useToast();
 
   // Fetch sales overview
   const fetchSalesOverview = async () => {
@@ -155,6 +182,63 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
       console.error("Error fetching forecast data:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Add new product to inventory
+  const handleAddProduct = async () => {
+    try {
+      const response = await fetch(`${SALES_API_URL}/api/inventory/add-product`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newProduct),
+      });
+      
+      if (response.ok) {
+        toast({
+          title: "Product Added!",
+          description: `${newProduct.name} has been added to inventory.`,
+        });
+        setIsAddingProduct(false);
+        setNewProduct({ name: "", category: "", stock_quantity: 0, reorder_point: 0, price: 0 });
+        fetchInventoryStatus();
+      } else {
+        throw new Error("Failed to add product");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Could not add product. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Update existing product stock
+  const handleUpdateStock = async (productName: string, newQuantity: number) => {
+    try {
+      const response = await fetch(`${SALES_API_URL}/api/inventory/update-stock`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product_name: productName, new_quantity: newQuantity }),
+      });
+      
+      if (response.ok) {
+        toast({
+          title: "Stock Updated!",
+          description: `${productName} stock has been updated to ${newQuantity} units.`,
+        });
+        setEditingProduct(null);
+        fetchInventoryStatus();
+      } else {
+        throw new Error("Failed to update stock");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Could not update stock. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -519,9 +603,86 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
 
               {/* Stock Alerts */}
               <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Stock Alerts</CardTitle>
-                  <CardDescription>Products requiring immediate attention</CardDescription>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle className="text-base">Stock Alerts</CardTitle>
+                    <CardDescription>Products requiring immediate attention</CardDescription>
+                  </div>
+                  <Dialog open={isAddingProduct} onOpenChange={setIsAddingProduct}>
+                    <DialogTrigger asChild>
+                      <Button size="sm" className="gap-2">
+                        <Plus className="h-4 w-4" />
+                        Add Product
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Add New Product</DialogTitle>
+                        <DialogDescription>
+                          Add a new product to your inventory
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid gap-2">
+                          <Label htmlFor="name">Product Name</Label>
+                          <Input
+                            id="name"
+                            value={newProduct.name}
+                            onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+                            placeholder="Handmade Silk Scarf"
+                          />
+                        </div>
+                        <div className="grid gap-2">
+                          <Label htmlFor="category">Category</Label>
+                          <Input
+                            id="category"
+                            value={newProduct.category}
+                            onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
+                            placeholder="Textiles"
+                          />
+                        </div>
+                        <div className="grid gap-2">
+                          <Label htmlFor="stock">Stock Quantity</Label>
+                          <Input
+                            id="stock"
+                            type="number"
+                            value={newProduct.stock_quantity}
+                            onChange={(e) => setNewProduct({ ...newProduct, stock_quantity: parseInt(e.target.value) || 0 })}
+                            placeholder="50"
+                          />
+                        </div>
+                        <div className="grid gap-2">
+                          <Label htmlFor="reorder">Reorder Point</Label>
+                          <Input
+                            id="reorder"
+                            type="number"
+                            value={newProduct.reorder_point}
+                            onChange={(e) => setNewProduct({ ...newProduct, reorder_point: parseInt(e.target.value) || 0 })}
+                            placeholder="10"
+                          />
+                        </div>
+                        <div className="grid gap-2">
+                          <Label htmlFor="price">Price (₹)</Label>
+                          <Input
+                            id="price"
+                            type="number"
+                            value={newProduct.price}
+                            onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) || 0 })}
+                            placeholder="2500"
+                          />
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsAddingProduct(false)}>
+                          Cancel
+                        </Button>
+                        <Button onClick={handleAddProduct}>
+                          <Save className="h-4 w-4 mr-2" />
+                          Add Product
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {inventoryData?.stock_alerts?.out_of_stock?.length > 0 && (
@@ -539,9 +700,54 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
                             className="flex items-center justify-between p-2 rounded-lg bg-red-500/10 border border-red-500/20"
                           >
                             <span className="text-sm">{item.name}</span>
-                            <Badge variant="outline" className="text-xs">
-                              {item.category}
-                            </Badge>
+                            <div className="flex items-center gap-2">
+                              <Badge variant="outline" className="text-xs">
+                                {item.category}
+                              </Badge>
+                              <Dialog>
+                                <DialogTrigger asChild>
+                                  <Button size="sm" variant="ghost" className="h-7 w-7 p-0">
+                                    <Edit2 className="h-3 w-3" />
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>Update Stock: {item.name}</DialogTitle>
+                                    <DialogDescription>
+                                      Enter the new stock quantity
+                                    </DialogDescription>
+                                  </DialogHeader>
+                                  <div className="grid gap-4 py-4">
+                                    <div className="grid gap-2">
+                                      <Label htmlFor={`stock-${idx}`}>New Stock Quantity</Label>
+                                      <Input
+                                        id={`stock-${idx}`}
+                                        type="number"
+                                        placeholder="Enter quantity"
+                                        onKeyDown={(e) => {
+                                          if (e.key === 'Enter') {
+                                            const value = parseInt((e.target as HTMLInputElement).value);
+                                            if (value >= 0) handleUpdateStock(item.name, value);
+                                          }
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+                                  <DialogFooter>
+                                    <Button 
+                                      onClick={() => {
+                                        const input = document.getElementById(`stock-${idx}`) as HTMLInputElement;
+                                        const value = parseInt(input.value);
+                                        if (value >= 0) handleUpdateStock(item.name, value);
+                                      }}
+                                    >
+                                      <Save className="h-4 w-4 mr-2" />
+                                      Update Stock
+                                    </Button>
+                                  </DialogFooter>
+                                </DialogContent>
+                              </Dialog>
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -570,9 +776,55 @@ export function SalesAnalytics({ dictionary }: { dictionary: Dictionary }) {
                                 {item.days_of_stock?.toFixed(1)} days remaining
                               </p>
                             </div>
-                            <Badge variant="outline" className="text-xs">
-                              {item.stock_quantity} units
-                            </Badge>
+                            <div className="flex items-center gap-2">
+                              <Badge variant="outline" className="text-xs">
+                                {item.stock_quantity} units
+                              </Badge>
+                              <Dialog>
+                                <DialogTrigger asChild>
+                                  <Button size="sm" variant="ghost" className="h-7 w-7 p-0">
+                                    <Edit2 className="h-3 w-3" />
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>Update Stock: {item.name}</DialogTitle>
+                                    <DialogDescription>
+                                      Current stock: {item.stock_quantity} units ({item.days_of_stock?.toFixed(1)} days remaining)
+                                    </DialogDescription>
+                                  </DialogHeader>
+                                  <div className="grid gap-4 py-4">
+                                    <div className="grid gap-2">
+                                      <Label htmlFor={`critical-stock-${idx}`}>New Stock Quantity</Label>
+                                      <Input
+                                        id={`critical-stock-${idx}`}
+                                        type="number"
+                                        defaultValue={item.stock_quantity}
+                                        placeholder="Enter quantity"
+                                        onKeyDown={(e) => {
+                                          if (e.key === 'Enter') {
+                                            const value = parseInt((e.target as HTMLInputElement).value);
+                                            if (value >= 0) handleUpdateStock(item.name, value);
+                                          }
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+                                  <DialogFooter>
+                                    <Button 
+                                      onClick={() => {
+                                        const input = document.getElementById(`critical-stock-${idx}`) as HTMLInputElement;
+                                        const value = parseInt(input.value);
+                                        if (value >= 0) handleUpdateStock(item.name, value);
+                                      }}
+                                    >
+                                      <Save className="h-4 w-4 mr-2" />
+                                      Update Stock
+                                    </Button>
+                                  </DialogFooter>
+                                </DialogContent>
+                              </Dialog>
+                            </div>
                           </div>
                         ))}
                       </div>
