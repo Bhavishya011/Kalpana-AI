@@ -823,18 +823,6 @@ string // "artisan_1730400000000"
 
 ## 🔐 AUTHENTICATION
 
-### **Firebase Authentication**
-```typescript
-// Configuration
-{
-  apiKey: "AIzaSyDtb9b_QOnYyyvDDpkdiCUHC6e7A1FJMOE",
-  authDomain: "kalpanaai-empowering-artisans.firebaseapp.com",
-  projectId: "kalpanaai-empowering-artisans",
-  storageBucket: "kalpanaai-empowering-artisans.firebasestorage.app",
-  messagingSenderId: "786200976510",
-  appId: "1:786200976510:web:d65dc24c07a7a2e3f6cc2f"
-}
-```
 
 ### **Auth Context Provider**
 ```typescript
